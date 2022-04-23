@@ -904,8 +904,6 @@ var MagicStore = MagicStore || (function() {
         var number = randomInteger(len) - 1;
         var item = itemsList[number];
         
-        sendChat("test","Item = " + item);
-        
         return item;
     },
     
