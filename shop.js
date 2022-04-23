@@ -791,7 +791,7 @@ var MagicStore = MagicStore || (function() {
                 list = "Apparatus of Kwalish,10000;Cloak of Invisibility,80000;Cubic Gate,40000;Efreeti Chain,20000;Instrument of the Bards - Ollamh Harp,125000;Ioun Stone Greater Absorption,31000;Ioun Stone Mastery,15000;Ioun Stone Regeneration,4000;Iron Horn of Valhalla,14000;Ring of Air Elemental Command,35000;Ring of Earth Elemental Command,31000;Ring of Fire Elemental Command,17000;Ring of Invisibility,10000;Ring of Spell Turning,30000;Ring of Water Elemental Command,25000;Robe of the Archmagi,34000;Scarab of Protection,36000;Sovereign Glue,400;Sphere of Annihilation,15000;Talisman of Pure Good,71680;Talisman of the Sphere,20000;Talisman of Ultimate Evil,61440;Universal Solvent,300";
                 break;
             case 'common,uncommon':
-                rand = randomInt(100);
+                rand = randomInteger(100);
                 if (rand<=70) {
                     list = "Armor of Gleaming,50;Bead of Nourishment,50;Bead of Refreshment,50;Boots of False Tracks,50;Candle of the Deep,50;Cast-off Armour,50;Charlatan\'s Die,50;Cloak of Billowing,50;Cloak of Many Fashions,50;Clockwork Amulet,50;Clothes of Mending,50;Dark Shard Amulet,50;Dread Helm,50;Ear Horn of Hearing,50;Enduring Spellbook,50;Ersatz Eye,50;Hat of Vermin,50;Hat of Wizardry,50;Heward\'s Handy Spice,50;Horn of Silent Alarm,50;Instrument of Illusions,50;Instrument of Scribing,50;Lock of Trickery,50;Moon-touched Sword,50;Mystery Key,50;Orb of Direction,50;Orb of Time,50;Perfume of Bewiching,50;Pipe of Smoke Monsters,50;Pole of Angling,50;Pole of Collapsing,50;Pot of Awakening,50;Rope of Mending,50;Ruby of the Wary Mage,50;Staff of Adornment,50;Staff of Birdcalls,50;Staff of Flowers,50;Talking Doll,50;Tankard of Sobriety,50;Unbreakable Arrow,50;Veteran\'s Cane,50;Walloping Ammunition,50;Wand of Conduction,50;Wand of Pyrotechnics,50;Wand of Scowls,50;Wand of Smiles,50";
                 } else if (rand>70) {
@@ -799,7 +799,7 @@ var MagicStore = MagicStore || (function() {
                 }
                 break;
             case 'common,rare':
-                rand = randomInt(100);
+                rand = randomInteger(100);
                 if (rand<=55) {
                     list = "Armor of Gleaming,50;Bead of Nourishment,50;Bead of Refreshment,50;Boots of False Tracks,50;Candle of the Deep,50;Cast-off Armour,50;Charlatan\'s Die,50;Cloak of Billowing,50;Cloak of Many Fashions,50;Clockwork Amulet,50;Clothes of Mending,50;Dark Shard Amulet,50;Dread Helm,50;Ear Horn of Hearing,50;Enduring Spellbook,50;Ersatz Eye,50;Hat of Vermin,50;Hat of Wizardry,50;Heward\'s Handy Spice,50;Horn of Silent Alarm,50;Instrument of Illusions,50;Instrument of Scribing,50;Lock of Trickery,50;Moon-touched Sword,50;Mystery Key,50;Orb of Direction,50;Orb of Time,50;Perfume of Bewiching,50;Pipe of Smoke Monsters,50;Pole of Angling,50;Pole of Collapsing,50;Pot of Awakening,50;Rope of Mending,50;Ruby of the Wary Mage,50;Staff of Adornment,50;Staff of Birdcalls,50;Staff of Flowers,50;Talking Doll,50;Tankard of Sobriety,50;Unbreakable Arrow,50;Veteran\'s Cane,50;Walloping Ammunition,50;Wand of Conduction,50;Wand of Pyrotechnics,50;Wand of Scowls,50;Wand of Smiles,50";
                 } else if (rand<=85) {
@@ -809,7 +809,7 @@ var MagicStore = MagicStore || (function() {
                 }
                 break;
             case 'common,very rare':
-                rand = randomInt(100);
+                rand = randomInteger(100);
                 if (rand<=51) {
                     list = "Armor of Gleaming,50;Bead of Nourishment,50;Bead of Refreshment,50;Boots of False Tracks,50;Candle of the Deep,50;Cast-off Armour,50;Charlatan\'s Die,50;Cloak of Billowing,50;Cloak of Many Fashions,50;Clockwork Amulet,50;Clothes of Mending,50;Dark Shard Amulet,50;Dread Helm,50;Ear Horn of Hearing,50;Enduring Spellbook,50;Ersatz Eye,50;Hat of Vermin,50;Hat of Wizardry,50;Heward\'s Handy Spice,50;Horn of Silent Alarm,50;Instrument of Illusions,50;Instrument of Scribing,50;Lock of Trickery,50;Moon-touched Sword,50;Mystery Key,50;Orb of Direction,50;Orb of Time,50;Perfume of Bewiching,50;Pipe of Smoke Monsters,50;Pole of Angling,50;Pole of Collapsing,50;Pot of Awakening,50;Rope of Mending,50;Ruby of the Wary Mage,50;Staff of Adornment,50;Staff of Birdcalls,50;Staff of Flowers,50;Talking Doll,50;Tankard of Sobriety,50;Unbreakable Arrow,50;Veteran\'s Cane,50;Walloping Ammunition,50;Wand of Conduction,50;Wand of Pyrotechnics,50;Wand of Scowls,50;Wand of Smiles,50";
                 } else if (rand<=81) {
@@ -821,7 +821,7 @@ var MagicStore = MagicStore || (function() {
                 }
                 break;
             case 'common,legendary':
-                rand=randomInt(100);
+                rand=randomInteger(100);
                 if (rand<=50) {
                     list = "Armor of Gleaming,50;Bead of Nourishment,50;Bead of Refreshment,50;Boots of False Tracks,50;Candle of the Deep,50;Cast-off Armour,50;Charlatan\'s Die,50;Cloak of Billowing,50;Cloak of Many Fashions,50;Clockwork Amulet,50;Clothes of Mending,50;Dark Shard Amulet,50;Dread Helm,50;Ear Horn of Hearing,50;Enduring Spellbook,50;Ersatz Eye,50;Hat of Vermin,50;Hat of Wizardry,50;Heward\'s Handy Spice,50;Horn of Silent Alarm,50;Instrument of Illusions,50;Instrument of Scribing,50;Lock of Trickery,50;Moon-touched Sword,50;Mystery Key,50;Orb of Direction,50;Orb of Time,50;Perfume of Bewiching,50;Pipe of Smoke Monsters,50;Pole of Angling,50;Pole of Collapsing,50;Pot of Awakening,50;Rope of Mending,50;Ruby of the Wary Mage,50;Staff of Adornment,50;Staff of Birdcalls,50;Staff of Flowers,50;Talking Doll,50;Tankard of Sobriety,50;Unbreakable Arrow,50;Veteran\'s Cane,50;Walloping Ammunition,50;Wand of Conduction,50;Wand of Pyrotechnics,50;Wand of Scowls,50;Wand of Smiles,50";
                 } else if (rand<=80) {
@@ -835,7 +835,7 @@ var MagicStore = MagicStore || (function() {
                 }
                 break;
             case 'uncommon,rare':
-                rand = randomInt(100);
+                rand = randomInteger(100);
                 if (rand<=85) {
                     list = "Alchemy Jug,6000;Amulet of Proof Against Detection and Location,20000;Bag of Holding,4000;Boots of Elvenkind,2500;Boots of Striding and Springing,5000;Boots of the Winterlands,10000;Bracers of Archery,1500;Brooch of Shielding,7500;Broom of Flying,8000;Cap of Water Breathing,1000;Circlet of Blasting,1500;Cloak of Elvenkind,5000;Cloak of Protection,3500;Cloak of the Manta Ray,6000;Decanter of Endless Water,135000;Deck of Illusions,6120;Driftglobe,750;Dust of Disappearance,300;Dust of Dryness (1 pellet),120;Dust of Sneezing and Choking,480;Elemental Gem,960;Eversmoking Bottle,1000;Eyes of Charming,3000;Eyes of Minute Seeing,2500;Eyes of the Eagle,2500;Gauntlets of Ogre Power,8000;Gem of Brightness,5000;Gloves of Missile Snaring,3000;Gloves of Swimming and Climbing,2000;Gloves of Thievery,5000;Goggles of Night,1500;Hat of Disguise,5000;Headband of Intellect,8000;Helm of Comprehend Languages,500;Helm of Telepathy,12000;Immovable Rod,5000;Instrument of the Bards - Doss Lute,28500;Instrument of the Bards - Fochulan Bandlore,26500;Instrument of the Bards - Mac-Fuirmidh Cittern,27000;Keoghtom\'s Ointment (Per dose),120;Lantern of Revealing,5000;Luckstone,4200;Medallion of Thoughts,3000;Necklace of Adaption,1500;Pearl of Power,6000;Periapt of Health,5000;Periapt of Wound Closure,5000;Pipes of Haunting,6000;Pipes of the Sewers,2000;Quiver of Ehlonna,1000;Ring of Jumping,2500;Ring of Mind Shielding,16000;Ring of Swimming,3000;Ring of Warmth,1000;Ring of Water Walking,1500;Robe of Useful Items,Items * 5;Rope of Climbing,2000;Saddle of the Cavalier,2000;Sending Stones,2000;Silver Raven,5000;Slippers of Spider Climbing,5000;Trident of Fish Command,800;Wind Fan,1500;Winged Boots,8000";
                 } else if (rand>85) {
