@@ -131,6 +131,9 @@ var MagicStore = MagicStore || (function() {
     getInventory = function(msg) {
         var args = msg.content.split(",");
         var type = args[1];
+	if (!type) {
+		type="";
+	}
         var rarity;
         
         var i;
@@ -172,6 +175,7 @@ var MagicStore = MagicStore || (function() {
                 }
             }
             if (type == 'mundane') {newInv += getMundane(rarity)}
+	    if (type=="") {newInv=" "}
         }
         
         state.store.now.inventory = newInv;
