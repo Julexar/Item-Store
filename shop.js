@@ -1,57 +1,47 @@
-// Magic store generator for D&D 5e
-// Created by Kirsty (https://app.roll20.net/users/1165285/kirsty)
-
-
-// API Commands:
-// !ms - Pulls up the menu and allows the GM to generate and modify the store
-// !shop - Puts the virtual store in chat for the players to peruse
-
-
-// Red Colour: #7E2D40
-
-
-var MagicStore = MagicStore || (function() {
+//Magic Item Store
+//Original by Kirsty
+//Modified by Julexar
+/* Commands
+    !store - opens the Store menu for the GM
+    !show - shows a store to the Players
+        --storename - specify the store's name (as seen on the handout)
+*/
+var ItemStore = ItemStore || (function() {
     'use strict';
     
-    var version = '2.0.0',
+    var version="2.0",
     
     setDefaults = function() {
-        state.store = {
+        state.nstore = {
             now: {
-                version: '2.0.0',
-				inventory: "Adamantine Armor,500,Amulet of Health,8000,Bag of Holding,4000"
-            },
-        };
-    },
-    
-    checkDefaults = function() {
-        if( state.store.now.version != version ){
-            state.store.now.version = version;
+                chosen: "",
+                storenum: 0,
+                storelist: [],
+            }
         }
-        if( ! state.store.now.inventory){state.store.now.inventory = "Adamantine Armor,500,Amulet of Health,8000,Bag of Holding,4000"};
     },
     
     handleInput = function(msg) {
-        var args = msg.content.split(",");
-        
-        if (msg.type !== "api") {
-			return;
-		}
-		
-		if(playerIsGM(msg.playerid)){
-		    switch(args[0]) {
-		        case '!ms':
+        var args=msg.content.split(/\s+--/);
+        if (msg.type!=="api") {
+            return;
+        }
+        if (playerIsGM(msg.playerid)) {
+            switch (args[0]) {
+                case '!store':
                     storeMenu();
-                    break;
-                case '!ms_inventory':
-                    getInventory(msg);
-                    storeMenu();
-                    break;
-                case '!shop':
+                    return;
+                case '!cstore':
+                    createStore(args[1],args[2],args[3],args[4]);
+                    return;
+                case '!show':
                     shop();
-                    break;
-		    }
-		}
+                    return;
+                case '!inv':
+                    invMenu(args[1],args[2]);
+                    return;
+            }
+        }
     },
     
     storeMenu = function() {
@@ -65,37 +55,44 @@ var MagicStore = MagicStore || (function() {
         var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -2px; font-style: italic;"';
         var trstyle = 'style="border-top: 1px solid #cccccc; text-align: left;"';
         var tdstyle = 'style="text-align: right;"';
-        
-        var inventory = state.store.now.inventory;
-        var items = inventory.split(",");
-        var invList = '';
-        var i = 0;
-        
-        for (i = 0; i < items.length; i += 2) { 
-            invList += '<tr ' + trstyle + '><td>' + items[i] + '</td><td ' + tdstyle + '>' + items[i+1] + '</td></tr>';
+        state.nstore.now.storelist=getStore();
+        var storelist=state.nstore.now.storelist;
+        let test=false;
+        let storenum;
+        let count=-1;
+        let list=[];
+        log(storelist);
+        if (test==false) {
+            state.nstore.now.chosen="";
         }
-        
-        sendChat('Item Store', '/w gm <div ' + divstyle + '>' + //--       
-            '<div ' + headstyle + '>Item Store</div>' + //--
-            '<div ' + substyle + '>Menu (v.' + state.store.now.version + ')</div>' + //--
-            '<div ' + arrowstyle + '></div>' + //--
-            '<table ' + tablestyle + '>' + //--
-                '<tr><th>Item</th><th>Price (gp)</th></tr>' + //--
-                invList + //--
-            '</table>'+ //--
-            '<div style="text-align:center;"><a ' + astyle2 + '" href="!ms_inventory,scroll,?{Number of scrolls|5},?{Minimum Rarity|Common|Uncommon|Rare|Very Rare|Legendary},?{Maximum Rarity|Common|Uncommon|Rare|Very Rare|Legendary}">Scrolls</a>' + //--
-            '<a ' + astyle2 + '" href="!ms_inventory,potion,?{Number of potions|5},?{Minimum Rarity|Common|Uncommon|Rare|Very Rare|Legendary},?{Maximum Rarity|Common|Uncommon|Rare|Very Rare|Legendary}">Potions</a></div>' + //--
-            '<div style="text-align:center;"><a ' + astyle2 + '" href="!ms_inventory,weapon,?{Number of weapons|5},?{Minimum Rarity|Common|Uncommon,80|Rare|Very Rare|Legendary},?{Maximum Rarity|Common|Uncommon|Rare|Very Rare|Legendary}">Weapons</a>' + //--
-            '<a ' + astyle2 + '" href="!ms_inventory,armour,?{Number of armour|5},?{Minimum Rarity|Common|Uncommon|Rare|Very Rare|Legendary},?{Maximum Rarity|Common|Uncommon|Rare|Very Rare|Legendary}">Armour</a></div>' + //--
-            '<div style="text-align:center;"><a ' + astyle2 + '" href="!ms_inventory,item,?{Number of items|5},?{Minimum Rarity|Common|Uncommon|Rare|Very Rare|Legendary},?{Maximum Rarity|Common|Uncommon|Rare|Very Rare|Legendary}">Items</a>' + //--
-            '<a ' + astyle2 + '" href="!ms_inventory,random,?{Number of random items|5},?{Minimum Rarity|Common|Uncommon|Rare|Very Rare|Legendary},?{Maximum Rarity|Common|Uncommon|Rare|Very Rare|Legendary}">Random</a></div>' + //--
-            '<div style="text-align:center;"><a ' + astyle1 + '" href="!ms_inventory,mundane,?{Number of mundane items|5},?{Minimum Rarity|Common|Uncommon|Rare|Very Rare|Legendary},?{Maximum Rarity|Common|Uncommon|Rare|Very Rare|Legendary}">Mundane Items</a>' + //--
-            '<div style="text-align:center;"><a ' + astyle1 + '" href="!shop">Show to Players</a></div>' + //--
-            '</div>'
-        );
+        if (list.length>1) {
+            list=String(list).replace(',','|');
+            sendChat("Item Store","/w gm <div "+divstyle+">"+//--
+                '<div ' + headstyle + '>Item Store</div>' + //--
+                '<div ' + substyle + '>Menu</div>' + //--
+                '<div ' + arrowstyle + '></div>' + //--
+                '<table>' + //--
+                '<tr><td>Current Store: </td><td><a ' + astyle2 + '" href="!store --?{Store?|'+list+'|All}">' + state.nstore.now.chosen + '</a></td></tr>' + //--
+                '</table>' + //--
+                '<div style="text-align:center;"><a ' + astyle1 + '" href="!inv --name '+state.nstore.now.chosen+' --storenum ' + storenum + '">Display Inventory</a></div>' + //--
+                '<div style="text-align:center;"><a ' + astyle1 + '" href="!cstore --type ?{Item Type?|Scroll|Potion|Weapon|Armor|Item|Mundane|Random} --amount ?{Amount of Items?|1} --minrare ?{Minimum Rarity?|Common|Uncommon|Rare|Very Rare|Legendary|Random} --maxrare ?{Maximum Rarity?|Common|Uncommon|Rare|Very Rare|Legendary|Random}">Create new Store</a></div>' + //--
+                '</div>'
+            );
+        } else if (list.length==1) {
+            state.nstore.now.chosen=list[0];
+            sendChat("Item Store","!inv --store "+storenum+" --name "+list[0]);
+        } else {
+            sendChat("Item Store","/w gm <div "+divstyle+">"+//--
+                '<div ' + headstyle + '>Item Store</div>' + //--
+                '<div ' + substyle + '>Menu</div>' + //--
+                '<div ' + arrowstyle + '></div>' + //--
+                '<div style="text-align:center;"><a ' + astyle1 + '" href="!cstore --type ?{Item Type?|Scroll|Potion|Weapon|Armor|Item|Mundane|Random} --amount ?{Amount of Items?|1} --minrare ?{Minimum Rarity?|Common|Uncommon|Rare|Very Rare|Legendary|Random} --maxrare ?{Maximum Rarity?|Common|Uncommon|Rare|Very Rare|Legendary|Random}">Create new Store</a></div>' + //--
+                '</div>'
+            );
+        }
     },
     
-    shop = function() {
+    shop = function(storename) {
         var colour = '#7E2D40';
         var divstyle = 'style="width: 189px; border: 1px solid black; background-color: #ffffff; padding: 5px;"'
         var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
@@ -105,18 +102,17 @@ var MagicStore = MagicStore || (function() {
         var trstyle = 'style="border-top: 1px solid #cccccc; text-align: left;"';
         var tdstyle = 'style="text-align: right;"';
         
-        var inventory = state.store.now.inventory;
+        var inventory=getInventory(storename);
         var items = inventory.split(",");
         var invList = '';
-        var i = 0;
         
-        for (i = 0; i < items.length; i += 2) { 
+        for (let i=0;i<items.length;i+=2) { 
             invList += '<tr ' + trstyle + '><td>' + items[i] + '</td><td ' + tdstyle + '>' + items[i+1] + '</td></tr>';
         }
         
         sendChat('Item Store', ' <div ' + divstyle + '>' + //--
             '<div ' + headstyle + '>Item Store</div>' + //--
-            '<div ' + substyle + '>Menu (v.' + state.store.now.version + ')</div>' + //--
+            '<div ' + substyle + '>Menu</div>' + //--
             '<div ' + arrowstyle + '></div>' + //--
             '<table ' + tablestyle + '>' + //--
                 '<tr><th>Item</th><th>Price (gp)</th></tr>' + //--
@@ -126,66 +122,223 @@ var MagicStore = MagicStore || (function() {
         );
     },
     
-    
-    
-    getInventory = function(msg) {
-        var args = msg.content.split(",");
-        var type = args[1];
-	if (!type) {
-		type="";
-	}
-        var rarity;
-        
-        var i;
-        var newInv = "";
-        var randNo;
-        
-        for (i = 0; i < args[2]; i ++) { 
-            
-            if (i>0){newInv += ','}
-            
-            rarity = getRarity(args[3],args[4]);
-            randNo = randomInteger(6);
-            
-            if (type == 'scroll'){newInv += getScroll(rarity)}
-            if (type == 'potion'){newInv += getPotion(rarity)}
-            if (type == 'weapon'){newInv += getWeapon(rarity)}
-            if (type == 'armour'){newInv += getArmour(rarity)}
-            if (type == 'item'){newInv += getItem(rarity)}
-            if (type == 'random'){
-                switch(randNo) {
-                    case 1:
-                        newInv += getScroll(rarity);
-                        break;
-                    case 2:
-                        newInv += getPotion(rarity);
-                        break;
-                    case 3:
-                        newInv += getWeapon(rarity);
-                        break;
-                    case 4:
-                        newInv += getArmour(rarity);
-                        break;
-                    case 5:
-                        newInv += getItem(rarity);
-                        break;
-                    case 6:
-                        newInv += getMundane(rarity);
-                        break;
-                }
+    invMenu = function(storename,storenum) {
+        storenum=storenum.replace("store ","");
+        storename=storename.replace("name ","");
+        log(storenum);
+        let store=getStore(storename,Number(storenum));
+        log(store);
+        if (!store) {
+            sendChat("Item Store","/w gm No Store with that Number! Please choose a valid store or make sure that the Handout still exists!");
+        } else {
+            let inventory=getInventory(storename);
+            let invList="";
+            var items=inventory.split(',')
+            for (let i=0;i<inventory.length;i+=2) {
+                invList+='<tr ' + trstyle + '><td>' + items[i] + '</td><td ' + tdstyle + '>' + items[i+1] + '</td></tr>';
             }
-            if (type == 'mundane') {newInv += getMundane(rarity)}
-	    if (type=="") {newInv=" "}
+            log(inventory)
+            sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
+                '<div ' + headstyle + '>Item Store</div>' + //--
+                '<div ' + substyle + '>Menu</div>' + //--
+                '<div ' + arrowstyle + '></div>' + //--
+                '<table ' + tablestyle + '>' + //--
+                    '<tr><th>Item</th><th>Price (gp)</th></tr>' + //--
+                    invList + //--
+                '</table>'+ //--
+                '<div style="text-align:center;"><a ' + astyle1 + '" href="!cshop --type ?{Item Type?|Scroll|Potion|Weapon|Armor|Item|Mundane|Random} --amount ?{Amount of Items?|1} --minrare ?{Minimum Rarity?|Common|Uncommon|Rare|Very Rare|Legendary|Random} --maxrare ?{Maximum Rarity?|Common|Uncommon|Rare|Very Rare|Legendary|Random}">Create new Store</a></div>' + //--
+                '<div style="text-align:center;"><a ' + astyle1 + '" href="!show --storename '+storename+'">Show to Players</a></div>' + //--
+                '</div>'
+            );
         }
-        
-        state.store.now.inventory = newInv;
+    },
+    
+    createStore = function(type,amount,minrare,maxrare) {
+        type=type.replace("type ","");
+        amount=amount.replace("amount ","");
+        minrare=minrare.replace("minrare ","");
+        maxrare=maxrare.replace("maxrare ","");
+        let handouts=findObjs({
+            _type: 'handout'
+        });
+        let num=1;
+        let count=-1;
+        let cur;
+        let handname;
+        _.each(handouts,function(handout) {
+            let name=handout.get('name');
+            if (name.includes(type+" Store #")) {
+                count+=1;
+                cur=count;
+                num=Number(name.replace(type+" Store #"));
+            } else if (name.includes("Store #")) {
+                count+=1;
+            }
+        });
+        let handout=createObj('handout',{
+            name: type+" Store #"+num,
+        });
+        handname=handout.get('name');
+        createInv(type,amount,minrare,maxrare,handout);
+    },
+    
+    getInventory = function(storename) {
+        let handouts=findObjs({
+            _type: 'handout'
+        });
+        let hand;
+        _.each(handouts,function(handout) {
+            let name=handout.get('name');
+            if (name.includes(storename)) {
+                hand=handout;
+            }
+        });
+        hand.get("gmnotes",function(notes) {
+            let inv=notes;
+            return String(inv);
+        });
+    },
+    
+    getStore = function(storename,storenum) {
+        let hand=[];
+        let hands;
+        if (!storename && !storenum) {
+            let test="";
+            hands=findObjs({
+                _type: 'handout',
+            });
+            let count=0;
+            let truehand1=createObj('handout',{
+                name: "All 1"
+            });
+            let truehand=createObj('handout',{
+                name: "All"
+            });
+            let num=0;
+            _.each(hands,function(handout) {
+                let name=handout.get('name');
+                if (name.includes("Store #")) {
+                    num+=1;
+                    handout.get("gmnotes",function(gmnotes) {
+                        let notes=String(gmnotes);
+                        if (num>1) {
+                            truehand1.set("gmnotes",notes+name+";"+notes+"<br><br>");
+                        } else {
+                            truehand1.set("gmnotes",name+";"+notes+"<br><br>");
+                        }
+                        truehand1.get("gmnotes",function(tnotes) {
+                            truehand.set("gmnotes",tnotes);
+                        });
+                    });
+                }
+            });
+            truehand1.remove();
+            truehand.get("gmnotes",function(gmnotes) {
+                let notes=String(gmnotes).split(';');
+                hand=notes;
+                return hand;
+            });
+        } else if (storename && storenum) {
+            hands=findObjs({
+                _type: 'handout',
+                name: storename+' #'+storenum
+            }, {caseInsensitive: true})[0];
+            hand[0]=hands.get('name');
+            let name=hands.get('name');
+            //hand[1]=inv;
+            return hand;
+        }
+    },
+    
+    getInv = function(storename) {
+        let store=findObjs({
+            _type: 'handout',
+            name: storename
+        }, {caseInsensitive: true})[0];
+        store.get("gmnotes",function(gmnotes) {
+            let notes=String(gmnotes);
+            return notes;
+        });
+    },
+    
+    getStoreNum = function(storename) {
+        let handouts=findObjs({
+            _type: 'handout'
+        });
+        let count=-1;
+        let num;
+        _.each(handouts,function(handout) {
+            let name=handout.get('name');
+            count+=1
+            if (name==storename) {
+                num=count;
+            }
+        });
+        return Number(num);
+    },
+    
+    createInv = function(type,amount,minrare,maxrare,handout) {
+        let rarity;
+        let newInv="";
+        for (let i=0;i<Number(amount);i++) {
+            if (i>0) {
+                newInv+=',';
+            }
+            rarity=getRarity(minrare,maxrare);
+            let rand=randomInteger(6);
+            if (type.toLowerCase()=='scroll') {
+                newInv+=getScroll(rarity);
+            } else if (type.toLowerCase()=='potion') {
+                newInv+=getPotion(rarity);
+            } else if (type.toLowerCase()=='weapon') {
+                newInv+=getWeapon(rarity);
+            } else if (type.toLowerCase()=='armor') {
+                newInv+=getArmor(rarity);
+            } else if (type.toLowerCase()=='item') {
+                netInv+=getItem(rarity);
+            } else if (type.toLowerCase()=='mundane') {
+                newInv+=getMundane(rarity);
+            } else if (type.toLowerCase()=='random') {
+                if (rand==1) {
+                    newInv+=getScroll(rarity);
+                } else if (rand==2) {
+                    newInv+=getPotion(rarity);
+                } else if (rand==3) {
+                    newInv+=getWeapon(rarity);
+                } else if (rand==4) {
+                    newInv+=getArmor(rarity);
+                } else if (rand==5) {
+                    newInv+=getItem(rarity);
+                } else if (rand==6) {
+                    newInv+=getMundane(rarity);
+                }
+            } else if (type=="") {
+                newInv="";
+            }
+        }
+        let hand=createObj('handout',{
+            name: handout.get('name'),
+        });
+        hand.set("gmnotes",newInv);
+        handout.remove();
+        let hands=findObjs({
+            _type: 'handout'
+        });
+        let handname=hand.get('name');
+        let count=-1;
+        _.each(hands,function(handout) {
+            count+=1;
+            let name=handout.get('name');
+            if (name.includes(type+" Store #")) {
+                let num=count-1;
+                log(num);
+                invMenu(handname,String(num));
+            }
+        });
     },
     
     getRarity = function(min,max) {
-        var maxrare = max;
-        var minrare = min;
-        var rarity = min.toLowerCase() + "," + max.toLowerCase();
-        
+        let rarity=min.toLowerCase()+','+max.toLowerCase();
         return rarity;
     },
     
@@ -620,7 +773,7 @@ var MagicStore = MagicStore || (function() {
         return item;
     },
     
-    getArmour = function(rarity) {
+    getArmor = function(rarity) {
         var armourList =  "Padded Armour,5;Leather Armour,10;Studded leather Armour,45;Hide Armour,10;Chain shirt Armour,50;Scale mail Armour,50;Breastplate Armour,400;Half plate Armour,750;Ring mail Armour,30;Chain mail Armour,75;Splint Armour,200;Plate Armour,1500";
         var itemsList = armourList.split(";");
         var len = itemsList.length;
@@ -1046,30 +1199,22 @@ var MagicStore = MagicStore || (function() {
     },
     
     checkInstall = function() {
-        if(typeof state.store == "undefined"){
+        if (!state.nstore) {
             setDefaults();
-        }
-        
-        if ( state.store.now.version != version ){
-            checkDefaults();
         }
     },
     
     registerEventHandlers = function() {
         on('chat:message', handleInput);
-	};
-
-
-	return {
-	    CheckInstall: checkInstall,
-		RegisterEventHandlers: registerEventHandlers
-	};
-	
+    };
+    
+    return {
+        CheckInstall: checkInstall,
+        RegisterEventHandlers: registerEventHandlers
+    };
 }());
-
-
 on("ready",function(){
-	'use strict';
-	MagicStore.CheckInstall();
-	MagicStore.RegisterEventHandlers();
+    'use strict';
+    ItemStore.CheckInstall();
+    ItemStore.RegisterEventHandlers();
 });
