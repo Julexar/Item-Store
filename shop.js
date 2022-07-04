@@ -13,12 +13,12 @@
 var MagicStore = MagicStore || (function() {
     'use strict';
     
-    var version = '1.0',
+    var version = '1.3',
     
     setDefaults = function() {
         state.store = {
             now: {
-                version: '1.0',
+                version: '1.3',
 				inventory: "Adamantine Armor,500,Amulet of Health,8000,Bag of Holding,4000"
             },
         };
