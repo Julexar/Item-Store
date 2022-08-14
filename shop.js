@@ -12,12 +12,14 @@ GM ONLY
         --{Insert existing Store name/number} - specifies which Store's inventory you will edit/generate/reset by name. Alternatively specifies the Store by number (the order you have created the stores in, starting at 1)
             Edit Only
             --item {Insert existing Item name/number} - edit a specific Item
-                --name {Insert new Name} - change the Name of an Item
-                --desc {Insert new Description} - change the Description of an Item
-                --mods {Insert new Modifiers} - change the Modifiers of an Item. (If you are unsure what to put, check the Wiki)
-                --prop {Insert new Properties} - change the Properties of an Item. (E.g. Light, Heavy, Two-Handed)
-                --price {Insert new Price} - change the Price (GP) of an Item. (Must be positive Number)
-                --amount {Insert new Item amount} - change the Amount of Items you will receive upon buying. (Must be a positive, whole number and at least 1)
+                --add - Adds a new Item
+                    --name {Insert new Name} - change the Name of an Item
+                    --desc {Insert new Description} - change the Description of an Item
+                    --mods {Insert new Modifiers} - change the Modifiers of an Item. (If you are unsure what to put, check the Wiki)
+                    --prop {Insert new Properties} - change the Properties of an Item. (E.g. Light, Heavy, Two-Handed)
+                    --price {Insert new Price} - change the Price (GP) of an Item. (Must be positive Number)
+                    --amount {Insert new Item amount} - change the Amount of Items you will receive upon buying. (Must be a positive, whole number and at least 1)
+                --remove - Removes an Item
             View Only
             --item {Insert existing Item name/number} - view a specific Item (leave empty to view all items)
         Generate Only
@@ -117,7 +119,7 @@ var ItemStore = ItemStore || (function() {
                                 if (args[3].replace("item ","")=="") {
                                     sendChat("Item Store","/w gm You must specify an Item that you wish to edit.");
                                 } else {
-                                    editInv(args[3],args[4],args[5],args[6],args[7],args[8],args[9]);
+                                    editInv(args[3],args[4],args[5],args[6],args[7],args[8],args[9],args[10]);
                                 }
                             }
                         } else if (option=="generate"||option=="gen") {
@@ -403,7 +405,7 @@ var ItemStore = ItemStore || (function() {
         //Deletes an existing Store
     },
 
-    editInv = function(store,item,name,desc,mods,prop,price,weight,amount) {
+    editInv = function(store,item,option,name,desc,mods,prop,price,weight,amount) {
         //Edit the Items in a Shop's Inventory
     },
 
