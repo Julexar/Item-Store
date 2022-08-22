@@ -33,19 +33,25 @@ GM ONLY
         --delete - Deletes the selected Store.
 GM & Players
 !shop - Pulls up a Menu where all active Stores and Options are displayed
-    --{Insert existing Shop name/number} - selects a certain Shop
+    --cart {Insert Cart Number/Name} - Select a Cart to use. (Optional)
+    --store {Insert existing Shop name/number} - selects a certain Shop
         --buy {Insert Item name/number} - Pulls up the Purchasing menu
             --amount {Insert amount} - increases the amount of Items you buy (Default: 1)
         --haggle - Pulls up the Haggling menu
             --amount - sets the amount you want to haggle for
                 --{Insert Skill} - sets the skill used in haggling (Persuasion or Intimidation)
-!confirm --cart {Insert Cart #} - confirms a Purchase.
+!cart - Pulls up the Shopping Cart Menu.
+    --new - Creates a new Shopping Cart.
+    --{Insert Cart Number/Name} - Shows you the content of the selected Cart.
+        --rem {Insert Item name/num} - Removes an Item from your Cart.
+!checkout --cart {Insert Cart #} - Purchase the Items in your Cart.
+    --store {Insert Store Number/Name} --item {Insert Item Name/Number} - Purchase a specific item
 */
 
 var ItemStore = ItemStore || (function() {
     'use strict';
     
-    var version = '1.5a',
+    var version = '1.5',
     
     setDefaults = function() {
         state.store = [
@@ -81,7 +87,19 @@ var ItemStore = ItemStore || (function() {
         state.cart = [
             {
                 name: "Player\'s Cart #1",
-                content: []
+                id: "",
+                content: [
+                    {
+                        shop: "Test",
+                        name: "Item",
+                        desc: "Wondrous Item (uncommon);This is a Test Item",
+                        mods: "Item Type: Wondrous Item",
+                        props: "",
+                        price: 1,
+                        weight: 1,
+                        amount: 1
+                    }
+                ]
             }
         ];
     },
@@ -277,10 +295,24 @@ var ItemStore = ItemStore || (function() {
                     }
                 }
             return;
+            case '!cart':
+                if (args[1]==undefined) {
+                    sendChat("Item Store","/w "+msg.who+" Please either define a Cart or create a new Cart!");
+                } else if (args[1]=="new") {
+                    createCart(msg);
+                } else {
+                    if (args[2]==undefined) {
+                        cartMenu(args[1]);
+                    } else if (args[2].includes("rem")) {
+                        let item=args[2].replace("rem ","");
+                        removeItem(args[1],item);
+                    }
+                }
+            return;
             case '!haggle':
                 haggle(store,amount,args[4]);
             return;
-            case '!confirm':
+            case '!checkout':
                 if (args[1].includes("cart")) {
                     let cart=Number(args[1].replace("cart ",""));
                     purchase("cart",cart);
@@ -473,8 +505,117 @@ var ItemStore = ItemStore || (function() {
         //Pull up the Purchasing Menu
     },
 
-    createCart = function(store,items,msg) {
-        //Create SHopping Cart
+    cartMenu = function(cart,msg) {
+        //Pull up Shopping Cart Menu
+        var divstyle = 'style="width: 220px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
+        var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
+        var astyle2 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;';
+        var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
+        var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"';
+        var headstyle = 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
+        var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
+        var trstyle = 'style="border-top: 1px solid #cccccc; text-align: left;"';
+        var tdstyle = 'style="text-align: right;"';
+        if (Number(cart)) {
+            cart=state.cart[cart];
+            if (cart==undefined) {
+                sendChat("Item Store","/w "+msg.who+" No such Cart exists!");
+            } else {
+                let invList="";
+                let itemList=[]
+                for (let i=0;i<cart.content.length;i++) {
+                    let desc=cart.content[i].desc.split(';');
+                    invList+="<tr "+trstyle+'><td>' + i + '</td><td>' + cart.content[i].name + '</td><td>' + desc[0] + '</td><td style="text-align:center;">' + cart.content[i].price + '</td><td>' + cart.content[i].shop + '</td></tr>';
+                    itemList[i]=cart.content[i].name;
+                }
+                itemList=String(itemList);
+                for (let i=0;i<cart.content.length;i++) {
+                    itemList=itemList.replace(",","|");
+                } 
+                let list=state.cart.find(c => c.id==msg.playerid);
+                let cartList=[];
+                for (let i=0;i<list.length;i++) {
+                    cartList[i]=list[i].name;
+                }
+                let repeat=cartList.length;
+                cartList=String(cartList);
+                for (let i=0;i<repeat;i++) {
+                    cartList=cartList.replace(",","|");
+                }
+                sendChat("Item Store","/w "+msg.who+" <div " + divstyle + ">" + //--
+                    '<div ' + headstyle + '>Shopping Cart</div>' + //--
+                    '<div ' + substyle + '>Menu</div>' + //--
+                    '<div ' + arrowstyle + '></div>' + //--
+                    '<table>' + //--
+                    '<tr><td>Current Cart: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!cart --?{Cart?|' + cartList + '}">' + cart.name + '</a></td></tr>' + //--
+                    '</table>' + //--
+                    '<br><div style="text-align:center;">Content</div>' + //--
+                    '<table ' + tablestyle + '>' + //--
+                    '<tr><th>Pos.</th><th>Item Name</th><th style="text-align:center;">Description</th><th style="text-align:center;">Price (GP)</th><th>Store</th></tr>' + //--
+                    invList + //--
+                    '</table>' + //--
+                    '<br>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!cart --new">Create new Cart</a></div>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!cart --' + cart.name + ' --rem ?{Item?|' + itemList + '}">Remove Item</a></div>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!checkout --cart ' + cart.name + '">Checkout</a></div>' + //--
+                    '</div>'
+                );
+            }
+        } else {
+            let cartList=state.cart;
+            for (let i=0;i<cartList.length;i++) {
+                if (cartList[i].name.toLowerCase==cart.toLowerCase()) {
+                    cart=cartList[i];
+                }
+            }
+            if (cart==undefined) {
+                sendChat("Item Store","/w "+msg.who+" No such Cart exists!");
+            } else {
+                let invList="";
+                let itemList=[]
+                for (let i=0;i<cart.content.length;i++) {
+                    let desc=cart.content[i].desc.split(';');
+                    invList+="<tr "+trstyle+'><td>' + i + '</td><td>' + cart.content[i].name + '</td><td>' + desc[0] + '</td><td style="text-align:center;">' + cart.content[i].price + '</td><td>' + cart.content[i].shop + '</td></tr>';
+                    itemList[i]=cart.content[i].name;
+                }
+                itemList=String(itemList);
+                for (let i=0;i<cart.content.length;i++) {
+                    itemList=itemList.replace(",","|");
+                } 
+                let list=state.cart.find(c => c.id==msg.playerid);
+                let cartList=[];
+                for (let i=0;i<list.length;i++) {
+                    cartList[i]=list[i].name;
+                }
+                let repeat=cartList.length;
+                cartList=String(cartList);
+                for (let i=0;i<repeat;i++) {
+                    cartList=cartList.replace(",","|");
+                }
+                sendChat("Item Store","/w "+msg.who+" <div " + divstyle + ">" + //--
+                    '<div ' + headstyle + '>Shopping Cart</div>' + //--
+                    '<div ' + substyle + '>Menu</div>' + //--
+                    '<div ' + arrowstyle + '></div>' + //--
+                    '<table>' + //--
+                    '<tr><td>Current Cart: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!cart --?{Cart?|' + cartList + '}">' + cart.name + '</a></td></tr>' + //--
+                    '</table>' + //--
+                    '<br><div style="text-align:center;">Content</div>' + //--
+                    '<table ' + tablestyle + '>' + //--
+                    '<tr><th>Pos.</th><th>Item Name</th><th style="text-align:center;">Description</th><th style="text-align:center;">Price (GP)</th><th>Store</th></tr>' + //--
+                    invList + //--
+                    '</table>' + //--
+                    '<br>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!cart --new">Create new Cart</a></div>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!cart --' + cart.name + ' --rem ?{Item?|' + itemList + '}">Remove Item</a></div>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!checkout --cart ' + cart.name + '">Checkout</a></div>' + //--
+                    '</div>'
+                );
+            }
+        }
+    },
+
+    createCart = function(msg) {
+        //Creates a new Shopping Cart
     },
     
     purchase = function(type,cart,amount,store) {
