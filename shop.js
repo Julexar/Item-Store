@@ -616,6 +616,26 @@ var ItemStore = ItemStore || (function() {
 
     createCart = function(msg) {
         //Creates a new Shopping Cart
+        let carttotal=state.cart.length;
+        let player=findObjs({
+            _type: "player",
+            id: msg.playerid
+        }, {caseInsensitive: true})[0];
+        let cartNum;
+        for (let i=0;i<carttotal;i++) {
+            if (state.cart[i].name.includes(player.displayname)) {
+                cartNum=Number(state.cart[i].name.replace(player.displayname+"\'s Cart #",""));
+            }
+        }
+        cartNum+=1;
+        let cart=[
+            {
+                name: player.displayname+" Cart #"+cartNum,
+                id: player.id,
+                content: []
+            }
+        ];
+        state.cart[carttotal+1]=cart[0];
     },
     
     purchase = function(type,cart,amount,store) {
