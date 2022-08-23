@@ -65,7 +65,8 @@ var ItemStore = ItemStore || (function() {
                         props: "",
                         price: 1,
                         weight: 1,
-                        amount: 1
+                        amount: 1,
+                        sellam: 1
                     }    
                 ],
                 hdc: 10,
@@ -84,24 +85,7 @@ var ItemStore = ItemStore || (function() {
     },
 
     setCartDefault = function() {
-        state.cart = [
-            {
-                name: "Player\'s Cart #1",
-                id: "",
-                content: [
-                    {
-                        shop: "Test",
-                        name: "Item",
-                        desc: "Wondrous Item (uncommon);This is a Test Item",
-                        mods: "Item Type: Wondrous Item",
-                        props: "",
-                        price: 1,
-                        weight: 1,
-                        amount: 1
-                    }
-                ]
-            }
-        ];
+        state.cart = [];
     },
 
     handleInput = function(msg) {
@@ -324,9 +308,10 @@ var ItemStore = ItemStore || (function() {
     },
 
     storeMenu = function(store) {
-        var divstyle = 'style="width: 220px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
+        var divstyle = 'style="width: 240px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
         var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
         var astyle2 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;';
+        var astyle3 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 80px;';
         var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
         var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"';
         var headstyle = 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
@@ -368,7 +353,46 @@ var ItemStore = ItemStore || (function() {
             }
         } else {
             if (Number(store)) {
-
+                if (state.store.length==undefined || state.store.length==0) {
+                    sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
+                        '<div ' + headstyle + '>Item Store</div>' + //--
+                        '<div ' + substyle + '>GM Menu</div>' + //--
+                        '<div ' + arrowstyle + '></div>' + //--
+                        '<table>' + //--
+                        '<tr><td>Current Store: </td><td>No existing Stores!</td></tr>' + //--
+                        '</table>' + //--
+                        '<br><br>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --create --name ?{Name?|Insert Name}">Create new Store</a></div>' + //--
+                        '</div>'
+                    );
+                } else if (state.store.length>=1) {
+                    let shop=state.store[Number(store)];
+                    let shopList=[];
+                    let count=-1;
+                    for (let i=0;i<state.store.length;i++) {
+                        shopList[i]=state.store[i].name;
+                    }
+                    shopList=String(shopList);
+                    for (let i=0;i<state.store.length;i++) {
+                        shopList=shopList.replace(",","|");
+                    }
+                    if (shop==undefined) {
+                        sendChat("Item Store","/w gm Could not find a Store with that Number!")
+                    } else {
+                        let inv=shop.inv;
+                        let invList="";
+                        let border="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; ";
+                        for (let i=0;i<inv.length;i++) {
+                            let price=inv[i].price+(shop.cprice*inv[i].price);
+                            let desc=inv[i].desc.split(";");
+                            if (i>=1) {
+                                border="border-bottom: 1px solid #cccccc"
+                            }
+                            invList += '<tr style="'+border+'border-left:1px solid #cccccc; border-right: 1px solid #cccccc;"><td style="border-right: 1px solid #cccccc; text-align:center;">'+ inv[i].amount + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + i + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + inv[i].name + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + desc[0] + '</td><td style="text-align:center;">' + price + '</td></tr>';
+                        }
+                        
+                    }
+                }
             } else {
                 if (state.store.length==undefined || state.store.length==0) {
                     sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
@@ -385,14 +409,13 @@ var ItemStore = ItemStore || (function() {
                 } else if (state.store.length>=1) {
                     let shop;
                     let shopList;
-                    let count=-1;
                     for (let i=0;i<state.store.length;i++) {
                         if (state.store[i].name==store) {
                             shop=state.store[i];
                         }
                     }
                     if (shop==undefined) {
-                        sendChat("Item Store","/w gm Could not find a Store with that name!")
+                        sendChat("Item Store","/w gm Could not find a Store with that Number!")
                     } else {
                         for (let i=0;i<state.store.length;i++) {
                             if (state.store[i].name!==shop.name) {
@@ -400,38 +423,47 @@ var ItemStore = ItemStore || (function() {
                                 shopList[count]=state.store[i].name;
                             }
                         }
-                        shopList=String(shopList).replace(",","|");
+                        shopList=String(shopList);
+                        for (let i=0;i<state.store.length;i++) {
+                            shopList=shopList.replace(",","|");
+                        }
                         let inv=shop.inv;
                         let invList="";
+                        let border="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; ";
                         for (let i=0;i<inv.length;i++) {
                             let price=inv[i].price+(shop.cprice*inv[i].price);
                             let desc=inv[i].desc.split(";");
-                            invList += '<tr ' + trstyle + '><td>' + i + '</td><td>' + inv[i].name + '</td><td>' + desc[0] + '</td><td style="text-align:center;">' + price + '</td></tr>';
+                            if (i>=1) {
+                                border="border-bottom: 1px solid #cccccc"
+                            }
+                            invList += '<tr style="'+border+'border-left:1px solid #cccccc; border-right: 1px solid #cccccc;"><td style="border-right: 1px solid #cccccc; text-align:center;">' + i + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + inv[i].amount + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + inv[i].name + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + desc[0] + '</td><td style="text-align:center;">' + price + '</td></tr>';
                         }
                         if (shop.active==true) {
                             sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
                                 '<div ' + headstyle + '>Item Store</div>' + //--
                                 '<div ' + substyle + '>GM Menu</div>' + //--
                                 '<div ' + arrowstyle + '></div>' + //--
-                                '<table>' + //--
+                                '<table' + tablestyle + '>' + //--
                                 '<tr><td>Current Store: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!store --store ?{Select a Store|' + shopList + '}">' + shop.name + ' (active)</a></td></tr>' + //--
                                 '</table>' + //--
-                                '<br><div style="text-align:center;">Inventory</div>' + //--
+                                '<br><br><div style="text-align:center;"><b>Inventory</b></div>' + //--
                                 '<table ' + tablestyle + '>' + //--
-                                '<tr><th>Item #</th><th>Item Name</th><th style="text-align:center;">Description</th><th style="text-align:center;">Price (GP)</th></tr>' + //--
-                                invList + //--
+                                '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th></tr></thead>' + //--
+                                '<tbody>' + invList + '</tbody>' + //--
                                 '</table>' + //--
-                                '<br>' + //--
-                                '<table>' + //--
-                                '<tr><td>Haggle DC: </td><td><a ' + astyle1 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
+                                '<br><br>' + //--
+                                '<table' + tablestyle + '>' + //--
+                                '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
                                 '</table>' + //--
-                                'Price Change %: ' + shop.cprice + '<br>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
+                                '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
+                                '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
+                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
                                 '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
                                 '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv gen --type ?{Item Type?|' + state.typeList + '} --minrare ?{Minimum Rarity?|' + state.rareList + '} --maxrare ?{Maximum Rarity?|' + state.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
                                 '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv reset">Reset Inventory</a></div>' + //--
                                 '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deactivate">Deactivate Store</a></div>' + //--
+                                '<div style="text-align:center;"><a ' + astyle1 + '" href="!store --create --name ?{Shop name?|Insert Name}">Create Store</a>' + //--
+                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --delete">Delete Store</a></div>' + //--
                                 '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --players">Show to Players</a></div>' + //--
                                 '</div>'
                             );
@@ -440,25 +472,27 @@ var ItemStore = ItemStore || (function() {
                                 '<div ' + headstyle + '>Item Store</div>' + //--
                                 '<div ' + substyle + '>GM Menu</div>' + //--
                                 '<div ' + arrowstyle + '></div>' + //--
-                                '<table>' + //--
-                                '<tr><td>Current Store: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!store --store ?{Select a Store|' + shopList + '}">' + shop.name + ' (inactive)</a></td></tr>' + //--
+                                '<table' + tablestyle + '>' + //--
+                                '<tr><td>Current Store: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!store --store ?{Select a Store|' + shopList + '}">' + shop.name + ' (active)</a></td></tr>' + //--
                                 '</table>' + //--
-                                '<br><div style="text-align:center;">Inventory</div>' + //--
+                                '<br><br><div style="text-align:center;"><b>Inventory</b></div>' + //--
                                 '<table ' + tablestyle + '>' + //--
-                                '<tr><th>Item #</th><th>Item Name</th><th style="text-align:center;">Description</th><th style="text-align:center;">Price (GP)</th></tr>' + //--
-                                invList + //--
+                                '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th></tr></thead>' + //--
+                                '<tbody>' + invList + '</tbody>' + //--
                                 '</table>' + //--
-                                '<br>' + //--
-                                '<table>' + //--
-                                '<tr><td>Haggle DC: </td><td><a ' + astyle1 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
+                                '<br><br>' + //--
+                                '<table' + tablestyle + '>' + //--
+                                '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
                                 '</table>' + //--
-                                'Price Change %: ' + shop.cprice + '<br>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
+                                '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
+                                '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
+                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
                                 '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
                                 '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv gen --type ?{Item Type?|' + state.typeList + '} --minrare ?{Minimum Rarity?|' + state.rareList + '} --maxrare ?{Maximum Rarity?|' + state.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
                                 '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv reset">Reset Inventory</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --activate">Activate Store</a></div>' + //--
+                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deactivate">Deactivate Store</a></div>' + //--
+                                '<div style="text-align:center;"><a ' + astyle1 + '" href="!store --create --name ?{Shop name?|Insert Name}">Create Store</a>' + //--
+                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --delete">Delete Store</a></div>' + //--
                                 '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --players">Show to Players</a></div>' + //--
                                 '</div>'
                             );
@@ -471,10 +505,31 @@ var ItemStore = ItemStore || (function() {
 
     createStore = function(name) {
         //Creates a new Store
+        let store=[
+            {
+                name: name,
+                inv: [],
+                hdc: 10,
+                cprice: 0,
+                active: true
+            }
+        ];
+        let len=state.store.length+1;
+        state.store[len]=store[0];
+        sendChat("Item Store","/w gm Store with the name \""+name+"\" created!");
     },
     
     deleteStore = function(store) {
         //Deletes an existing Store
+        let list=state.store;
+        let num;
+        for (let i=0;i<list.length;i++) {
+            if (list[i].name==store) {
+                state.store.splice(i);
+                num=i;
+            }
+        }
+        sendChat("Item Store","/w gm Store #"+num+" (\""+store+"\") deleted!");
     },
 
     editInv = function(store,item,option,name,desc,mods,prop,price,weight,amount) {
@@ -487,6 +542,16 @@ var ItemStore = ItemStore || (function() {
 
     resetInv = function(store) {
         //Reset a Store's Inventory
+        let shop=state.store.find(s => s.name==store);
+        shop.inv=[];
+        let num;
+        for (let i=0;i<state.store.length;i++) {
+            if (state.store[i].name==store) {
+                num=i;
+            }
+        }
+        state.store[i].inv=shop.inv;
+        sendChat("Item Store","/w gm Inventory of Store \""+store+"\" has been reset!");
     },
 
     editStore = function(store,attr,val) {
@@ -495,14 +560,63 @@ var ItemStore = ItemStore || (function() {
 
     showStore = function(store) {
         //Shows a certain Store or all available Stores to Players.
+        var divstyle = 'style="width: 240px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
+        var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
+        var astyle2 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;';
+        var astyle3 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 80px;';
+        var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
+        var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"';
+        var headstyle = 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
+        var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
+        var trstyle = 'style="border-top: 1px solid #cccccc; text-align: left;"';
+        var tdstyle = 'style="text-align: right;"';
+        
     },
 
     shopMenu = function(store,msg) {
         //Store Menu for Players
+        var divstyle = 'style="width: 240px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
+        var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
+        var astyle2 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;';
+        var astyle3 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 80px;';
+        var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
+        var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"';
+        var headstyle = 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
+        var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
+        var trstyle = 'style="border-top: 1px solid #cccccc; text-align: left;"';
+        var tdstyle = 'style="text-align: right;"';
     },
 
     purchaseMenu = function(store,item,amount,msg) {
         //Pull up the Purchasing Menu
+        var divstyle = 'style="width: 240px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
+        var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
+        var astyle2 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;';
+        var astyle3 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 80px;';
+        var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
+        var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"';
+        var headstyle = 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
+        var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
+        var trstyle = 'style="border-top: 1px solid #cccccc; text-align: left;"';
+        var tdstyle = 'style="text-align: right;"';
+        let invList="";
+        if (amount==undefined) {
+            amount=1;
+        }
+        if (Number(store)) {
+            
+        } else {
+            store=state.store.find(s => s.name==store);
+            if (item!==undefined) {
+                if (Number(item)) {
+                    
+                } else {
+                    item=store.inv.find(i => i.name==item);
+                }
+            } else {
+                
+            }
+        }
     },
 
     cartMenu = function(cart,msg) {
@@ -523,9 +637,14 @@ var ItemStore = ItemStore || (function() {
             } else {
                 let invList="";
                 let itemList=[]
+                let border="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; ";
                 for (let i=0;i<cart.content.length;i++) {
-                    let desc=cart.content[i].desc.split(';');
-                    invList+="<tr "+trstyle+'><td>' + i + '</td><td>' + cart.content[i].name + '</td><td>' + desc[0] + '</td><td style="text-align:center;">' + cart.content[i].price + '</td><td>' + cart.content[i].shop + '</td></tr>';
+                    let price=cart.content[i].price;
+                    let desc=cart.content[i].desc.split(";");
+                    if (i>=1) {
+                        border="border-bottom: 1px solid #cccccc"
+                    }
+                    invList += '<tr style="'+border+'border-left:1px solid #cccccc; border-right: 1px solid #cccccc;"><td style="border-right: 1px solid #cccccc; text-align:center;">'+ i + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + cart.content[i].amount + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + cart.content[i].name + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + desc[0] + '</td><td style="text-align:center; border-right: 1px solid #cccccc;">' + price + '</td><td style="text-align:center;">' + cart.content[i].shop + '</td></tr>';
                     itemList[i]=cart.content[i].name;
                 }
                 itemList=String(itemList);
@@ -551,7 +670,7 @@ var ItemStore = ItemStore || (function() {
                     '</table>' + //--
                     '<br><div style="text-align:center;">Content</div>' + //--
                     '<table ' + tablestyle + '>' + //--
-                    '<tr><th>Pos.</th><th>Item Name</th><th style="text-align:center;">Description</th><th style="text-align:center;">Price (GP)</th><th>Store</th></tr>' + //--
+                    '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th><th style="border-right: 1px solid #cccccc; text-align:center;">Shop</th></tr></thead>' + //--
                     invList + //--
                     '</table>' + //--
                     '<br>' + //--
@@ -573,9 +692,14 @@ var ItemStore = ItemStore || (function() {
             } else {
                 let invList="";
                 let itemList=[]
+                let border="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; ";
                 for (let i=0;i<cart.content.length;i++) {
-                    let desc=cart.content[i].desc.split(';');
-                    invList+="<tr "+trstyle+'><td>' + i + '</td><td>' + cart.content[i].name + '</td><td>' + desc[0] + '</td><td style="text-align:center;">' + cart.content[i].price + '</td><td>' + cart.content[i].shop + '</td></tr>';
+                    let price=cart.content[i].price;
+                    let desc=cart.content[i].desc.split(";");
+                    if (i>=1) {
+                        border="border-bottom: 1px solid #cccccc"
+                    }
+                    invList += '<tr style="'+border+'border-left:1px solid #cccccc; border-right: 1px solid #cccccc;"><td style="border-right: 1px solid #cccccc; text-align:center;">'+ i + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + cart.content[i].amount + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + cart.content[i].name + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + desc[0] + '</td><td style="text-align:center; border-right: 1px solid #cccccc;">' + price + '</td><td style="text-align:center;">' + cart.content[i].shop + '</td></tr>';
                     itemList[i]=cart.content[i].name;
                 }
                 itemList=String(itemList);
@@ -601,7 +725,7 @@ var ItemStore = ItemStore || (function() {
                     '</table>' + //--
                     '<br><div style="text-align:center;">Content</div>' + //--
                     '<table ' + tablestyle + '>' + //--
-                    '<tr><th>Pos.</th><th>Item Name</th><th style="text-align:center;">Description</th><th style="text-align:center;">Price (GP)</th><th>Store</th></tr>' + //--
+                    '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th><th style="border-right: 1px solid #cccccc; text-align:center;">Shop</th></tr></thead>' + //--
                     invList + //--
                     '</table>' + //--
                     '<br>' + //--
@@ -616,6 +740,7 @@ var ItemStore = ItemStore || (function() {
 
     createCart = function(msg) {
         //Creates a new Shopping Cart
+        var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
         let carttotal=state.cart.length;
         let player=findObjs({
             _type: "player",
@@ -636,6 +761,19 @@ var ItemStore = ItemStore || (function() {
             }
         ];
         state.cart[carttotal+1]=cart[0];
+        let hand=createObj('handout',{
+            name: cart[0].name,
+            inplayerjournals: msg.playerid
+        });
+        let inv=cart.content;
+        let invList="";
+        let border="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; ";
+        for (let i=0;i<inv.length;i++) {
+            let price=inv[i].price;
+            let desc=inv.desc.split(";");
+            invList += '<tr><td>'+ i + '</td><td>' + inv[i].amount + '</td><td>' + inv[i].name + '</td><td>' + desc[0] + '</td><td>' + price + '</td><td>' + inv[i].shop + '</td></tr>';
+        }
+        hand.set("notes",'<table><tr><th>Pos.</th><th>Amount</th><th>Item Name</th><th>Description</th><th>Price (GP)</th><th>Shop</th></tr></thead>'+invList+"</table>");
     },
     
     purchase = function(type,cart,amount,store) {
@@ -644,6 +782,16 @@ var ItemStore = ItemStore || (function() {
 
     haggleMenu = function(store,amount,skill,msg) {
         //Open the Haggling Menu to negotiate price
+        var divstyle = 'style="width: 240px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
+        var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
+        var astyle2 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;';
+        var astyle3 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 80px;';
+        var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
+        var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"';
+        var headstyle = 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
+        var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
+        var trstyle = 'style="border-top: 1px solid #cccccc; text-align: left;"';
+        var tdstyle = 'style="text-align: right;"';
     },
 
     haggle = function(store,amount,skill) {
@@ -651,7 +799,7 @@ var ItemStore = ItemStore || (function() {
     },
     
     checkInstall = function() {
-        if (state.store) {
+        if (!state.store) {
             setDefaults();
         }
         if (!state) {
@@ -662,6 +810,40 @@ var ItemStore = ItemStore || (function() {
         }
     },
     
+    checkStores = function() {
+        //Checks if each Store has a Handout
+        var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
+        let storeList=state.store;
+        for (let i=0;i<storeList.length;i++) {
+            let existing=findObjs({
+                _type: 'handout',
+                name: 'Handout of Store \"'+storeList[i].name+'\" (#'+i+')'
+            }, {caseInsensitive: true})[0];
+            if (!existing) {
+                let handout=createObj('handout',{
+                    name: 'Handout of Store \"'+storeList[i].name+'\" (#'+i+')'
+                });
+                let inv=storeList[i].inv;
+                let invList="";
+                for (let j=0;j<inv.length;j++) {
+                    let price=inv[j].price;
+                    let desc=inv[j].desc.split(";");
+                    invList += '<tr><td>' + j + '</td><td>' + inv[j].amount + '</td><td>' + inv[j].name + '</td><td>' + desc[0] + '</td><td>' + price + '</td></tr>';
+                }
+                handout.set("notes","Name: "+storeList[i].name+"<br><br>Active: "+storeList[i].active+"<br><br>Haggle DC: "+storeList[i].hdc+"<br><br>Price Change %: "+storeList[i].cprice+'<br><br><br><table><tr><th>Pos.</th><th>Amount</th><th>Item Name</th><th>Description</th><th>Price (GP)</th></tr>'+invList+"</table>");
+            } else {
+                let inv=storeList[i].inv;
+                let invList="";
+                for (let j=0;j<inv.length;j++) {
+                    let price=inv[j].price;
+                    let desc=inv[j].desc.split(";");
+                    invList += '<tr><td>' + j + '</td><td>' + inv[j].amount + '</td><td>' + inv[j].name + '</td><td>' + desc[0] + '</td><td>' + price + '</td></tr>';
+                }
+                existing.set("notes","Name: "+storeList[i].name+"<br><br>Active: "+storeList[i].active+"<br><br>Haggle DC: "+storeList[i].hdc+"<br><br>Price Change %: "+storeList[i].cprice+'<br><br><br><table><tr><th>Pos.</th><th>Amount</th><th>Item Name</th><th>Description</th><th>Price (GP)</th></tr>'+invList+"</table>");
+            }
+        }
+    },
+    
     registerEventHandlers = function() {
         on('chat:message', handleInput);
 	};
@@ -669,6 +851,7 @@ var ItemStore = ItemStore || (function() {
 
 	return {
 	    CheckInstall: checkInstall,
+	    CheckStores: checkStores,
 		RegisterEventHandlers: registerEventHandlers
 	};
 	
@@ -676,5 +859,6 @@ var ItemStore = ItemStore || (function() {
 on("ready",function(){
 	'use strict';
 	ItemStore.CheckInstall();
+	ItemStore.CheckStores();
 	ItemStore.RegisterEventHandlers();
 });
