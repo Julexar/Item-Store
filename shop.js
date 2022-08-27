@@ -133,39 +133,44 @@ var ItemStore = ItemStore || (function() {
                                             sendChat("Item Store","/w gm You must specify which Item you would like to edit!");
                                         } else {
                                             if (args[4]==undefined) {
-                                                editInv(store,item,undefined);
+                                                editMenu(store,option,item);
                                             } else if (args[4]=="remove") {
-                                                editItem(store,item,args[4]);
+                                                editMenu(store,args[4],item);
                                             } else if (args[4].includes("name")) {
                                                 let name=args[4].replace("name ","");
                                                 if (name=="" || name==" ") {
                                                     sendChat("Item Store","/w gm The name of an Item cannot be empty!");
                                                 } else {
                                                     if (args[5]==undefined) {
-                                                        editInv(store,item,option,name);
+                                                        editMenu(store,option,item,name);
                                                     } else if (args[5].includes("desc")) {
                                                         let desc=args[5].replace("desc ","");
                                                         if (args[6]==undefined) {
-                                                            editInv(store,item,option,name,desc);
+                                                            editMenu(store,option,item,name,desc);
                                                         } else if (args[6].includes("mods")) {
                                                             let mods=args[6].replace("mods ","");
                                                             if (args[7]==undefined) {
-                                                                editInv(store,item,option,name,desc,mods);
+                                                                editMenu(store,option,item,name,desc,mods);
                                                             } else if (args[7].includes("props")) {
                                                                 let props=args[7].replace("props ","");
                                                                 if (args[8]==undefined) {
-                                                                    editInv(store,item,option,name,desc,mods,props);
+                                                                    editMenu(store,option,item,name,desc,mods,props);
                                                                 } else if (args[8].includes("price")) {
                                                                     let price=Number(args[8].replace("price ",""));
                                                                     if (args[9]==undefined) {
-                                                                        editInv(store,item,option,name,desc,mods,props,price);
+                                                                        editMenu(store,option,item,name,desc,mods,props,price);
                                                                     } else if (args[9].includes("weight")) {
                                                                         let weight=Number(args[9].replace("weight ",""));
                                                                         if (args[10]==undefined) {
-                                                                            editInv(store,item,option,name,desc,mods,props,price,weight);
+                                                                            editMenu(store,option,item,name,desc,mods,props,price,weight);
                                                                         } else if (args[10].includes("amount")) {
                                                                             let amount=Number(args[10].replace("amount ",""));
-                                                                            editInv(store,item,option,name,desc,mods,props,price,weight,amount);
+                                                                            if (args[11]==undefined) {
+                                                                                editMenu(store,option,item,name,desc,mods,props,price,weight,amount);
+                                                                            } else if (args[11].includes("sellam")) {
+                                                                                let sellam=Number(args[11].replace("sellam ",""));
+                                                                                editMenu(store,option,item,name,desc,mods,props,price,weight,amount);
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
@@ -176,8 +181,8 @@ var ItemStore = ItemStore || (function() {
                                             }
                                         }
                                         sendChat("/w gm Invalid Item. Please use the name/number of an existing Item");
-                                    } else if (args[3].includes("add")) {
-                                        addMenu(store,args[4],args[5],args[6],args[7],args[8],args[9],args[10]);
+                                    } else if (args[3]=="add") {
+                                        editMenu(store,args[3],undefined,args[4],args[5],args[6],args[7],args[8],args[9],args[10]);
                                     }
                                 } else if (option=="generate" || option=="gen") {
                                     if (args[3]==undefined) {
@@ -719,11 +724,21 @@ var ItemStore = ItemStore || (function() {
         }
     },
     
-    addMenu = function(shop,name,desc,mods,props,price,amount,sellam) {
-        //Pulls up Menu where you can add Items
+    editMenu = function(shop,option,item,name,desc,mods,props,price,amount,sellam) {
+        //Pulls up Menu where you can edit Items
+        var divstyle = 'style="width: 260px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
+        var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
+        var astyle2 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;';
+        var astyle3 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 80px;';
+        var tablestyle ='style="text-align:center; font-size: 12px; width: 100%;"';
+        var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"';
+        var headstyle = 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
+        var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
+        var trstyle = 'style="border-top: 1px solid #cccccc; text-align: left;"';
+        var tdstyle = 'style="text-align: right;"';
     },
 
-    editInv = function(store,item,option,name,desc,mods,prop,price,weight,amount) {
+    editItem = function(store,item,name,desc,mods,prop,price,weight,amount,sellam) {
         //Edit the Items in a Shop's Inventory
     },
 
