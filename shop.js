@@ -115,12 +115,598 @@ var ItemStore = ItemStore || (function() {
             weapon: [
                 {
                     name: "Club",
-                    desc: "",
+                    desc: "Club;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d4, Damage Type: bludgeoning, Range: 5 ft",
+                    props: "Light",
+                    price: 0.1,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Dagger",
+                    desc: "Dagger;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d4, Damage Type: piercing, Range: 20/60",
+                    props: "Finesse, Light, Thrown",
+                    price: 2,
+                    weight: 1,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Greatclub",
+                    desc: "Greatclub;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d8, Damage Type: bludgeoning, Range: 5 ft",
+                    props: "Two-Handed",
+                    price: 0.2,
+                    weight: 10,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Handaxe",
+                    desc: "Handaxe;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d6, Damage Type: slashing, Range: 20/60",
+                    props: "Light, Thrown",
+                    price: 5,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Javelin",
+                    desc: "Javelin;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d6, Damage Type: piercing, Range: 30/120",
+                    props: "Thrown",
+                    price: 0.5,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Light Hammer",
+                    desc: "Light Hammer;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d4, Damage Type: bludgeoning, Range: 20/60",
+                    props: "Light, Thrown",
+                    price: 2,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Mace",
+                    desc: "Mace;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d6, Damage Type: bludgeoning, Range: 5 ft",
+                    props: "",
+                    price: 5,
+                    weight: 4,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Quarterstaff",
+                    desc: "Quarterstaff;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d6, Damage Type: bludgeoning, Alternate Damage: 1d8, Alternate Damage Type: bludgeoning, Range: 5 ft",
+                    props: "Versatile",
+                    price: 0.2,
+                    weight: 4,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Sickle",
+                    desc: "Sickle;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d4, Damage Type: slashing, Range: 5 ft",
+                    props: "Light",
+                    price: 1,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Spear",
+                    desc: "Spear;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d6, Damage Type: piercing, Alternate Damage: 1d8, Alternate Damage Type: piercing, Range: 20/60",
+                    props: "Thrown, Versatile",
+                    price: 1,
+                    weight: 3,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Light Crossbow",
+                    desc: "Light Crossbow;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Ranged Weapon, Damage: 1d8, Damage Type: piercing, Range: 80/320",
+                    props: "Ammunition, Loading, Two-Handed",
+                    price: 25,
+                    weight: 5,
+                    amount: 1
+                },
+                {
+                    name: "Dart",
+                    desc: "Dart;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Ranged Weapon, Damage: 1d4, Damage Type: piercing, Range: 20/60",
+                    props: "Finesse, Thrown",
+                    price: 0.05,
+                    weight: 0.25,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Shortbow",
+                    desc: "Shortbow;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Ranged Weapon, Damage: 1d6, Damage Type: piercing, Range: 80/320",
+                    props: "Ammunition, Two-Handed",
+                    price: 25,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Sling",
+                    desc: "Sling;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Ranged Weapon, Damage: 1d4, Damage Type: bludgeoning, Range: 30/120",
+                    props: "Ammunition",
+                    price: 0.1,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Battleaxe",
+                    desc: "Battleaxe;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d8, Damage Type: slashing, Alternate Damage: 1d10, Alternate Damage Type: slashing, Range: 5 ft",
+                    props: "Versatile",
+                    price: 10,
+                    weight: 4,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Flail",
+                    desc: "Flail;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d8, Damage Type: bludgeoning, Range: 5 ft",
+                    props: "",
+                    price: 10,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Glaive",
+                    desc: "Glaive;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d10, Damage Type: slashing, Range: 10 ft",
+                    props: "Heavy, Reach, Two-Handed",
+                    price: 20,
+                    weight: 6,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Greataxe",
+                    desc: "Greataxe;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Wepaon, Damage: 1d12, Damage Type: slashing, Range: 5 ft",
+                    props: "Heavy, Two-Handed",
+                    price: 30,
+                    weight: 7,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Greatsword",
+                    desc: "Greatsword;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 2d6, Damage Type: slashing, Range: 5 ft",
+                    props: "Heavy, Two-Handed",
+                    price: 50,
+                    weight: 6,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Halberd",
+                    desc: "Halberd;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d10, Damage Type: slashing, Range: 10 ft",
+                    props: "Heavy, Reach, Two-Handed",
+                    price: 20,
+                    weight: 6,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Lance",
+                    desc: "Lance;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d12, Damage Type: piercing, Range: 10 ft",
+                    props: "Reach, Special",
+                    price: 10,
+                    weight: 6,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Longsword",
+                    desc: "Longsword;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d8, Damage Type: slashing, Alternate Damage: 1d10, Alternate Damage Type: slashing, Range: 5 ft",
+                    props: "Versatile",
+                    price: 15,
+                    weight: 3,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Maul",
+                    desc: "Maul;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 2d6, Damage Type: bludgeoning, Range: 5 ft",
+                    props: "Heavy, Two-Handed",
+                    price: 10,
+                    weight: 10,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Morningstar",
+                    desc: "Morningstar;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d8, Damage Type: piercing, Range: 5 ft",
+                    props: "",
+                    price: 15,
+                    weight: 4,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Pike",
+                    desc: "Pike;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d10, Damage Type: piercing, Range: 10 ft",
+                    props: "Heavy, Reach, Two-Handed",
+                    price: 5,
+                    weight: 18,
+                    amount: 1
+                },
+                {
+                    name: "Rapier",
+                    desc: "Rapier;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d8, Damage Type: piercing, Range: 5 ft",
+                    props: "Finesse",
+                    price: 25,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Scimitar",
+                    desc: "Scimitar;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d6, Damage Type: slashing, Range: 5 ft",
+                    props: "Finesse, Light",
+                    price: 25,
+                    weight: 3,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Shortsword",
+                    desc: "Shortsword;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d6, Damage Type: slashing, Range: 5 ft",
+                    props: "Finesse, Light",
+                    price: 10,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Trident",
+                    desc: "Trident;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d6, Damage Type: piercing, Alternate Damage: 1d8, Alternate Damage Type: piercing, Range: 20/60",
+                    props: "Thrown, Versatile",
+                    price: 5,
+                    weight: 4,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "War Pick",
+                    desc: "War Pick;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d8, Damage Type: piercing, Range: 5 ft",
+                    props: "",
+                    price: 5,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Warhammer",
+                    desc: "Warhammer;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d8, Damage Type: bludgeoning, Alternate Damage: 1d10, Alternate Damage Type: bludgeoning, Range: 5 ft",
+                    props: "Versatile",
+                    price: 15,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Whip",
+                    desc: "Whip;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Melee Weapon, Damage: 1d4, Damage Type: slashing, Range: 10 ft",
+                    props: "Finesse, Reach",
+                    price: 2,
+                    weight: 3,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Blowgun",
+                    desc: "Blowgun;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Ranged Weapon, Damage: 1, Damage Type: piercing, Range: 25/100",
+                    props: "Ammunition, Loading",
+                    price: 10,
+                    weight: 1,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Hand Crossbow",
+                    desc: "Hand Crossbow;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Ranged Weapon, Damage: 1d6, Damage Type: piercing, Range: 30/120",
+                    props: "Ammunition, Light, Loading",
+                    price: 75,
+                    weight: 3,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Heavy Crossbow",
+                    desc: "Heavy Crossbow;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Ranged Weapon, Damage: 1d10, Damage Type: piercing, Range: 100/400",
+                    props: "Ammunition, Heavy, Loading, Two-Handed",
+                    price: 50,
+                    weight: 18,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Longbow",
+                    desc: "Longbow;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Ranged Weapon, Damage: 1d8, Damage Type: piercing, Range: 150/600",
+                    props: "Ammunition, Heavy, Two-Handed",
+                    price: 50,
+                    weight: 2,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Net",
+                    desc: "Net;Proficiency with this Weapon allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+                    mods: "Item Type: Ranged Weapon, Range: 5/15",
+                    props: "Thrown, Special",
+                    price: 1,
+                    weight: 3,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Arrows",
+                    desc: "Arrows;Arrows are used with a weapon that has the ammunition property to make a ranged attack. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack (you need a free hand to load a one-handed weapon). At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield.",
+                    mods: "Item Type: Ammunition",
+                    props: "",
+                    price: 1,
+                    weight: 0.05,
+                    amount: 1,
+                    sellam: 20
+                },
+                {
+                    name: "Blowgun needles",
+                    desc: "Blowgun needles;Blowgun needles are used with a weapon that has the ammunition property to make a ranged attack. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack (you need a free hand to load a one-handed weapon). At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield.",
+                    mods: "Item Type: Ammunition",
+                    props: "",
+                    price: 1,
+                    weight: 0.02,
+                    amount: 1,
+                    sellam: 50
+                },
+                {
+                    name: "Crossbow bolts",
+                    desc: "Crossbow bolts;Crossbow bolts are used with a weapon that has the ammunition property to make a ranged attack. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack (you need a free hand to load a one-handed weapon). At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield.",
+                    mods: "Item Type: Ammunition",
+                    props: "",
+                    price: 1,
+                    weight: 0.075,
+                    amount: 1,
+                    sellam: 20
+                },
+                {
+                    name: "Sling bullets",
+                    desc: "Sling bullets;Sling bullets are used with a weapon that has the ammunition property to make a ranged attack. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack (you need a free hand to load a one-handed weapon). At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield.",
+                    mods: "Item Type: Ammunition",
+                    props: "",
+                    price: 0.04,
+                    weight: 0.075,
+                    amount: 1,
+                    sellam: 20
                 }
             ],
-            armor: [],
+            armor: [
+                {
+                    name: "Padded Armor",
+                    desc: "Padded Armor;Padded armor consists of quilted layers of cloth and batting.",
+                    mods: "Item Type: Light Armor, AC: 11, Stealth:Disadvantage",
+                    props: "",
+                    price: 5,
+                    weight: 8,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Leather Armor",
+                    desc: "Leather Armor;The breastplate and shoulder protectors of this armor are made of leather that has been stiffened by being boiled in oil. The rest of the armor is made of softer and more flexible materials.",
+                    mods: "Item Type: Light Armor, AC: 11",
+                    props: "",
+                    price: 10,
+                    weight: 10,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Studded Leather",
+                    desc: "Studded Leather Armor;Made from tough but flexible leather, studded leather is reinforced with close-set rivets or spikes.",
+                    mods: "Item Type: Light Armor, AC: 12",
+                    props: "",
+                    price: 45,
+                    weight: 13,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Hide",
+                    desc: "Hide;This crude armor consists of thick furs and pelts. It is commonly worn by barbarian tribes, evil humanoids, and other folk who lack access to the tools and materials needed to create better armor.",
+                    mods: "Item Type: Medium Armor, AC: 12",
+                    props: "",
+                    price: 10,
+                    weight: 12,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Chain Shirt",
+                    desc: "Chain Shirt;Made of interlocking metal rings, a chain shirt is worn between layers of clothing or leather. This armor offers modest protection to the wearer\'s upper body and allows the sound of the rings rubbing against one another to be muffled by outer layers.",
+                    mods: "Item Type: Medium Armor, AC: 13",
+                    props: "",
+                    price: 50,
+                    weight: 20,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Scale Mail",
+                    desc: "Scale Mail;This armor consists of a coat and leggings (and perhaps a separate skirt) of leather covered with overlapping pieces of metal, much like the scales of a fish. The suit includes gauntlets.",
+                    mods: "Item Type: Medium Armor, AC: 14, Stealth:Disadvantage",
+                    props: "",
+                    price: 50,
+                    weight: 45,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Breastplate",
+                    desc: "Breastplate;This armor consists of a fitted metal chest piece worn with supple leather. Although it leaves the legs and arms relatively unprotected, this armor provides good protection for the wearer\'s vital organs while leaving the wearer relatively unencumbered.",
+                    mods: "Item Type: Medium Armor, AC: 14",
+                    props: "",
+                    price: 400,
+                    weight: 20,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Half Plate",
+                    desc: "Half Plate;Half plate consists of shaped metal plates that cover most of the wearer\'s body. It does not include leg protection beyond simple greaves that are attached with leather straps.",
+                    mods: "Item Type: Medium Armor, AC: 15, Stealth:Disadvantage",
+                    props: "",
+                    price: 750,
+                    weight: 40,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Ring Mail",
+                    desc: "Ring Mail;This armor is leather armor with heavy rings sewn into it. The rings help reinforce the armor against blows from swords and axes. Ring mail is inferior to chain mail, and it\'s usually worn only by those who can\'t afford better armor.",
+                    mods: "Item Type: Heavy Armor, AC: 14, Stealth:Disadvantage",
+                    props: "",
+                    price: 30,
+                    weight: 40,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Chain Mail",
+                    desc: "Chain Mail;Made of interlocking metal rings, chain mail includes a layer of quilted fabric worn underneath the mail to prevent chafing and to cushion the impact of blows. The suit includes gauntlets.",
+                    mods: "Item Type: Heavy Armor, AC: 16, Stealth:Disadvantage",
+                    props: "",
+                    price: 75,
+                    weight: 55,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Splint Mail",
+                    desc: "Splint Mail;This armor is made of narrow vertical strips of metal riveted to a backing of leather that is worn over cloth padding. Flexible chain mail protects the joints.",
+                    mods: "Item Type: Heavy Armor, AC: 17, Stealth:Disadvantage",
+                    props: "",
+                    price: 200,
+                    weight: 60,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Plate Armor",
+                    desc: "Plate Armor;Plate consists of shaped, interlocking metal plates to cover the entire body. A suit of plate includes gauntlets, heavy leather boots, a visored helmet, and thick layers of padding underneath the armor. Buckles and straps distribute the weight over the body.",
+                    mods: "Item Type: Heavy Armor, AC: 18, Stealth:Disadvantage",
+                    props: "",
+                    price: 1500,
+                    weight: 65,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "Shield",
+                    desc: "Shield;A shield is made from wood or metal and is carried in one hand. Wielding a shield increases your Armor Class by 2. You can benefit from only one shield at a time.",
+                    mods: "Item Type: Shield, AC +2",
+                    props: "",
+                    price: 10,
+                    weight: 6,
+                    amount: 1,
+                    sellam: 1
+                }
+            ],
             potion: [],
-            scroll: [],
+            scroll: [
+                {
+                    name: "Cantrip Scroll",
+                    rarity: "common",
+                    amount: 1
+                },
+                {
+                    name: "1st-Level Scroll",
+                    rarity: "common",
+                    amount: 1
+                },
+                {
+                    name: "2nd-Level Scroll",
+                    rarity: "uncommon",
+                    amount: 1
+                },
+                {
+                    name: "3rd-Level Scroll",
+                    rarity: "uncommon",
+                    amount: 1
+                },
+                {
+                    name: "4th-Level Scroll",
+                    rarity: "rare",
+                    amount: 1
+                },
+                {
+                    name: "5th-Level Scroll",
+                    rarity: "rare",
+                    amount: 1
+                },
+                {
+                    name: "6th-Level Scroll",
+                    rarity: "very rare",
+                    amount: 1
+                },
+                {
+                    name: "7th-Level Scroll",
+                    rarity: "very rare",
+                    amount: 1
+                },
+                {
+                    name: "8th-Level Scroll",
+                    rarity: "very rare",
+                    amount: 1
+                },
+                {
+                    name: "9th-Level Scroll",
+                    rarity: "legendary",
+                    amount: 1
+                }
+            ],
             spell: [],
             misc: [],
             mundane: []
@@ -2298,56 +2884,68 @@ var ItemStore = ItemStore || (function() {
         let level;
         switch (rare) {
             case 'common:common':
-                    level=randomInteger(2)-1;
+                level=randomInteger(2)-1;
             break;
             case 'common:uncommon':
-                    level=randomInteger(4)-1;
+                level=randomInteger(4)-1;
             break;
             case 'common:rare':
-                    level=randomInteger(6)-1;
+                level=randomInteger(6)-1;
             break;
             case 'common:very rare':
-                    level=randomInteger(9)-1;
+                level=randomInteger(9)-1;
             break;
             case 'common:legendary':
-                    rand=randomInteger(10)-1;
+                rand=randomInteger(10)-1;
             break;
             case 'uncommon:uncommon':
-                    level=randomInteger(2)+1;
+                level=randomInteger(2)+1;
             break;
             case 'uncommon:rare':
-                    level=randomInteger(4)+1;
+                level=randomInteger(4)+1;
             break;
             case 'uncommon:very rare':
-                    level=randomInteger(7)+1;
+                level=randomInteger(7)+1;
             break;
             case 'uncommon:legendary':
-                    level=randomInteger(8)+1;
+                level=randomInteger(8)+1;
             break;
             case 'rare:rare':
-                    level=randomInteger(2)+3;
+                level=randomInteger(2)+3;
             break;
             case 'rare:very rare':
-                    level=randomInteger(5)+3;
+                level=randomInteger(5)+3;
             break;
             case 'rare:legendary':
-                    level=randomInteger(6)+3;
+                level=randomInteger(6)+3;
             break;
             case 'very rare:very rare':
-                    level=randomInteger(3)+5;
+                level=randomInteger(3)+5;
             break;
             case 'very rare:legendary':
-                    level=randomInteger(4)+5;
+                level=randomInteger(4)+5;
             break;
             case 'legendary:legendary':
-                    level=9;
+                level=9;
             break;
+        }
+        let name;
+        if (level==0) {
+            level="cantrip";
+        }
+        for (let i=0;i<list.length;i++) {
+            if (list.name.includes(String(level))) {
+                name=list[i].name;
+            }
         }
         for (let i=0;i<amount;i++) {
             if (items[i]==undefined) {
-                items.push(rollSpell(level));
+                let spell=rollSpell(level);
+                spell[0].name=name+" ("+spell[0].name+")";
+                items.push(spell[0]);
             } else {
-                let spell=rollSpell(level)
+                let spell=rollSpell(level);
+                spell[0].name=name+" ("+spell[0].name+")";
                 if (items[i].name==spell[0].name) {
                     items[i].amount++;
                 } else {
@@ -2359,9 +2957,6 @@ var ItemStore = ItemStore || (function() {
     },
 
     rollSpell = function(level) {
-        if (level==0) {
-            level="cantrip";
-        }
         let spellList=state.list.spell;
         let spell=[];
         let list=[];
