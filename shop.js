@@ -23,7 +23,7 @@ GM ONLY
                     --amount {Insert new Amount} - Set the Amount of Items you will receive upon buying (Must be at least 1 and a whole number - no fractions!)
                         --confirm - Confirm and apply the Changes.
             Generate Only
-            --type {Insert Item Type} --minrare {Insert minimum Rarity} --maxrare {Insert maximum Rarity} - Generate a random Inventory based on Item Type and Rarity. (For a list of available Types and Rarities, check the Wiki)
+            --type {Insert Item Type} --amount {Insert Number of Items} --minrare {Insert minimum Rarity} --maxrare {Insert maximum Rarity} - Generate a random Inventory based on Item Type and Rarity. (For a list of available Types and Rarities, check the Wiki)
                 --overwrite true/false - Select whether you wish you to Overwrite an already existing Inventory. (Put true if so, put false if not) Default: true
         --players - Add this Option if you want to show the selected Store to the Players.
         --name {Insert new Name} - Changes the Name of the selected Store.
@@ -89,7 +89,7 @@ var ItemStore = ItemStore || (function() {
     setBasics = function() {
         state = {
             cur: "",
-            typeList: "Weapon|Armor|Scroll|Potion|Mundane Item|Random",
+            typeList: "Weapon|Armor|Scroll|Potion|Misc|Mundane Item|Random",
             rareList: "Common|Uncommon|Rare|Very Rare|Legendary|Random",
             temp: {
                 name: "",
@@ -108,6 +108,23 @@ var ItemStore = ItemStore || (function() {
 
     setCartDefault = function() {
         state.cart = [];
+    },
+
+    setItemDefaults = function() {
+        state.list = {
+            weapon: [
+                {
+                    name: "Club",
+                    desc: "",
+                }
+            ],
+            armor: [],
+            potion: [],
+            scroll: [],
+            spell: [],
+            misc: [],
+            mundane: []
+        }
     },
 
     handleInput = function(msg) {
@@ -275,23 +292,29 @@ var ItemStore = ItemStore || (function() {
                                         } else if (state.typeList.includes(type)) {
                                             if (args[4]==undefined) {
                                                 sendChat("Item Store","/w gm You must define a minimum Rarity!");
-                                            } else if (args[4].includes("minrare")) {
-                                                let minrare=args[4].replace("minrare ","");
-                                                if ((minrare=="" || minrare==" ") || !state.rareList.includes(minrare)) {
-                                                    sendChat("Item Store","/w gm You must define the minimum Rarity of Item you want in the Store. For a List of available Rarities, please check the [Wiki]()");
-                                                } else if (state.rareList.includes(minrare)) {
-                                                    if (args[5]==undefined) {
-                                                        sendChat("Item Store","/w gm You must define a maximum Rarity!");
-                                                    } else if (args[5].includes("maxrare")) {
-                                                        let maxrare=args[5].replace("maxrare ","");
-                                                        if ((maxrare=="" || maxrare==" ") || !state.rareList.includes(maxrare)) {
-                                                            sendChat("Item Store","/w gm You must define the maximum Rarity of Item you want in the Store. For a List of available Rarities, please check the [Wiki]()");
-                                                        } else if (state.rareList.includes(maxrare)) {
-                                                            if (args[6]==undefined) {
-                                                                createInv(type,minrare,maxrare,args[6]);
-                                                            } else if (args[6].includes("overwrite")) {
-                                                                let overwrite=args[6].replace("overwrite ","");
-                                                                createInv(type,minrare,maxrare,overwrite);
+                                            } else if (args[4].includes("amount")) {
+                                                let amount=Number(args[4].replace("amount ",""));
+                                                if (args[5]==undefined) {
+                                                    sendChat("Item Store","/w gm You must define a minimum rarity!");
+                                                } else if (args[5].includes("minrare")) {
+                                                    let minrare=args[5].replace("minrare ","").toLowerCase();
+                                                    if ((minrare=="" || minrare==" ") || !state.rareList.toLowerCase().includes(minrare)) {
+                                                        sendChat("Item Store","/w gm Please define a valid minimum Rarity! View the Rarity List in the [Wiki](https://github.com/Julexar/itemstore/wiki/Rarity-List) for help.");
+                                                    } else if (state.rareList.toLowerCase().includes(minrare)) {
+                                                        if (args[6]==undefined) {
+                                                            sendChat("Item Store","/w gm You must define a maximum rarity!");
+                                                        } else if (args[6].includes("maxrare")) {
+                                                            let maxrare=args[6].replace("maxrare ","").toLowerCase();
+                                                            if ((maxrare=="" || maxrare==" ") || !state.rareList.toLowerCase().includes(maxrare)) {
+                                                                sendChat("Item Store","/w gm Please define a valid maximum Rarity! View the Rarity List in the [Wiki](https://github.com/Julexar/itemstore/wiki/Rarity-List) for help.");
+                                                            } else if (state.rareList.toLowerCase().includes(maxrare)) {
+                                                                if (args[7]==undefined) {
+                                                                    args[7]=true;
+                                                                    createInv(store,type,amount,minrare,maxrare,args[7]);
+                                                                } else if (args[7].includes("overwrite")) {
+                                                                    let overwrite=Boolean(args[7].replace("overwrite ",""));
+                                                                    createInv(store,type,amount,minrare,maxrare,overwrite);
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -1357,8 +1380,1353 @@ var ItemStore = ItemStore || (function() {
         sendChat("Item Store","/w gm Deleted Item #"+Number(num+1)+"<br>Name: "+item);
     },
 
-    createInv = function(type,minrare,maxrare,overwrite) {
+    createInv = function(store,type,amount,minrare,maxrare,overwrite) {
         //Generate a random Inventory
+        store=state.store.find(s => s.name==store);
+        let rarity=checkRarity(minrare,maxrare);
+        minrare=rarity[0];
+        maxrare=rarity[1];
+        if (Boolean(overwrite)==true) {
+            let list;
+            let seclist;
+            type=type.toLowerCase();
+            if (type.includes("weapon")) {
+                list=genWeapon(amount,minrare,maxrare);
+            } else if (type.includes("armor")) {
+                list=genArmor(amount,minrare,maxrare);
+            } else if (type.includes("scroll")) {
+                list=genScroll(amount,minrare,maxrare);
+            } else if (type.includes("potion")) {
+                list=genPotion(amount,minrare,maxrare);
+            } else if (type.includes("misc")) {
+                list=genMisc(amount,minrare,maxrare);
+            } else if (type.includes("mund")) {
+                list=genMundane(amount);
+            } else if (type.includes("rand")) {
+                for (let i=0;i<amount;i++) {
+                    let rand=randomInteger(6);
+                    if (list!==undefined) {
+                        if (rand==1) {
+                            list.push(genWeapon(1,minrare,maxrare)[0]);
+                        } else if (rand==2) {
+                            list.push(genArmor(1,minrare,maxrare)[0]);
+                        } else if (rand==3) {
+                            list.push(genScroll(1,minrare,maxrare)[0]);
+                        } else if (rand==4) {
+                            list.push(genPotion(1,minrare,maxrare)[0])
+                        } else if (rand==5) {
+                            list.push(genMisc(1,minrare,maxrare)[0]);
+                        } else if (rand==6) {
+                            list.push(genMundane(1)[0]);
+                        }
+                    } else if (list==undefined) {
+                        if (rand==1) {
+                            list=genWeapon(1,minrare,maxrare);
+                        } else if (rand==2) {
+                            list=genArmor(1,minrare,maxrare);
+                        } else if (rand==3) {
+                            list=genScroll(1,minrare,maxrare);
+                        } else if (rand==4) {
+                            list=genPotion(1,minrare,maxrare);
+                        } else if (rand==5) {
+                            list=genMisc(1,minrare,maxrare);
+                        } else if (rand==6) {
+                            list=genMundane(1);
+                        }
+                    }
+                }
+            }
+            store.inv=list;
+            sendChat("Item Store","/w gm Generated new Inventory and overwrote the previous Inventory.");
+        } else if (Boolean(overwrite)==false) {
+            let list=store.inv;
+            let seclist;
+            type=type.toLowerCase();
+            if (type.includes("weapon")) {
+                seclist=genWeapon(amount,minrare,maxrare);
+                for (let i=0;i<list.length;i++) {
+                    for (let j=0;j<seclist.length;j++) {
+                        if (list[i].name==seclist[j].name) {
+                            list[i]=seclist[j];
+                            seclist.splice(j);
+                            j--;
+                        }
+                    }
+                }
+                for (let i=0;i<seclist.length;i++) {
+                    list.push(seclist[i]);
+                }
+            } else if (type.includes("armor")) {
+                seclist=genArmor(amount,minrare,maxrare);
+                for (let i=0;i<list.length;i++) {
+                    for (let j=0;j<seclist.length;j++) {
+                        if (list[i].name==seclist[j].name) {
+                            list[i]=seclist[j];
+                            seclist.splice(j);
+                            j--;
+                        }
+                    }
+                }
+                for (let i=0;i<seclist.length;i++) {
+                    list.push(seclist[i]);
+                }
+            } else if (type.includes("scroll")) {
+                seclist=genScroll(amount,minrare,maxrare);
+                for (let i=0;i<list.length;i++) {
+                    for (let j=0;j<seclist.length;j++) {
+                        if (list[i].name==seclist[j].name) {
+                            list[i]=seclist[j];
+                            seclist.splice(j);
+                            j--;
+                        }
+                    }
+                }
+                for (let i=0;i<seclist.length;i++) {
+                    list.push(seclist[i]);
+                }
+            } else if (type.includes("potion")) {
+                seclist=genPotion(amount,minrare,maxrare);
+                for (let i=0;i<list.length;i++) {
+                    for (let j=0;j<seclist.length;j++) {
+                        if (list[i].name==seclist[j].name) {
+                            list[i]=seclist[j];
+                            seclist.splice(j);
+                            j--;
+                        }
+                    }
+                }
+                for (let i=0;i<seclist.length;i++) {
+                    list.push(seclist[i]);
+                }
+            } else if (type.includes("misc")) {
+                seclist=genMisc(amount,minrare,maxrare);
+                for (let i=0;i<list.length;i++) {
+                    for (let j=0;j<seclist.length;j++) {
+                        if (list[i].name==seclist[j].name) {
+                            list[i]=seclist[j];
+                            seclist.splice(j);
+                            j--;
+                        }
+                    }
+                }
+                for (let i=0;i<seclist.length;i++) {
+                    list.push(seclist[i]);
+                }
+            } else if (type.includes("mund")) {
+                seclist=genMundane(amount);
+                for (let i=0;i<list.length;i++) {
+                    for (let j=0;j<seclist.length;j++) {
+                        if (list[i].name==seclist[j].name) {
+                            list[i]=seclist[j];
+                            seclist.splice(j);
+                            j--;
+                        }
+                    }
+                }
+                for (let i=0;i<seclist.length;i++) {
+                    list.push(seclist[i]);
+                }
+            } else if (type.includes("rand")) {
+                for (let i=0;i<amount;i++) {
+                    let rand=randomInteger(6);
+                    if (list!==undefined) {
+                        if (rand==1) {
+                            seclist=genWeapon(1,minrare,maxrare);
+                            for (let j=0;j<list.length;j++) {
+                                if (list[j].name==seclist[0].name) {
+                                    list[j].amount++;
+                                    seclist.splice(0);
+                                }
+                            }
+                            if (seclist[0]!==undefined) {
+                                list.push(seclist[0])
+                            }
+                        } else if (rand==2) {
+                            seclist=genArmor(1,minrare,maxrare);
+                            for (let j=0;j<list.length;j++) {
+                                if (list[j].name==seclist[0].name) {
+                                    list[j].amount++;
+                                    seclist.splice(0);
+                                }
+                            }
+                            if (seclist[0]!==undefined) {
+                                list.push(seclist[0])
+                            }
+                        } else if (rand==3) {
+                            seclist=genScroll(1,minrare,maxrare);
+                            for (let j=0;j<list.length;j++) {
+                                if (list[j].name==seclist[0].name) {
+                                    list[j].amount++;
+                                    seclist.splice(0);
+                                }
+                            }
+                            if (seclist[0]!==undefined) {
+                                list.push(seclist[0])
+                            }
+                        } else if (rand==4) {
+                            seclist=genPotion(1,minrare,maxrare);
+                            for (let j=0;j<list.length;j++) {
+                                if (list[j].name==seclist[0].name) {
+                                    list[j].amount++;
+                                    seclist.splice(0);
+                                }
+                            }
+                            if (seclist[0]!==undefined) {
+                                list.push(seclist[0])
+                            }
+                        } else if (rand==5) {
+                            seclist=genMisc(1,minrare,maxrare);
+                            for (let j=0;j<list.length;j++) {
+                                if (list[j].name==seclist[0].name) {
+                                    list[j].amount++;
+                                    seclist.splice(0);
+                                }
+                            }
+                            if (seclist[0]!==undefined) {
+                                list.push(seclist[0])
+                            }
+                        } else if (rand==6) {
+                            seclist=genMundane(1,minrare,maxrare);
+                            for (let j=0;j<list.length;j++) {
+                                if (list[j].name==seclist[0].name) {
+                                    list[j].amount++;
+                                    seclist.splice(0);
+                                }
+                            }
+                            if (seclist[0]!==undefined) {
+                                list.push(seclist[0])
+                            }
+                        }
+                    } else if (list==undefined) {
+                        if (rand==1) {
+                            list=genWeapon(1,minrare,maxrare);
+                        } else if (rand==2) {
+                            list=genArmor(1,minrare,maxrare);
+                        } else if (rand==3) {
+                            list=genScroll(1,minrare,maxrare);
+                        } else if (rand==4) {
+                            list=genPotion(1,minrare,maxrare);
+                        } else if (rand==5) {
+                            list=genMisc(1,minrare,maxrare);
+                        } else if (rand==6) {
+                            list=genMundane(1);
+                        }
+                    }
+                }
+            }
+            for (let i=0;i<list.length;i++) {
+                store.inv.push(list[i]);
+            }
+            sendChat("Item Store","/w gm Generated new Items and added them to the Store.");
+        }
+    },
+
+    genWeapon = function(amount,minrare,maxrare) {
+        //Generate Weapons
+        let items=[];
+        let list=state.list.weapon;
+        let rare=minrare+':'+maxrare;
+        for (let i=0;i<amount;i++) {
+            let pricechange;
+            let namechange;
+            let rand;
+            let rarity;
+            switch (rare) {
+                case 'common:common':
+                    pricechange=0;
+                    rarity="common";
+                break;
+                case 'common:uncommon':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        pricechange=0;
+                        namechange="";
+                        rarity="common";
+                    } else if (rand==2) {
+                        pricechange=1000;
+                        namechange="+1 ";
+                        rarity="uncommon";
+                    }
+                break;
+                case 'common:rare':
+                    rand=randomInteger(3);
+                    if (rand==1) {
+                        pricechange=0;
+                        namechange="";
+                        rarity="common";
+                    } else if (rand==2) {
+                        pricechange=1000;
+                        namechange="+1 ";
+                        rarity="uncommon";
+                    } else if (rand==3) {
+                        pricechange=4000;
+                        namechange="+2 ";
+                        rarity="rare";
+                    }
+                break;
+                case 'common:very rare':
+                    rand=randomInteger(4);
+                    if (rand==1) {
+                        pricechange=0;
+                        namechange="";
+                        rarity="common";
+                    } else if (rand==2) {
+                        pricechange=1000;
+                        namechange="+1 ";
+                        rarity="uncommon";
+                    } else if (rand==3) {
+                        pricechange=4000;
+                        namechange="+2 ";
+                        rarity="rare";
+                    } else if (rand==4) {
+                        pricechange=16000;
+                        namechange="+3 ";
+                        rarity="very rare";
+                    }
+                break;
+                case 'common:legendary':
+                    rand=randomInteger(5);
+                    if (rand==1) {
+                        pricechange=0;
+                        namechange="";
+                        rarity="common";
+                    } else if (rand==2) {
+                        pricechange=1000;
+                        namechange="+1 ";
+                        rarity="uncommon";
+                    } else if (rand==3) {
+                        pricechange=4000;
+                        namechange="+2 ";
+                        rarity="rare";
+                    } else if (rand==4) {
+                        pricechange=16000;
+                        namechange="+3 ";
+                        rarity="very rare";
+                    } else if (rand==5) {
+                        pricechange=16000;
+                        namechange="+3 ";
+                        rarity="legendary";
+                    }
+                break;
+                case 'uncommon:uncommon':
+                    pricechange=1000;
+                    namechange="+1 ";
+                    rarity="uncommon";
+                break;
+                case 'uncommon:rare':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        pricechange=1000;
+                        namechange="+1 ";
+                        rarity="uncommon";
+                    } else if (rand==2) {
+                        pricechange=4000;
+                        namechange="+2 ";
+                        rarity="rare";
+                    }
+                break;
+                case 'uncommon:very rare':
+                    rand=randomInteger(3);
+                    if (rand==1) {
+                        pricechange=1000;
+                        namechange="+1 ";
+                        rarity="uncommon";
+                    } else if (rand==2) {
+                        pricechange=4000;
+                        namechange="+2 ";
+                        rarity="rare";
+                    } else if (rand==3) {
+                        pricechange=16000;
+                        namechange="+3 ";
+                        rarity="very rare";
+                    }
+                break;
+                case 'uncommon:legendary':
+                    rand=randomInteger(4);
+                    if (rand==1) {
+                        pricechange=1000;
+                        namechange="+1 ";
+                        rarity="uncommon";
+                    } else if (rand==2) {
+                        pricechange=4000;
+                        namechange="+2 ";
+                        rarity="rare";
+                    } else if (rand==3) {
+                        pricechange=16000;
+                        namechange="+3 ";
+                        rarity="very rare";
+                    } else if (rand==4) {
+                        pricechange=16000;
+                        namechange="+3 ";
+                        rarity="legendary";
+                    }
+                break;
+                case 'rare:rare':
+                    pricechange=4000;
+                    namechange="+2 ";
+                    rarity="rare";
+                break;
+                case 'rare:very rare':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        pricechange=4000;
+                        namechange="+2 ";
+                        rarity="rare";
+                    } else if (rand==2) {
+                        pricechange=16000;
+                        namechange="+3 ";
+                        rarity="very rare";
+                    }
+                break;
+                case 'rare:legendary':
+                    rand=randomInteger(3);
+                    if (rand==1) {
+                        pricechange=4000;
+                        namechange="+2 ";
+                        rarity="rare";
+                    } else if (rand==2) {
+                        pricechange=16000;
+                        namechange="+3 ";
+                        rarity="very rare";
+                    } else if (rand==3) {
+                        pricechange=16000;
+                        namechange="+3 ";
+                        rarity="legendary";
+                    }
+                break;
+                case 'very rare:very rare':
+                    pricechange=16000;
+                    namechange="+3 ";
+                    rarity="very rare";
+                break;
+                case 'very rare:legendary':
+                    pricechange=16000;
+                    namechange="+3 ";
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        rarity="very rare";
+                    } else if (rand==2) {
+                        rarity="legendary";
+                    }
+                break;
+                case 'legendary:legendary':
+                    pricechange=16000;
+                    namechange="+3 ";
+                    rarity="legendary";
+                break;
+            }
+            rand=randomInteger(list.length);
+            let price=pricechange+Math.trunc(list[rand-1].price);
+            let name=namechange+list[rand-1].name;
+            let mods=list[rand-1].mods
+            let desc=list[rand-1].desc.split(';');
+            if (namechange.includes("+1")) {
+                mods+=", Attack +1, Damage +1";
+                desc[1]="You have a +1 bonus to attack and damage rolls made with this magic weapon.";
+            } else if (namechange.includes("+2")) {
+                mods+=", Attack +2, Damage +2";
+                desc[1]="You have a +2 bonus to attack and damage rolls made with this magic weapon.";
+            } else if (namechange.includes("+3")) {
+                mods+=", Attack +3, Damage +3";
+                desc[1]="You have a +1 bonus to attack and damage rolls made with this magic weapon.";
+            }
+            desc[0]+=" ("+rarity+")";
+            let found=false;
+            for (let j=0;j<items.length;j++) {
+                if (items[j].name==name) {
+                    items[j].amount++;
+                    found=true;
+                } else {
+                    found=false;
+                }
+            }
+            if (found==false) {
+                items.push({
+                    name: name,
+                    desc: desc[0]+";"+desc[1],
+                    mods: mods,
+                    props: list[i-1].props,
+                    price: price,
+                    weight: list[i-1].weight,
+                    amount: 1
+                });
+            }
+        }
+        return items;
+    },
+
+    genArmor = function(amount,minrare,maxrare) {
+        let items=[];
+        let list=state.list.armor;
+        let rare=minrare+':'+maxrare;
+        for (let i=0;i<amount;i++) {
+            let pricechange;
+            let namechange;
+            let rand;
+            let rarity;
+            rand=randomInteger(list.length);
+            if (list[rand-1].name.includes("Shield")) {
+                switch (rare) {
+                    case 'common:common':
+                        pricechange=0;
+                        rarity="common";
+                    break;
+                    case 'common:uncommon':
+                        rand=randomInteger(2);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=1500;
+                            namechange="+1 ";
+                            rarity="uncommon";
+                        }
+                    break;
+                    case 'common:rare':
+                        rand=randomInteger(3);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=1500;
+                            namechange="+1 ";
+                            rarity="uncommon";
+                        } else if (rand==3) {
+                            pricechange=6000;
+                            namechange="+2 ";
+                            rarity="rare";
+                        }
+                    break;
+                    case 'common:very rare':
+                        rand=randomInteger(4);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=1500;
+                            namechange="+1 ";
+                            rarity="uncommon";
+                        } else if (rand==3) {
+                            pricechange=6000;
+                            namechange="+2 ";
+                            rarity="rare";
+                        } else if (rand==4) {
+                            pricechange=24000;
+                            namechange="+3 ";
+                            rarity="very rare";
+                        }
+                    break;
+                    case 'common:legendary':
+                        rand=randomInteger(5);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=1500;
+                            namechange="+1 ";
+                            rarity="uncommon";
+                        } else if (rand==3) {
+                            pricechange=6000;
+                            namechange="+2 ";
+                            rarity="rare";
+                        } else if (rand==4) {
+                            pricechange=24000;
+                            namechange="+3 ";
+                            rarity="very rare";
+                        } else if (rand==5) {
+                            pricechange=24000;
+                            namechange="+3 ";
+                            rarity="legendary";
+                        }
+                    break;
+                    case 'uncommon:uncommon':
+                        pricechange=1500;
+                        namechange="+1 ";
+                        rarity="uncommon";
+                    break;
+                    case 'uncommon:rare':
+                        rand=randomInteger(2);
+                        if (rand==1) {
+                            pricechange=1500;
+                            namechange="+1 ";
+                            rarity="uncommon";
+                        } else if (rand==2) {
+                            pricechange=6000;
+                            namechange="+2 ";
+                            rarity="rare";
+                        }
+                    break;
+                    case 'uncommon:very rare':
+                        rand=randomInteger(3);
+                        if (rand==1) {
+                            pricechange=1500;
+                            namechange="+1 ";
+                            rarity="uncommon";
+                        } else if (rand==2) {
+                            pricechange=6000;
+                            namechange="+2 ";
+                            rarity="rare";
+                        } else if (rand==3) {
+                            pricechange=24000;
+                            namechange="+3 ";
+                            rarity="very rare";
+                        }
+                    break;
+                    case 'uncommon:legendary':
+                        rand=randomInteger(4);
+                        if (rand==1) {
+                            pricechange=1500;
+                            namechange="+1 ";
+                            rarity="uncommon";
+                        } else if (rand==2) {
+                            pricechange=6000;
+                            namechange="+2 ";
+                            rarity="rare";
+                        } else if (rand==3) {
+                            pricechange=24000;
+                            namechange="+3 ";
+                            rarity="very rare";
+                        } else if (rand==4) {
+                            pricechange=24000;
+                            namechange="+3 ";
+                            rarity="legendary";
+                        }
+                    break;
+                    case 'rare:rare':
+                        pricechange=6000;
+                        namechange="+2 ";
+                        rarity="rare";
+                    break;
+                    case 'rare:very rare':
+                        rand=randomInteger(2);
+                        if (rand==1) {
+                            pricechange=6000;
+                            namechange="+2 ";
+                            rarity="rare";
+                        } else if (rand==2) {
+                            pricechange=24000;
+                            namechange="+3 ";
+                            rarity="very rare";
+                        }
+                    break;
+                    case 'rare:legendary':
+                        rand=randomInteger(3);
+                        if (rand==1) {
+                            pricechange=6000;
+                            namechange="+2 ";
+                            rarity="rare";
+                        } else if (rand==2) {
+                            pricechange=24000;
+                            namechange="+3 ";
+                            rarity="very rare";
+                        } else if (rand==3) {
+                            pricechange=24000;
+                            namechange="+3 ";
+                            rarity="legendary";
+                        }
+                    break;
+                    case 'very rare:very rare':
+                        pricechange=24000;
+                        namechange="+3 ";
+                        rarity="very rare";
+                    break;
+                    case 'very rare:legendary':
+                        pricechange=24000;
+                        namechange="+3 ";
+                        rand=randomInteger(2);
+                        if (rand==1) {
+                            rarity="very rare";
+                        } else if (rand==2) {
+                            rarity="legendary";
+                        }
+                    break;
+                    case 'legendary:legendary':
+                        pricechange=24000;
+                        namechange="+3 ";
+                        rarity="legendary";
+                    break;
+                }
+            } else if (list[rand-1].name.includes("Armor")) {
+                switch (rare) {
+                    case 'common:common':
+                        pricechange=0;
+                        rarity="common";
+                    break;
+                    case 'common:uncommon':
+                        rand=randomInteger(2);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        }
+                    break;
+                    case 'common:rare':
+                        rand=randomInteger(3);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==3) {
+                            pricechange=6000;
+                            namechange="+1 ";
+                            rarity="rare";
+                        }
+                    break;
+                    case 'common:very rare':
+                        rand=randomInteger(4);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==3) {
+                            pricechange=6000;
+                            namechange="+1 ";
+                            rarity="rare";
+                        } else if (rand==4) {
+                            pricechange=24000;
+                            namechange="+2 ";
+                            rarity="very rare";
+                        }
+                    break;
+                    case 'common:legendary':
+                        rand=randomInteger(5);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==3) {
+                            pricechange=6000;
+                            namechange="+1 ";
+                            rarity="rare";
+                        } else if (rand==4) {
+                            pricechange=24000;
+                            namechange="+2 ";
+                            rarity="very rare";
+                        } else if (rand==5) {
+                            pricechange=48000;
+                            namechange="+3 ";
+                            rarity="legendary";
+                        }
+                    break;
+                    case 'uncommon:uncommon':
+                        pricechange=0;
+                        namechange="";
+                        rarity="common";
+                    break;
+                    case 'uncommon:rare':
+                        rand=randomInteger(2);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=6000;
+                            namechange="+1 ";
+                            rarity="rare";
+                        }
+                    break;
+                    case 'uncommon:very rare':
+                        rand=randomInteger(3);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=6000;
+                            namechange="+1 ";
+                            rarity="rare";
+                        } else if (rand==3) {
+                            pricechange=24000;
+                            namechange="+2 ";
+                            rarity="very rare";
+                        }
+                    break;
+                    case 'uncommon:legendary':
+                        rand=randomInteger(4);
+                        if (rand==1) {
+                            pricechange=0;
+                            namechange="";
+                            rarity="common";
+                        } else if (rand==2) {
+                            pricechange=6000;
+                            namechange="+1 ";
+                            rarity="rare";
+                        } else if (rand==3) {
+                            pricechange=24000;
+                            namechange="+2 ";
+                            rarity="very rare";
+                        } else if (rand==4) {
+                            pricechange=48000;
+                            namechange="+3 ";
+                            rarity="legendary";
+                        }
+                    break;
+                    case 'rare:rare':
+                        pricechange=6000;
+                        namechange="+1 ";
+                        rarity="rare";
+                    break;
+                    case 'rare:very rare':
+                        rand=randomInteger(2);
+                        if (rand==1) {
+                            pricechange=6000;
+                            namechange="+1 ";
+                            rarity="rare";
+                        } else if (rand==2) {
+                            pricechange=24000;
+                            namechange="+2 ";
+                            rarity="very rare";
+                        }
+                    break;
+                    case 'rare:legendary':
+                        rand=randomInteger(3);
+                        if (rand==1) {
+                            pricechange=6000;
+                            namechange="+1 ";
+                            rarity="rare";
+                        } else if (rand==2) {
+                            pricechange=24000;
+                            namechange="+2 ";
+                            rarity="very rare";
+                        } else if (rand==3) {
+                            pricechange=48000;
+                            namechange="+3 ";
+                            rarity="legendary";
+                        }
+                    break;
+                    case 'very rare:very rare':
+                        pricechange=24000;
+                        namechange="+2 ";
+                        rarity="very rare";
+                    break;
+                    case 'very rare:legendary':
+                        rand=randomInteger(2);
+                        if (rand==1) {
+                            pricechange=24000;
+                            namechange="+2 ";
+                            rarity="very rare";
+                        } else if (rand==2) {
+                            pricechange=48000;
+                            namechange="+3 ";
+                            rarity="legendary";
+                        }
+                    break;
+                    case 'legendary:legendary':
+                        pricechange=48000;
+                        namechange="+3 ";
+                        rarity="legendary";
+                    break;
+                }
+            }
+            rand=randomInteger(list.length);
+            let price=pricechange+Math.trunc(list[rand-1].price);
+            let name=namechange+list[rand-1].name;
+            let mods=list[rand-1].mods
+            let desc=list[rand-1].desc.split(';');
+            if (name.includes("shield")) {
+                if (namechange.includes("+1")) {
+                    mods+=", AC +1";
+                    desc[1]="While holding this shield, you have a +1 bonus to AC. This bonus is in addition to the shield\'s normal bonus to AC.";
+                } else if (namechange.includes("+2")) {
+                    mods+=", AC +2";
+                    desc[1]="While holding this shield, you have a +2 bonus to AC. This bonus is in addition to the shield\'s normal bonus to AC.";
+                } else if (namechange.includes("+3")) {
+                    mods+=", AC +3";
+                    desc[1]="While holding this shield, you have a +3 bonus to AC. This bonus is in addition to the shield\'s normal bonus to AC.";
+                }
+            } else if (name.includes("armor")) {
+                if (namechange.includes("+1")) {
+                    mods+=", AC +1";
+                    desc[1]="You have a +1 bonus to AC while wearing this armor.";
+                } else if (namechange.includes("+2")) {
+                    mods+=", AC +2";
+                    desc[1]="You have a +2 bonus to AC while wearing this armor.";
+                } else if (namechange.includes("+3")) {
+                    mods+=", AC +3";
+                    desc[1]="You have a +3 bonus to AC while wearing this armor.";
+                }
+            }
+            desc[0]+=" ("+rarity+")";
+            let found=false;
+            for (let j=0;j<items.length;j++) {
+                if (items[j].name==name) {
+                    items[j].amount++;
+                    found=true;
+                } else {
+                    found=false;
+                }
+            }
+            if (found==false) {
+                items.push({
+                    name: name,
+                    desc: desc[0]+";"+desc[1],
+                    mods: mods,
+                    props: list[i-1].props,
+                    price: price,
+                    weight: list[i-1].weight,
+                    amount: 1
+                });
+            }
+        }
+        return items;
+    },
+
+    genScroll = function(amount,minrare,maxrare) {
+        let items=[];
+        let list=state.list.scroll;
+        let rare=minrare+':'+maxrare;
+        let level;
+        switch (rare) {
+            case 'common:common':
+                    level=randomInteger(2)-1;
+            break;
+            case 'common:uncommon':
+                    level=randomInteger(4)-1;
+            break;
+            case 'common:rare':
+                    level=randomInteger(6)-1;
+            break;
+            case 'common:very rare':
+                    level=randomInteger(9)-1;
+            break;
+            case 'common:legendary':
+                    rand=randomInteger(10)-1;
+            break;
+            case 'uncommon:uncommon':
+                    level=randomInteger(2)+1;
+            break;
+            case 'uncommon:rare':
+                    level=randomInteger(4)+1;
+            break;
+            case 'uncommon:very rare':
+                    level=randomInteger(7)+1;
+            break;
+            case 'uncommon:legendary':
+                    level=randomInteger(8)+1;
+            break;
+            case 'rare:rare':
+                    level=randomInteger(2)+3;
+            break;
+            case 'rare:very rare':
+                    level=randomInteger(5)+3;
+            break;
+            case 'rare:legendary':
+                    level=randomInteger(6)+3;
+            break;
+            case 'very rare:very rare':
+                    level=randomInteger(3)+5;
+            break;
+            case 'very rare:legendary':
+                    level=randomInteger(4)+5;
+            break;
+            case 'legendary:legendary':
+                    level=9;
+            break;
+        }
+        for (let i=0;i<amount;i++) {
+            if (items[i]==undefined) {
+                items.push(rollSpell(level));
+            } else {
+                let spell=rollSpell(level)
+                if (items[i].name==spell[0].name) {
+                    items[i].amount++;
+                } else {
+                    items.push(spell[0]);
+                }
+            }
+        }
+        return items;
+    },
+
+    rollSpell = function(level) {
+        if (level==0) {
+            level="cantrip";
+        }
+        let spellList=state.list.spell;
+        let spell=[];
+        let list=[];
+        let count=0;
+        for (let i=0;i<spellList.length;i++) {
+            if (spellList[i].level.includes(String(level))) {
+                list[count]=spellList[i];
+                count++;
+            }
+        }
+        let rand=randomInteger(list.length);
+        spell.push(list[rand-1]);
+        return spell;
+    },
+
+    genPotion = function(amount,minrare,maxrare) {
+        let items=[];
+        let list=state.list.potion;
+        let rare=minrare+':'+maxrare;
+        let rarity;
+        let rand;
+        let potionList=[];
+        let count=0;
+        for (let i=0;i<amount;i++) {
+            switch (rare) {
+                case 'common:common':
+                    rarity="common";
+                break;
+                case 'common:uncommon':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        rarity="common";
+                    } else if (rand==2) {
+                        rarity="uncommon";
+                    }
+                break;
+                case 'common:rare':
+                    rand=randomInteger(3);
+                    if (rand==1) {
+                        rarity="common";
+                    } else if (rand==2) {
+                        rarity="uncommon";
+                    } else if (rand==3) {
+                        rarity="rare";
+                    }
+                break;
+                case 'common:very rare':
+                    rand=randomInteger(4);
+                    if (rand==1) {
+                        rarity="common";
+                    } else if (rand==2) {
+                        rarity="uncommon";
+                    } else if (rand==3) {
+                        rarity="rare";
+                    } else if (rand==4) {
+                        rarity="very rare";
+                    }
+                break;
+                case 'common:legendary':
+                    rand=randomInteger(5);
+                    if (rand==1) {
+                        rarity="common";
+                    } else if (rand==2) {
+                        rarity="uncommon";
+                    } else if (rand==3) {
+                        rarity="rare";
+                    } else if (rand==4) {
+                        rarity="very rare";
+                    } else if (rand==5) {
+                        rarity="legendary";
+                    }
+                break;
+                case 'uncommon:uncommon':
+                    rarity="uncommon";
+                break;
+                case 'uncommon:rare':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        rarity="uncommon";
+                    } else if (rand==2) {
+                        rarity="rare";
+                    }
+                break;
+                case 'uncommon:very rare':
+                    rand=randomInteger(3);
+                    if (rand==1) {
+                        rarity="uncommon";
+                    } else if (rand==2) {
+                        rarity="rare";
+                    } else if (rand==3) {
+                        rarity="very rare";
+                    }
+                break;
+                case 'uncommon:legendary':
+                    rand=randomInteger(4);
+                    if (rand==1) {
+                        rarity="uncommon";
+                    } else if (rand==2) {
+                        rarity="rare";
+                    } else if (rand==3) {
+                        rarity="very rare";
+                    } else if (rand==4) {
+                        rarity="legendary";
+                    }
+                break;
+                case 'rare:rare':
+                    rarity="rare";
+                break;
+                case 'rare:very rare':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        rarity="rare";
+                    } else if (rand==2) {
+                        rarity="very rare";
+                    }
+                break;
+                case 'rare:legendary':
+                    rand=randomInteger(3);
+                    if (rand==1) {
+                        rarity="rare";
+                    } else if (rand==2) {
+                        rarity="very rare";
+                    } else if (rand==3) {
+                        rarity="legendary";
+                    }
+                break;
+                case 'very rare:very rare':
+                    rarity="very rare";
+                break;
+                case 'very rare:legendary':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        rarity="very rare";
+                    } else if (rand==2) {
+                        rarity="legendary";
+                    }
+                break;
+                case 'legendary:legendary':
+                    rarity="legendary";
+                break;
+            }
+            for (let j=0;j<list.length;j++) {
+                if (list[i].rarity==rarity) {
+                    potionList[count]=list[i];
+                    count++;
+                }
+            }
+            rand=randomInteger(potionList.length);
+            if (items[0]==undefined) {
+                items.push(potionList[rand]);
+            } else {
+                for (let j=0;j<items.length;j++) {
+                    if (items[j].name==potionList[rand-1].name) {
+                        items[j].amount++;
+                    }
+                }
+            }
+        }
+        return items;
+    },
+
+    genMisc = function(amount,minrare,maxrare) {
+        let items;
+        let list=state.list.misc;
+        let rare=minrare+':'+maxrare;
+        let miscList=[];
+        let count=0;
+        for (let i=0;i<amount;i++) {
+            switch (rare) {
+                case 'common:common':
+                    rarity="common";
+                break;
+                case 'common:uncommon':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        rarity="common";
+                    } else if (rand==2) {
+                        rarity="uncommon";
+                    }
+                break;
+                case 'common:rare':
+                    rand=randomInteger(3);
+                    if (rand==1) {
+                        rarity="common";
+                    } else if (rand==2) {
+                        rarity="uncommon";
+                    } else if (rand==3) {
+                        rarity="rare";
+                    }
+                break;
+                case 'common:very rare':
+                    rand=randomInteger(4);
+                    if (rand==1) {
+                        rarity="common";
+                    } else if (rand==2) {
+                        rarity="uncommon";
+                    } else if (rand==3) {
+                        rarity="rare";
+                    } else if (rand==4) {
+                        rarity="very rare";
+                    }
+                break;
+                case 'common:legendary':
+                    rand=randomInteger(5);
+                    if (rand==1) {
+                        rarity="common";
+                    } else if (rand==2) {
+                        rarity="uncommon";
+                    } else if (rand==3) {
+                        rarity="rare";
+                    } else if (rand==4) {
+                        rarity="very rare";
+                    } else if (rand==5) {
+                        rarity="legendary";
+                    }
+                break;
+                case 'uncommon:uncommon':
+                    rarity="uncommon";
+                break;
+                case 'uncommon:rare':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        rarity="uncommon";
+                    } else if (rand==2) {
+                        rarity="rare";
+                    }
+                break;
+                case 'uncommon:very rare':
+                    rand=randomInteger(3);
+                    if (rand==1) {
+                        rarity="uncommon";
+                    } else if (rand==2) {
+                        rarity="rare";
+                    } else if (rand==3) {
+                        rarity="very rare";
+                    }
+                break;
+                case 'uncommon:legendary':
+                    rand=randomInteger(4);
+                    if (rand==1) {
+                        rarity="uncommon";
+                    } else if (rand==2) {
+                        rarity="rare";
+                    } else if (rand==3) {
+                        rarity="very rare";
+                    } else if (rand==4) {
+                        rarity="legendary";
+                    }
+                break;
+                case 'rare:rare':
+                    rarity="rare";
+                break;
+                case 'rare:very rare':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        rarity="rare";
+                    } else if (rand==2) {
+                        rarity="very rare";
+                    }
+                break;
+                case 'rare:legendary':
+                    rand=randomInteger(3);
+                    if (rand==1) {
+                        rarity="rare";
+                    } else if (rand==2) {
+                        rarity="very rare";
+                    } else if (rand==3) {
+                        rarity="legendary";
+                    }
+                break;
+                case 'very rare:very rare':
+                    rarity="very rare";
+                break;
+                case 'very rare:legendary':
+                    rand=randomInteger(2);
+                    if (rand==1) {
+                        rarity="very rare";
+                    } else if (rand==2) {
+                        rarity="legendary";
+                    }
+                break;
+                case 'legendary:legendary':
+                    rarity="legendary";
+                break;
+            }
+            for (let j=0;j<list.length;j++) {
+                if (list[i].rarity==rarity) {
+                    miscList[count]=list[i];
+                    count++;
+                }
+            }
+            rand=randomInteger(miscList.length);
+            if (items[0]==undefined) {
+                items.push(miscList[rand]);
+            } else {
+                for (let j=0;j<items.length;j++) {
+                    if (items[j].name==miscList[rand-1].name) {
+                        items[j].amount++;
+                    }
+                }
+            }
+        }
+        return items;
+    },
+
+    genMundane = function(amount) {
+        let items=[];
+        let list=state.list.mundane;
+        for (let i=0;i<amount;i++) {
+            let rand=randomInteger(list.length);
+            if (items[0]==undefined) {
+                items.push(list[rand-1]);
+            } else {
+                for (let j=0;j<items.length;j++) {
+                    if (items[j].name==list[rand-1].name) {
+                        items[j].amount++;
+                    }
+                }
+            }
+        }
+        return items;
+    },
+
+    checkRarity = function(minrare,maxrare) {
+        minrare=minrare.toLowerCase();
+        maxrare=maxrare.toLowerCase();
+        let rarity=[];
+        switch (minrare) {
+            case 'uncommon':
+                if (maxrare=="common") {
+                    sendChat("Item Store","/w gm Maximum Rarity may not be below Minimum Rarity!");
+                } else {
+                    rarity[0]=minrare;
+                    rarity[1]=maxrare;
+                    return rarity;
+                }
+            break;
+            case 'rare':
+                if (maxrare=="common" || maxrare=="uncommon") {
+                    sendChat("Item Store","/w gm Maximum Rarity may not be below Minimum Rarity!");
+                } else {
+                    rarity[0]=minrare;
+                    rarity[1]=maxrare;
+                    return rarity;
+                }
+            break;
+            case 'very rare':
+                if (maxrare=="common" || maxrare=="uncommon" || maxrare=="rare") {
+                    sendChat("Item Store","/w gm Maximum Rarity may not be below Minimum Rarity!");
+                } else {
+                    rarity[0]=minrare;
+                    rarity[1]=maxrare;
+                    return rarity;
+                }
+            break;
+            case 'legendary':
+                if (maxrare!=="legendary") {
+                    sendChat("Item Store","/w gm Maximum Rarity may not be below Minimum Rarity!");
+                } else {
+                    rarity[0]=minrare;
+                    rarity[1]=maxrare;
+                    return rarity;
+                }
+            break;
+        }
     },
 
     resetInv = function(store) {
