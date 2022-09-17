@@ -36,14 +36,17 @@ GM ONLY
 GM & Players
 !shop - Pulls up a Menu where all active Stores and Options are displayed
     --cart {Insert Cart Number/Name} - Select a Cart to use. (Optional)
-    --store {Insert existing Shop name/number} - selects a certain Shop
+    --store {Insert existing Shop name} - selects a certain Shop
         --char {Insert Character Name} - select a Character you want to use
         --charid {Insert Character ID} - "
-            --buy {Insert Item name/number} - Pulls up the Purchasing menu
+            --buy {Insert Item name} - Pulls up the Purchasing menu
                 --amount {Insert amount} - increases the amount of Items you buy (Default: 1)
             --haggle - Pulls up the Haggling menu
-                --amount - sets the amount you want to haggle for
-                    --skill {Insert Skill} - sets the skill used in haggling (Persuasion or Intimidation)
+                --item {Insert Item Name} - Select the Item you wish to haggle for.
+                    --char {Insert Character Name} - Select the Character you want to use
+                    --charid {Insert Character ID} - "
+                        --amount - sets the amount you want to haggle for
+                            --skill {Insert Skill} - sets the skill used in haggling (Persuasion or Intimidation)
 !cart - Pulls up the Shopping Cart Menu.
     --new - Creates a new Shopping Cart.
     --{Insert Cart Number/Name} - Shows you the content of the selected Cart.
@@ -654,60 +657,510 @@ var ItemStore = ItemStore || (function() {
                     sellam: 1
                 }
             ],
-            potion: [],
+            potion: [
+                {
+                    name: "Potion of Climbing",
+                    desc: "Potion (common);When you drink this potion, for 1 hour, you gain a climbing speed equal to your walking speed for 1 hour. During this time, you have advantage on Strength (Athletics) checks you make to climb. The potion is separated into brown, silver, and gray layers resembling bands of stone. Shaking the bottle fails to mix the colors.",
+                    mods: "Item Type: Potion, Athletics:Advantage",
+                    props: "",
+                    price: 180,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "common"
+                },
+                {
+                    name: "Potion of Healing",
+                    desc: "Potion (common);You regain 2d4 + 2 hit points when you drink this Potion.",
+                    mods: "Item Type: Potion, Damage: 2d4+2, Damage Type: healing",
+                    props: "",
+                    price: 50,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "common"
+                },
+                {
+                    name: "Philter of Love",
+                    desc: "Potion (uncommon);You become charmed for 1 hour by the first creature you see within the first ten minutes of drinking this, and if that creature is of a species and gender you are normally attracted to you consider them your true love.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 90,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Poison",
+                    desc: "Potion (uncommon);A creature that ingests this takes 3d6 poison damage and must succeed on a DC 13 Constitution saving throw or be poisoned. If poisoned, they take 3d6 poison damage at the start of each of its turns until the effect is ended. The creature can repeat the saving throw at the end of each of its turns. On a successful save, the damage on each subsequent turn is decreased by 1d6 until it hits 0.",
+                    mods: "Item Type: Potion, Damage: 3d6, Damage Type: poison",
+                    props: "",
+                    price: 100,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Elixir of Health",
+                    desc: "Potion (rare);Drinking this potion cures any disease you have and removes blinded, deafened, paralyzed, and poisoned conditions.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 120,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Fire Breath",
+                    desc: "Potion (uncommon);After drinking this potion for 1 hour or up to 3 times, you can use your bonus action to exhale fire at a target within 30 feet. The target takes 4d6 fire damage or half on a successful DC 13 Dexterity saving throw.",
+                    mods: "Item Type: Potion, Damage: 4d6, Damage Type: fire",
+                    props: "",
+                    price: 150,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Greater Healing",
+                    desc: "Potion (uncommon);You regain 4d4 + 4 HP after drinking this Potion.",
+                    mods: "Item Type: Potion, Damage: 4d4+4, Damage Type: healing",
+                    props: "",
+                    price: 150,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Heroism",
+                    desc: "Potion (rare);When you drink this potion for 1 hour you gain 10 temporary HP as well as the effects of the bless spell (no concentration required).",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 180,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Water Breathing",
+                    desc: "Potion (uncommon);When you drink this potion you can breathe underwater for 1 hour.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 180,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Animal Friendship",
+                    desc: "Potion (uncommon);After drinking this potion you can cast the Animal Friendship spell (save DC 13) at will for 1 hour.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 200,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Diminution",
+                    desc: "Potion (rare);When you drink this potion, a creature gains the “reduce” effect of the Enlarge/Reduce spell for 1d4 hours (no concentration required).",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 270,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Growth",
+                    desc: "Potion (uncommon);When you drink this potion you gain the “enlarge” effect of the Enlarge/Reduce spell for 1d4 hours (no concentration required).",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 270,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Gaseous Form",
+                    desc: "Potion (rare);When you drink this potion you gain the effect of the gaseous form spell for 1 hour (no concentration required).",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 300,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Resistance",
+                    desc: "Potion (uncommon);When you drink this, for 1 hour, you gain resistance to one type of damage that the DM chooses.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 300,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Speed",
+                    desc: "Potion (very rare);When you drink this potion you gain the effect of the haste spell for 1 minute (no concentration required).",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 400,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "very rare"
+                },
+                {
+                    name: "Potion of Mind Reading",
+                    desc: "Potion (rare);When drunk, a creature gains the effect of the Detect Thoughts spell for 1 minute (save DC 13).",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 450,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Superior Healing",
+                    desc: "Potion (rare);When you drink this potion you regain 8d4 + 8 HP.",
+                    mods: "Item Type: Potion, Damage: 8d4+8, Damage Type: healing",
+                    props: "",
+                    price: 450,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Oil of Slipperiness",
+                    desc: "Potion (uncommon);After taking 10 minutes to cover a medium or smaller creature this oil grants the covered creature the effects of the Freedom of Movement spell for 8 hours. The oil can also be poured on the ground covering a 10-foot square in order to replicate the spell Grease.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 480,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Flying",
+                    desc: "Potion (very rare);For 1 hour after you drink this potion, you gain a flying speed equal to your walking speed and can hover.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 500,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "very rare"
+                },
+                {
+                    name: "Potion of Hill Giant Strength",
+                    desc: "Potion (uncommon);When you drink this potion your Strength score is increased to 21 for 1 hour.",
+                    mods: "Item Type: Potion, Strength: 21",
+                    props: "",
+                    price: 500,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "uncommon"
+                },
+                {
+                    name: "Potion of Invisibility",
+                    desc: "Potion (very rare);When you drink this potion you become invisible for 1 hour, along with anything you're carrying or wearing. The effect ends early if you make an attack or cast a spell.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 600,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "very rare"
+                },
+                {
+                    name: "Potion of Mind Control (Beasts)",
+                    desc: "Potion (rare);When you drink this potion you can cast a Dominate spell (save DC 15) on a specific creature if you do so before the end of your next turn. If you don\'t, the potion is wasted. If the creature fails the save the effect lasts for 1 hour and the creature has disadvantage on subsequent saves (no concentration required).",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 700,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Clairvoyance",
+                    desc: "Potion (rare);When you drink this potion you gain the effect of the clairvoyance spell for 10 minutes.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 960,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Vitality",
+                    desc: "Potion (very rare);When you drink this potion your exhaustion is removed and any diseases or poison effects are cured. For the next 24 hours, you regain the maximum number of HP for any Hit Die spent.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 960,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "very rare"
+                },
+                {
+                    name: "Potion of Supreme Healing",
+                    desc: "Potion (very rare);When you drink this potion you regain 10d4 + 20 HP.",
+                    mods: "Item Type: Potion, Damage: 10d4+20, Damage Type: healing",
+                    props: "",
+                    price: 1350,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "very rare"
+                },
+                {
+                    name: "Potion of Maximum Power",
+                    desc: "Potion (rare);The first time you cast a damage-dealing spell of 4th level or lower within 1 minute of drinking the potion, instead of rolling dice to determine the damage dealt, you can instead use the highest number possible for each die.",
+                    mods: "Item Type: Potion, Attack:Advantage",
+                    props: "",
+                    price: 1400,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Mind Control (Humanoids)",
+                    desc: "Potion (rare);When you drink this potion you can cast a Dominate spell (save DC 15) on a specific creature if you do so before the end of your next turn. If you don't, the potion is wasted. If the creature fails the save the effect lasts for 1 hour and the creature has disadvantage on subsequent saves (no concentration required).",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 1550,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Mind Control (Any)",
+                    desc: "Potion (very rare);When you drink this potion you can cast a Dominate spell (save DC 15) on a specific creature if you do so before the end of your next turn. If you don't, the potion is wasted. If the creature fails the save the effect lasts for 1 hour and the creature has disadvantage on subsequent saves (no concentration required).",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 1800,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "very rare"
+                },
+                {
+                    name: "Oil of Etherealness",
+                    desc: "Potion (rare);After taking 10 minutes to cover a medium or smaller creature, that creature gains the effect of the etherealness spell for 1 hour.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 1920,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Stone Giant Strength",
+                    desc: "Potion (rare);When you drink this potion your Strength score is increased to 23 for 1 hour.",
+                    mods: "Item Type: Potion, Strength: 23",
+                    props: "",
+                    price: 2000,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Frost Giant Strength",
+                    desc: "Potion (rare);When you drink this potion your Strength score is increased to 23 for 1 hour.",
+                    mods: "Item Type: Potion, Strength: 23",
+                    props: "",
+                    price: 2000,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Fire Giant Strength",
+                    desc: "Potion (rare);When you drink this potion your Strength score is increased to 25 for 1 hour.",
+                    mods: "Item Type: Potion, Strength: 25",
+                    props: "",
+                    price: 3000,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Oil of Sharpness",
+                    desc: "Potion (very rare);You can coat one slashing or piercing weapon or up to 5 pieces of ammunition with this oil, which takes 1 minute to apply. For 1 hour, the coated item has a +3 bonus to attack and damage rolls.",
+                    mods: "Item Type: Potion, Attack +3",
+                    props: "",
+                    price: 3200,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "very rare"
+                },
+                {
+                    name: "Potion of Invulnerability",
+                    desc: "Potion (rare);When drunk, a creature gains resistance to all damage.",
+                    mods: "Item Type: Potion",
+                    props: "",
+                    price: 3840,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "rare"
+                },
+                {
+                    name: "Potion of Cloud Giant Strength",
+                    desc: "Potion (very rare);When you drink this potion your Strength score is increased to 27 for 1 hour.",
+                    mods: "Item Type: Potion, Strength: 27",
+                    props: "",
+                    price: 5000,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "very rare"
+                },
+                {
+                    name: "Potion of Storm Giant Strength",
+                    desc: "Potion (very rare);When you drink this potion your Strength score is increased to 29 for 1 hour.",
+                    mods: "Item Type: Potion, Strength: 29",
+                    props: "",
+                    price: 6000,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "very rare"
+                },
+                {
+                    name: "Potion of Longevity",
+                    desc: "Potion (legendary);When you drink this potion your physical age is reduced by 1d6 + 6 years, to a minimum of 13 years. Each subsequent time a creature drinks this potion, there is a 10% cumulative chance that it will instead age 1d6 +6 years.",
+                    mods: "Item Type: Potion, Damage: 1d6+6, Damage Type: years",
+                    props: "",
+                    price: 9000,
+                    weight: 0.5,
+                    amount: 1,
+                    sellam: 1,
+                    rarity: "legendary"
+                }
+            ],
             scroll: [
                 {
                     name: "Cantrip Scroll",
                     rarity: "common",
-                    amount: 1
+                    price: 50,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 },
                 {
                     name: "1st-Level Scroll",
                     rarity: "common",
-                    amount: 1
+                    price: 100,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 },
                 {
                     name: "2nd-Level Scroll",
                     rarity: "uncommon",
-                    amount: 1
+                    price: 250,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 },
                 {
                     name: "3rd-Level Scroll",
                     rarity: "uncommon",
-                    amount: 1
+                    price: 500,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 },
                 {
                     name: "4th-Level Scroll",
                     rarity: "rare",
-                    amount: 1
+                    price: 1000,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 },
                 {
                     name: "5th-Level Scroll",
                     rarity: "rare",
-                    amount: 1
+                    price: 2500,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 },
                 {
                     name: "6th-Level Scroll",
                     rarity: "very rare",
-                    amount: 1
+                    price: 10000,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 },
                 {
                     name: "7th-Level Scroll",
                     rarity: "very rare",
-                    amount: 1
+                    price: 25000,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 },
                 {
                     name: "8th-Level Scroll",
                     rarity: "very rare",
-                    amount: 1
+                    price: 50000,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 },
                 {
                     name: "9th-Level Scroll",
                     rarity: "legendary",
-                    amount: 1
+                    price: 80000,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
                 }
             ],
-            spell: [],
+            spell: [
+                {
+                    name: "Acid Splash",
+                    desc: "Conjuration cantrip;You hurl a bubble of acid. Choose one creature you can see within range, or choose two creatures you can see within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage.<br><br>At Higher Levels. This spell\'s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+                    mods: "Item Type: Scroll, Damage: 1d6, Damage Type: acid",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+            ],
             misc: [],
             mundane: []
         }
@@ -987,20 +1440,25 @@ var ItemStore = ItemStore || (function() {
                                             shopMenu(store,cart,msg);
                                         } else if (args[4]=="haggle") {
                                             if (args[5]==undefined) {
-                                                haggleMenu(store,args[5],undefined,msg);
-                                            } else if (args[5].includes("amount")) {
-                                                let amount=Number(args[5].replace("amount ",""));
-                                                if (amount=="" || amount==" ") {
-                                                    sendChat("Item Store","/w "+msg.who+" Please input a valid Amount!");
-                                                } else {
-                                                    if (args[6]==undefined) {
-                                                        haggleMenu(store,amount,args[6],msg);
-                                                    } else if (args[6].includes("skill")) {
-                                                        let skill=args[6].replace("skill ","");
-                                                        if (skill.toLowerCase()!=="persuasion" || skill.toLowerCase()!=="intimidation") {
-                                                            sendChat("Item Store","/w "+msg.who+" You must pick either Persuasion or Intimidation!");
-                                                        } else if (skill.toLowerCase()=="persuasion" || skill.toLowerCase()=="intimidation") {
-                                                            haggleMenu(store,amount,skill,msg);
+                                                sendChat("Item Store","/w "+msg.who+" You must define an Item you wish to haggle for.");
+                                            } else if (args[5].includes("item")) {
+                                                let item=args[5].replace("item ","");
+                                                if (args[6]==undefined) {
+                                                    haggleMenu(store,item,args[6],undefined,args[3],msg);
+                                                } else if (args[6].includes("amount")) {
+                                                    let amount=Number(args[6].replace("amount ",""));
+                                                    if (amount=="" || amount==" ") {
+                                                        sendChat("Item Store","/w "+msg.who+" Please input a valid Amount!");
+                                                    } else {
+                                                        if (args[7]==undefined) {
+                                                            haggleMenu(store,item,amount,args[7],args[3],msg);
+                                                        } else if (args[7].includes("skill")) {
+                                                            let skill=args[7].replace("skill ","");
+                                                            if (skill.toLowerCase()!=="persuasion" || skill.toLowerCase()!=="intimidation") {
+                                                                sendChat("Item Store","/w "+msg.who+" You must pick either Persuasion or Intimidation!");
+                                                            } else if (skill.toLowerCase()=="persuasion" || skill.toLowerCase()=="intimidation") {
+                                                                haggleMenu(store,item,amount,skill,args[3],msg);
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -1033,21 +1491,21 @@ var ItemStore = ItemStore || (function() {
                                         } else if (args[4]==undefined) {
                                             shopMenu(store,cart,msg);
                                         } else if (args[4]=="haggle") {
-                                            if (args[5]==undefined) {
-                                                haggleMenu(store,args[5],undefined,msg);
-                                            } else if (args[5].includes("amount")) {
-                                                let amount=Number(args[5].replace("amount ",""));
+                                            if (args[6]==undefined) {
+                                                sendChat("Item Store","/w "+msg.who+" Please input a valid Amount!");
+                                            } else if (args[6].includes("amount")) {
+                                                let amount=Number(args[6].replace("amount ",""));
                                                 if (amount=="" || amount==" ") {
                                                     sendChat("Item Store","/w "+msg.who+" Please input a valid Amount!");
                                                 } else {
-                                                    if (args[6]==undefined) {
-                                                        haggleMenu(store,amount,args[6],msg);
-                                                    } else if (args[6].includes("skill")) {
-                                                        let skill=args[6].replace("skill ","");
+                                                    if (args[7]==undefined) {
+                                                        haggleMenu(store,amount,args[7],args[3],msg);
+                                                    } else if (args[7].includes("skill")) {
+                                                        let skill=args[7].replace("skill ","");
                                                         if (skill.toLowerCase()!=="persuasion" || skill.toLowerCase()!=="intimidation") {
                                                             sendChat("Item Store","/w "+msg.who+" You must pick either Persuasion or Intimidation!");
                                                         } else if (skill.toLowerCase()=="persuasion" || skill.toLowerCase()=="intimidation") {
-                                                            haggleMenu(store,amount,skill,msg);
+                                                            haggleMenu(store,amount,skill,args[3],msg);
                                                         }
                                                     }
                                                 }
@@ -1131,14 +1589,37 @@ var ItemStore = ItemStore || (function() {
                 } else if (args[1].includes("store")) {
                     let store=args[1].replace("store ","");
                     if (args[2]==undefined) {
-                        sendChat("Item Store","/w "+msg.who+" You must select an amount to wish to haggle for!");
-                    } else if (args[2].includes("amount")) {
-                        let amount=Number(args[2].replace("amount ",""));
+                        sendChat("Item Store","/w "+msg.who+" Please select an Item you wish to haggle for!");
+                    } else if (args[2].includes("item")) {
+                        let item=args[2];
                         if (args[3]==undefined) {
-                            sendChat("Item Store","/w "+msg.who+" You must select either Persuasion or Intimidation to Haggle!");
-                        } else if (args[3].includes("skill")) {
-                            let skill=args[3].replace("skill ","");
-                            haggle(store,amount,skill);
+                            sendChat("Item Store","/w "+msg.who+" Please select a valid Character Name/ID!");
+                        } else if (args[3].includes("charid")) {
+                            if (args[4]==undefined) {
+                                sendChat("Item Store","/w "+msg.who+" Please define an Amount you wish you haggle for!");
+                            } else if (args[4].includes("amount")) {
+                                let amount=Number(args[4].replace("amount ",""));
+                                if (args[5]==undefined) {
+                                    sendChat("Item Store","/w "+msg.who+" You must select either Persuasion or Intimidation to Haggle!");
+                                } else if (args[5].includes("skill")) {
+                                    let skill=args[4].replace("skill ","");
+                                    haggle(store,item,args[2],amount,skill);
+                                    shopMenu(store,undefined,msg);
+                                }
+                            }
+                        } else if (args[3].includes("char")) {
+                            if (args[4]==undefined) {
+                                sendChat("Item Store","/w "+msg.who+" Please define an Amount you wish you haggle for!");
+                            } else if (args[4].includes("amount")) {
+                                let amount=Number(args[4].replace("amount ",""));
+                                if (args[5]==undefined) {
+                                    sendChat("Item Store","/w "+msg.who+" You must select either Persuasion or Intimidation to Haggle!");
+                                } else if (args[5].includes("skill")) {
+                                    let skill=args[4].replace("skill ","");
+                                    haggle(store,item,args[2],amount,skill);
+                                    shopMenu(store,undefined,msg);
+                                }
+                            }
                         }
                     }
                 }
@@ -2636,7 +3117,7 @@ var ItemStore = ItemStore || (function() {
                         rarity="legendary";
                     break;
                 }
-            } else if (list[rand-1].name.includes("Armor")) {
+            } else {
                 switch (rare) {
                     case 'common:common':
                         pricechange=0;
@@ -2840,7 +3321,7 @@ var ItemStore = ItemStore || (function() {
                     mods+=", AC +3";
                     desc[1]="While holding this shield, you have a +3 bonus to AC. This bonus is in addition to the shield\'s normal bonus to AC.";
                 }
-            } else if (name.includes("armor")) {
+            } else {
                 if (namechange.includes("+1")) {
                     mods+=", AC +1";
                     desc[1]="You have a +1 bonus to AC while wearing this armor.";
@@ -2930,25 +3411,39 @@ var ItemStore = ItemStore || (function() {
             break;
         }
         let name;
+        let price;
+        let am;
+        let sellam;
         if (level==0) {
             level="cantrip";
         }
         for (let i=0;i<list.length;i++) {
             if (list.name.includes(String(level))) {
                 name=list[i].name;
+                price=list[i].price;
+                am=list[i].amount;
+                sellam=list[i].sellam;
             }
         }
         for (let i=0;i<amount;i++) {
             if (items[i]==undefined) {
                 let spell=rollSpell(level);
                 spell[0].name=name+" ("+spell[0].name+")";
+                spell[0].price=price;
+                spell[0].amount=am;
+                spell[0].sellam=sellam;
                 items.push(spell[0]);
             } else {
                 let spell=rollSpell(level);
                 spell[0].name=name+" ("+spell[0].name+")";
                 if (items[i].name==spell[0].name) {
                     items[i].amount++;
+                    spell[0].price=price;
+                    spell[0].sellam=sellam;
                 } else {
+                    spell[0].price=price;
+                    spell[0].amount=am;
+                    spell[0].sellam=sellam;
                     items.push(spell[0]);
                 }
             }
@@ -3958,6 +4453,7 @@ var ItemStore = ItemStore || (function() {
     purchase = function(type,cart,amount,store,charident,msg) {
         //Purchase either individual Item or a bunch of Items from a cart.
         let char;
+        amount=Number(amount);
         if (charident.includes("charid")) {
             char=findObjs({
                 _type: 'character',
@@ -4016,6 +4512,11 @@ var ItemStore = ItemStore || (function() {
                         gold.set('current',cur);
                         let desc=item.desc.split(';')
                         sendChat("Item Store","!setattr --charid "+char.get('_id')+" --repeating_inventory_-CREATE_itemname|"+item.name+' --repeating_inventory_-CREATE_itemcount|'+amount+' --repeating_inventory_-CREATE_itemcontent|'+desc[0]+'<br><br>'+desc[1]+' --repeating_inventory_-CREATE_itemmodifiers|'+item.mods+' --repeating_inventory_-CREATE_itemproperties|'+item.props+' --repeating_inventory_-CREATE_itemweight|'+item.weight);
+                        store.inv[pos2].amount-=Number(amount);
+                        if (store.inv[pos2].amount<=0) {
+                            store.inv.splice(pos2);
+                        }
+                        state.store[pos]=store;
                     }
                 }
             return;
@@ -4051,13 +4552,18 @@ var ItemStore = ItemStore || (function() {
                         gold.set("current",cur);
                         let desc=item.desc.split(';');
                         sendChat("Item Store","!setattr --charid "+char.get('_id')+" --repeating_inventory_-CREATE_itemname|"+item.name+" --repeating_inventory_-CREATE_itemcount|"+amount+" --repeating_inventory_-CREATE_itemcontent|"+desc[0]+"%NEWLINE%%NEWLINE%"+desc[1]+" --repeating_inventory_-CREATE_itemmodifiers|"+item.mods+' --repeating_inventory_-CREATE_itemproperties|'+item.props+' --repeating_inventory_-CREATE_itemweight|'+item.weight);
+                        store.inv[pos2].amount-=Number(amount);
+                        if (store.inv[pos2].amount<=0) {
+                            store.inv.splice(pos2);
+                        }
+                        state.store[pos]=store;
                     }
                 }
             break;
         }
     },
 
-    haggleMenu = function(store,amount,skill,charident,msg) {
+    haggleMenu = function(store,item,amount,skill,charident,msg) {
         //Open the Haggling Menu to negotiate price
         var divstyle = 'style="width: 260px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
         var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
@@ -4072,11 +4578,21 @@ var ItemStore = ItemStore || (function() {
         store=state.store.find(s => s.name==store);
         let shopList=[];
         let count=0;
+        let invList=store.inv;
+        let itemList=[];
+        item=invList.find(i => i.name==item);
         for (let i=0;i<state.store.length;i++) {
             if (state.store[i].active==true) {
                 shopList[count]=state.store[i].name;
                 count++;
             }
+        }
+        for (let i=0;i<invList.length;i++) {
+            itemList[i]=invList[i].name;
+        }
+        let len=invList.length;
+        for (let i=0;i<len;i++) {
+            itemList=String(itemList).replace(",","|");
         }
         for (let i=0;i<count;i++) {
             shopList=String(shopList).replace(",","|");
@@ -4099,6 +4615,7 @@ var ItemStore = ItemStore || (function() {
                 name: charident
             }, {caseInsensitive: true})[0];
         }
+        let desc=item.desc.split(';');
         sendChat("Item Store","/w "+msg.who+" <div " + divstyle + ">" + //--
             '<div ' + headstyle + '>Haggle Menu</div>' + //--
             '<div ' + substyle + '>' + store.name + '</div>' + //--
@@ -4108,18 +4625,61 @@ var ItemStore = ItemStore || (function() {
             '</table>' + //--
             '<br><br>' + //--
             '<table ' + tablestyle + '>' + //--
+            '<tr style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"><th style="border-left: 1px solid #cccccc; border-right: 1px solid #cccccc;">Item Name</th><th style="border-right: 1px solid #cccccc;">Description</th><th>Price (GP)</th></tr>' + //--
+            '<tr style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; border-right: 1px solid #cccccc;"><td style="border-right: 1px solid #cccccc;">' + item.name + '</td><td style="border-right: 1px solid #cccccc;">' + desc[0] + '</td><td>' + Number(item.price+item.price*store.cprice) + '</td></tr>' + //--
+            '</table>' + //--
+            '<br><br>' + //--
+            '<table ' + tablestyle + '>' + //--
             '<tr><td>Haggle DC: </td><td ' + tdstyle + '>' + store.hdc + '</td></tr>' + //--
             '<tr><td>Discount Amount: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!shop --store ' + store.name + ' --charid ' + char.get('_id') + ' --haggle --amount ?{Amount?|1} --skill ' + skill + '">' + amount + '</a></td></tr>' + //--
             '<tr><td>Skill: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!shop --store ' + store.name + ' --charid ' + char.get('_id') + ' --haggle --amount ' + amount + ' --skill ?{Skill?|Intimidation|Persuasion}">' + skill + '</a></td></tr>' + //--
             '</table>' + //--
             '<br><br>' + //--
-            '<div style="text-align:center;"><a ' + astyle2 + '" href="!haggle --store ' + store.name + ' --amount ' + amount + ' --skill ' + skill + '">Attempt Haggle</a></div>' + //-- 
+            '<div style="text-align:center;"><a ' + astyle2 + '" href="!haggle --store ' + store.name + ' --item ' + item.name + ' --charid ' + char.get('_id') + ' --amount ' + amount + ' --skill ' + skill + '">Attempt Haggle</a></div>' + //-- 
             '</div>'
         );
     },
 
-    haggle = function(store,amount,skill) {
+    haggle = function(store,item,charident,amount,skill,msg) {
         //Negotiate Price based on Skillchecks
+        store=state.store.find(s => s.name==store);
+        item=store.inv.find(i => i.name==item);
+        amount=Number(amount);
+        let char;
+        if (charident.includes("charid")) {
+            char=findObjs({
+                _type: 'character',
+                _id: charident
+            }, {caseInsensitive: true})[0];
+        } else if (charident.includes("char")) {
+            char=findObjs({
+                _type: 'character',
+                name: charident
+            }, {caseInsensitive: true})[0];
+        }
+        if (char!==undefined) {
+            let price=Number(item.price);
+            let sbonus=findObjs({
+                _type: 'attribute',
+                _characterid: char.get('_id'),
+                name: skill+"_bonus"
+            }, {caseInesnsitive: true})[0];
+            sbonus=sbonus.get('current');
+            let rand=randomInteger(20)+Number(sbonus);
+            if (rand>=store.hdc) {
+                price-=amount;
+            }
+            for (let i=0;i<store.inv.length;i++) {
+                if (store.inv[i].name==item.name) {
+                    store.inv[i].price=price;
+                }
+            }
+            for (let i=0;i<state.store.length;i++) {
+                if (state.store[i].name==store.name) {
+                    state.store[i]=store;
+                }
+            }
+        }
     },
     
     checkInstall = function() {
