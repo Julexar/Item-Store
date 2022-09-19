@@ -1069,6 +1069,7 @@ var ItemStore = ItemStore || (function() {
             scroll: [
                 {
                     name: "Cantrip Scroll",
+                    mods: "Item Type: Scroll",
                     rarity: "common",
                     price: 50,
                     weight: 0,
@@ -1077,6 +1078,7 @@ var ItemStore = ItemStore || (function() {
                 },
                 {
                     name: "1st-Level Scroll",
+                    mods: "Item Type: Scroll",
                     rarity: "common",
                     price: 100,
                     weight: 0,
@@ -1085,6 +1087,7 @@ var ItemStore = ItemStore || (function() {
                 },
                 {
                     name: "2nd-Level Scroll",
+                    mods: "Item Type: Scroll",
                     rarity: "uncommon",
                     price: 250,
                     weight: 0,
@@ -1093,6 +1096,7 @@ var ItemStore = ItemStore || (function() {
                 },
                 {
                     name: "3rd-Level Scroll",
+                    mods: "Item Type: Scroll",
                     rarity: "uncommon",
                     price: 500,
                     weight: 0,
@@ -1101,6 +1105,7 @@ var ItemStore = ItemStore || (function() {
                 },
                 {
                     name: "4th-Level Scroll",
+                    mods: "Item Type: Scroll",
                     rarity: "rare",
                     price: 1000,
                     weight: 0,
@@ -1109,6 +1114,7 @@ var ItemStore = ItemStore || (function() {
                 },
                 {
                     name: "5th-Level Scroll",
+                    mods: "Item Type: Scroll",
                     rarity: "rare",
                     price: 2500,
                     weight: 0,
@@ -1117,6 +1123,7 @@ var ItemStore = ItemStore || (function() {
                 },
                 {
                     name: "6th-Level Scroll",
+                    mods: "Item Type: Scroll",
                     rarity: "very rare",
                     price: 10000,
                     weight: 0,
@@ -1133,6 +1140,7 @@ var ItemStore = ItemStore || (function() {
                 },
                 {
                     name: "8th-Level Scroll",
+                    mods: "Item Type: Scroll",
                     rarity: "very rare",
                     price: 50000,
                     weight: 0,
@@ -1141,6 +1149,7 @@ var ItemStore = ItemStore || (function() {
                 },
                 {
                     name: "9th-Level Scroll",
+                    mods: "Item Type: Scroll",
                     rarity: "legendary",
                     price: 80000,
                     weight: 0,
@@ -1152,7 +1161,7 @@ var ItemStore = ItemStore || (function() {
                 {
                     name: "Acid Splash",
                     desc: "Conjuration cantrip;You hurl a bubble of acid. Choose one creature you can see within range, or choose two creatures you can see within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage.<br><br>At Higher Levels. This spell\'s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
-                    mods: "Item Type: Scroll, Damage: 1d6, Damage Type: acid",
+                    mods: ", Damage: 1d6, Damage Type: acid",
                     props: "",
                     level: "cantrip",
                     price: 0,
@@ -1160,6 +1169,138 @@ var ItemStore = ItemStore || (function() {
                     amount: 0,
                     sellam: 0
                 },
+                {
+                    name: "Blade Ward",
+                    desc: "Abjuration cantrip;You extend your hand and trace a sigil of warding in the air. Until the end of your next turn, you have resistance against bludgeoning, piercing, and slashing damage dealt by weapon attacks.",
+                    mods: "",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Booming Blade",
+                    desc: "Evocation cantrip;You brandish the weapon used in the spell\'s casting and make a melee attack with it against one creature within 5 feet of you. On a hit, the target suffers the weapon attack\'s normal effects and then becomes sheathed in booming energy until the start of your next turn. If the target willingly moves 5 feet or more before then, the target takes 1d8 thunder damage, and the spell ends.<br><br>At Higher Levels. At 5th level, the melee attack deals an extra 1d8 thunder damage to the target on a hit, and the damage the target takes for moving increases to 2d8. Both damage rolls increase by 1d8 at 11th level (2d8 and 3d8) and again at 17th level (3d8 and 4d8).",
+                    mods: ", Damage: 1d8, Damage Type: thunder",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Chill Touch",
+                    desc: "Necromancy cantrip;You create a ghostly, skeletal hand in the space of a creature within range. Make a ranged spell attack against the creature to assail it with the chill of the grave. On a hit, the target takes 1d8 necrotic damage, and it can\'t regain hit points until the start of your next turn. Until then, the hand clings to the target. If you hit an undead target, it also has disadvantage on attack rolls against you until the end of your next turn.<br><br>At Higher Levels. This spell\'s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+                    mods: ", Damage: 1d8, Damage Type: necrotic",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Control Flames",
+                    desc: "Transmutation cantrip;You choose nonmagical flame that you can see within range and that fits within a 5-foot cube. You affect it in one of the following ways:<br>- You instantaneously expand the flame 5 feet in one direction, provided that wood or other fuel is present in the new location.<br>- You instantaneously extinguish the flames within the cube.<br>- You double or halve the area of bright light and dim light cast by the flame, change its color, or both. The change lasts for 1 hour.<br>- You cause simple shapes—such as the vague form of a creature, an inanimate object, or a location—to appear within the flames and animate as you like. The shapes last for 1 hour.<br><br>If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action.",
+                    mods: "",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Create Bonfire",
+                    desc: "Conjuration cantrip;You create a bonfire on ground that you can see within range. Until the spell ends, the bonfire fills a 5-foot cube. Any creature in the bonfire’s space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it enters the bonfire\'s space for the first time on a turn or ends its turn there.<br><br>At Higher Levels. The spell\'s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+                    mods: ", Damage: 1d8, Damage Type: fire",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Dancing Lights",
+                    desc: "Evocation cantrip;You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. You can also combine the four lights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius.<br><br>As a bonus action on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell\'s range.",
+                    mods: "",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Druidcraft",
+                    desc: "Transmutation cantrip;Whispering to the spirits of nature, you create one of the following effects within range:<br>- You create a tiny, harmless sensory effect that predicts what the weather will be at your location for the next 24 hours. The effect might manifest as a golden orb for clear skies, a cloud for rain, falling snowflakes for snow, and so on. This effect persists for 1 round.<br>- You instantly make a flower blossom, a seed pod open, or a leaf bud bloom.<br>- You create an instantaneous, harmless sensory effect, such as falling leaves, a puff of wind, the sound of a small animal, or the faint odor of skunk. The effect must fit in a 5-foot cube.<br>- You instantly light or snuff out a candle, a torch, or a small campfire.",
+                    mods: "",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Eldritch Blast",
+                    desc: "Evocation cantrip;A beam of crackling energy streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 force damage.<br><br>At Higher Levels. The spell creates more than one beam when you reach higher levels: two beams at 5th level, three beams at 11th level, and four beams at 17th level. You can direct the beams at the same target or at different ones. Make a separate attack roll for each beam.",
+                    mods: ", Damage: 1d10, Damage Type: force",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Encode Thoughts",
+                    desc: "Enchantment cantrip;You pull a memory, an idea, or a message from your mind and transform it into a tangible string of glowing energy called a thought strand, which persists for the duration or until you cast this spell again. The thought strand appears in an unoccupied space within 5 feet of you as a Tiny, weightless, semisolid object that can be held and carried like a ribbon. It is otherwise stationary.<br><br>If you cast this spell while concentrating on a spell or an ability that allows you to read or manipulate the thoughts of others (such as detect thoughts or modify memory), you can transform the thoughts or memories you read, rather than your own, into a thought strand.<br><br>Casting this spell while holding a thought strand allows you to instantly receive whatever memory, idea, or message the thought strand contains. (Casting detect thoughts on the strand has the same effect.)",
+                    mods: "",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Fire Bolt",
+                    desc: "Evocation cantrip;You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn\'t being worn or carried.<br><br>At Higher Levels. This spell\'s damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
+                    mods: ", Damage: 1d10, Damage Type: fire",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Friends",
+                    desc: "Enchantment cantrip;For the duration, you have advantage on all Charisma checks directed at one creature of your choice that isn\'t hostile toward you. When the spell ends, the creature realizes that you used magic to influence its mood and becomes hostile toward you. A creature prone to violence might attack you. Another creature might seek retribution in other ways (at the DM\'s discretion), depending on the nature of your interaction with it.",
+                    mods: "",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                },
+                {
+                    name: "Frostbite",
+                    desc: "Evocation cantrip;You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.<br><br>At Higher Levels. The spell\'s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+                    mods: ", Damage: 1d6, Damage Type: cold",
+                    props: "",
+                    level: "cantrip",
+                    price: 0,
+                    weight: 0,
+                    amount: 0,
+                    sellam: 0
+                }
             ],
             misc: [],
             mundane: []
@@ -3414,6 +3555,7 @@ var ItemStore = ItemStore || (function() {
         let price;
         let am;
         let sellam;
+        let mods;
         if (level==0) {
             level="cantrip";
         }
@@ -3423,6 +3565,7 @@ var ItemStore = ItemStore || (function() {
                 price=list[i].price;
                 am=list[i].amount;
                 sellam=list[i].sellam;
+                mods=list[i].mods
             }
         }
         for (let i=0;i<amount;i++) {
@@ -3432,6 +3575,7 @@ var ItemStore = ItemStore || (function() {
                 spell[0].price=price;
                 spell[0].amount=am;
                 spell[0].sellam=sellam;
+                spell[0].mods=mods+spell[0].mods;
                 items.push(spell[0]);
             } else {
                 let spell=rollSpell(level);
@@ -3440,10 +3584,12 @@ var ItemStore = ItemStore || (function() {
                     items[i].amount++;
                     spell[0].price=price;
                     spell[0].sellam=sellam;
+                    spell[0].mods=mods+spell[0].mods;
                 } else {
                     spell[0].price=price;
                     spell[0].amount=am;
                     spell[0].sellam=sellam;
+                    spell[0].mods=mods+spell[0].mods;
                     items.push(spell[0]);
                 }
             }
