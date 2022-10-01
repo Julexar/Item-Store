@@ -1070,8 +1070,10 @@ var ItemStore = ItemStore || (function() {
                 {
                     name: "Cantrip Scroll",
                     mods: "Item Type: Scroll",
+                    desc: "Scroll (common);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
+                    props: "",
                     rarity: "common",
-                    price: 50,
+                    price: 10,
                     weight: 0,
                     amount: 1,
                     sellam: 1
@@ -1079,15 +1081,30 @@ var ItemStore = ItemStore || (function() {
                 {
                     name: "1st-Level Scroll",
                     mods: "Item Type: Scroll",
+                    desc: "Scroll (common);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
+                    props: "",
                     rarity: "common",
-                    price: 100,
+                    price: 60,
                     weight: 0,
                     amount: 1,
                     sellam: 1
                 },
                 {
                     name: "2nd-Level Scroll",
+                    desc: "Scroll (uncommon);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
                     mods: "Item Type: Scroll",
+                    props: "",
+                    rarity: "uncommon",
+                    price: 120,
+                    weight: 0,
+                    amount: 1,
+                    sellam: 1
+                },
+                {
+                    name: "3rd-Level Scroll",
+                    desc: "Scroll (uncommon);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
+                    mods: "Item Type: Scroll",
+                    props: "",
                     rarity: "uncommon",
                     price: 250,
                     weight: 0,
@@ -1095,63 +1112,67 @@ var ItemStore = ItemStore || (function() {
                     sellam: 1
                 },
                 {
-                    name: "3rd-Level Scroll",
-                    mods: "Item Type: Scroll",
-                    rarity: "uncommon",
-                    price: 500,
-                    weight: 0,
-                    amount: 1,
-                    sellam: 1
-                },
-                {
                     name: "4th-Level Scroll",
+                    desc: "Scroll (rare);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
                     mods: "Item Type: Scroll",
+                    props: "",
                     rarity: "rare",
-                    price: 1000,
+                    price: 520,
                     weight: 0,
                     amount: 1,
                     sellam: 1
                 },
                 {
                     name: "5th-Level Scroll",
+                    desc: "Scroll (rare);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
                     mods: "Item Type: Scroll",
+                    props: "",
                     rarity: "rare",
-                    price: 2500,
+                    price: 850,
                     weight: 0,
                     amount: 1,
                     sellam: 1
                 },
                 {
                     name: "6th-Level Scroll",
+                    desc: "Scroll (very rare);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
                     mods: "Item Type: Scroll",
+                    props: "",
                     rarity: "very rare",
-                    price: 10000,
+                    price: 1500,
                     weight: 0,
                     amount: 1,
                     sellam: 1
                 },
                 {
                     name: "7th-Level Scroll",
+                    desc: "Scroll (very rare);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
+                    mods: "Item Type: Scroll",
+                    props: "",
                     rarity: "very rare",
-                    price: 25000,
+                    price: 2550,
                     weight: 0,
                     amount: 1,
                     sellam: 1
                 },
                 {
                     name: "8th-Level Scroll",
+                    desc: "Scroll (very rare);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
                     mods: "Item Type: Scroll",
+                    props: "",
                     rarity: "very rare",
-                    price: 50000,
+                    price: 5250,
                     weight: 0,
                     amount: 1,
                     sellam: 1
                 },
                 {
                     name: "9th-Level Scroll",
+                    desc: "Scroll (legendary);A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class\'s spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Casting the spell by reading the scroll requires the spell\'s normal casting time. Once the spell is cast, the words on the scroll fade, and it crumbles to dust. If the casting is interrupted, the scroll is not lost.<br><br>If the spell is on your class\'s spell list but of a higher level than you can normally cast, you must make an ability check using your spellcasting ability to determine whether you cast it successfully. The DC equals 10 + the spell\'s level. On a failed check, the spell disappears from the scroll with no other effect.<br><br>Once the spell is cast, the words on the scroll fade, and the scroll itself crumbles to dust.",
                     mods: "Item Type: Scroll",
+                    props: "",
                     rarity: "legendary",
-                    price: 80000,
+                    price: 10250,
                     weight: 0,
                     amount: 1,
                     sellam: 1
@@ -1160,150 +1181,505 @@ var ItemStore = ItemStore || (function() {
             spell: [
                 {
                     name: "Acid Splash",
-                    desc: "Conjuration cantrip;You hurl a bubble of acid. Choose one creature you can see within range, or choose two creatures you can see within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage.<br><br>At Higher Levels. This spell\'s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
-                    mods: ", Damage: 1d6, Damage Type: acid",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Blade Ward",
-                    desc: "Abjuration cantrip;You extend your hand and trace a sigil of warding in the air. Until the end of your next turn, you have resistance against bludgeoning, piercing, and slashing damage dealt by weapon attacks.",
-                    mods: "",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Booming Blade",
-                    desc: "Evocation cantrip;You brandish the weapon used in the spell\'s casting and make a melee attack with it against one creature within 5 feet of you. On a hit, the target suffers the weapon attack\'s normal effects and then becomes sheathed in booming energy until the start of your next turn. If the target willingly moves 5 feet or more before then, the target takes 1d8 thunder damage, and the spell ends.<br><br>At Higher Levels. At 5th level, the melee attack deals an extra 1d8 thunder damage to the target on a hit, and the damage the target takes for moving increases to 2d8. Both damage rolls increase by 1d8 at 11th level (2d8 and 3d8) and again at 17th level (3d8 and 4d8).",
-                    mods: ", Damage: 1d8, Damage Type: thunder",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Chill Touch",
-                    desc: "Necromancy cantrip;You create a ghostly, skeletal hand in the space of a creature within range. Make a ranged spell attack against the creature to assail it with the chill of the grave. On a hit, the target takes 1d8 necrotic damage, and it can\'t regain hit points until the start of your next turn. Until then, the hand clings to the target. If you hit an undead target, it also has disadvantage on attack rolls against you until the end of your next turn.<br><br>At Higher Levels. This spell\'s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
-                    mods: ", Damage: 1d8, Damage Type: necrotic",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Control Flames",
-                    desc: "Transmutation cantrip;You choose nonmagical flame that you can see within range and that fits within a 5-foot cube. You affect it in one of the following ways:<br>- You instantaneously expand the flame 5 feet in one direction, provided that wood or other fuel is present in the new location.<br>- You instantaneously extinguish the flames within the cube.<br>- You double or halve the area of bright light and dim light cast by the flame, change its color, or both. The change lasts for 1 hour.<br>- You cause simple shapes—such as the vague form of a creature, an inanimate object, or a location—to appear within the flames and animate as you like. The shapes last for 1 hour.<br><br>If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action.",
-                    mods: "",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Create Bonfire",
-                    desc: "Conjuration cantrip;You create a bonfire on ground that you can see within range. Until the spell ends, the bonfire fills a 5-foot cube. Any creature in the bonfire’s space when you cast the spell must succeed on a Dexterity saving throw or take 1d8 fire damage. A creature must also make the saving throw when it enters the bonfire\'s space for the first time on a turn or ends its turn there.<br><br>At Higher Levels. The spell\'s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
-                    mods: ", Damage: 1d8, Damage Type: fire",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Dancing Lights",
-                    desc: "Evocation cantrip;You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. You can also combine the four lights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius.<br><br>As a bonus action on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell\'s range.",
-                    mods: "",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Druidcraft",
-                    desc: "Transmutation cantrip;Whispering to the spirits of nature, you create one of the following effects within range:<br>- You create a tiny, harmless sensory effect that predicts what the weather will be at your location for the next 24 hours. The effect might manifest as a golden orb for clear skies, a cloud for rain, falling snowflakes for snow, and so on. This effect persists for 1 round.<br>- You instantly make a flower blossom, a seed pod open, or a leaf bud bloom.<br>- You create an instantaneous, harmless sensory effect, such as falling leaves, a puff of wind, the sound of a small animal, or the faint odor of skunk. The effect must fit in a 5-foot cube.<br>- You instantly light or snuff out a candle, a torch, or a small campfire.",
-                    mods: "",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Eldritch Blast",
-                    desc: "Evocation cantrip;A beam of crackling energy streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 force damage.<br><br>At Higher Levels. The spell creates more than one beam when you reach higher levels: two beams at 5th level, three beams at 11th level, and four beams at 17th level. You can direct the beams at the same target or at different ones. Make a separate attack roll for each beam.",
-                    mods: ", Damage: 1d10, Damage Type: force",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Encode Thoughts",
-                    desc: "Enchantment cantrip;You pull a memory, an idea, or a message from your mind and transform it into a tangible string of glowing energy called a thought strand, which persists for the duration or until you cast this spell again. The thought strand appears in an unoccupied space within 5 feet of you as a Tiny, weightless, semisolid object that can be held and carried like a ribbon. It is otherwise stationary.<br><br>If you cast this spell while concentrating on a spell or an ability that allows you to read or manipulate the thoughts of others (such as detect thoughts or modify memory), you can transform the thoughts or memories you read, rather than your own, into a thought strand.<br><br>Casting this spell while holding a thought strand allows you to instantly receive whatever memory, idea, or message the thought strand contains. (Casting detect thoughts on the strand has the same effect.)",
-                    mods: "",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Fire Bolt",
-                    desc: "Evocation cantrip;You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn\'t being worn or carried.<br><br>At Higher Levels. This spell\'s damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10).",
-                    mods: ", Damage: 1d10, Damage Type: fire",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Friends",
-                    desc: "Enchantment cantrip;For the duration, you have advantage on all Charisma checks directed at one creature of your choice that isn\'t hostile toward you. When the spell ends, the creature realizes that you used magic to influence its mood and becomes hostile toward you. A creature prone to violence might attack you. Another creature might seek retribution in other ways (at the DM\'s discretion), depending on the nature of your interaction with it.",
-                    mods: "",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
+                    level: 0
                 },
                 {
                     name: "Frostbite",
-                    desc: "Evocation cantrip;You cause numbing frost to form on one creature that you can see within range. The target must make a Constitution saving throw. On a failed save, the target takes 1d6 cold damage, and it has disadvantage on the next weapon attack roll it makes before the end of its next turn.<br><br>At Higher Levels. The spell\'s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
-                    mods: ", Damage: 1d6, Damage Type: cold",
-                    props: "",
-                    level: "cantrip",
-                    price: 0,
-                    weight: 0,
-                    amount: 0,
-                    sellam: 0
-                }
+                    level: 0
+                },
+                {
+                    name: "Green-Flame Blade",
+                    level: 0
+                },
+                {
+                    name: "Guidance",
+                    level: 0
+                },
+                {
+                    name: "Gust",
+                    level: 0
+                },
+                {
+                    name: "Infestation",
+                    level: 0
+                },
+                {
+                    name: "Light",
+                    level: 0
+                },
+                {
+                    name: "Lightning Lure",
+                    level: 0
+                },
+                {
+                    name: "Mage Hand",
+                    level: 0
+                },
+                {
+                    name: "Magic Stone",
+                    level: 0
+                },
+                {
+                    name: "Mending",
+                    level: 0
+                },
+                {
+                    name: "Message",
+                    level: 0
+                },
+                {
+                    name: "Mind Sliver",
+                    level: 0
+                },
+                {
+                    name: "Minor Illusion",
+                    level: 0
+                },
+                {
+                    name: "Mold Earth",
+                    level: 0
+                },
+                {
+                    name: "Poison Spray",
+                    level: 0
+                },
+                {
+                    name: "Prestidigitation",
+                    level: 0
+                },
+                {
+                    name: "Primal Savagery",
+                    level: 0
+                },
+                {
+                    name: "Produce Flame",
+                    level: 0
+                },
+                {
+                    name: "Ray of Frost",
+                    level: 0
+                },
+                {
+                    name: "Resistance",
+                    level: 0
+                },
+                {
+                    name: "Sacred Flame",
+                    level: 0
+                },
+                {
+                    name: "Sapping Sting",
+                    level: 0
+                },
+                {
+                    name: "Shape Water",
+                    level: 0
+                },
+                {
+                    name: "Shillelagh",
+                    level: 0
+                },
+                {
+                    name: "Shocking Grasp",
+                    level: 0
+                },
+                {
+                    name: "Spare the Dying",
+                    level: 0
+                },
+                {
+                    name: "Sword Burst",
+                    level: 0
+                },
+                {
+                    name: "Thaumaturgy",
+                    level: 0
+                },
+                {
+                    name: "Thorn Whip",
+                    level: 0
+                },
+                {
+                    name: "Thunderclap",
+                    level: 0
+                },
+                {
+                    name: "Toll the Dead",
+                    level: 0
+                },
+                {
+                    name: "True Strike",
+                    level: 0
+                },
+                {
+                    name: "Vicious Mockery",
+                    level: 0
+                },
+                {
+                    name: "Word of Radiance",
+                    level: 0
+                },
+                {
+                    name: "Absorb Elements",
+                    level: 1
+                },
+                {
+                    name: "Alarm",
+                    level: 1
+                },
+                {
+                    name: "Animal Friendship",
+                    level: 1
+                },
+                {
+                    name: "Armor of Agathys",
+                    level: 1
+                },
+                {
+                    name: "Arms of Hadar",
+                    level: 1
+                },
+                {
+                    name: "Bane",
+                    level: 1
+                },
+                {
+                    name: "Beast Bond",
+                    level: 1
+                },
+                {
+                    name: "Bless",
+                    level: 1
+                },
+                {
+                    name: "Burning Hands",
+                    level: 1
+                },
+                {
+                    name: "Catapult",
+                    level: 1
+                },
+                {
+                    name: "Cause Fear",
+                    level: 1
+                },
+                {
+                    name: "Ceremony",
+                    level: 1
+                },
+                {
+                    name: "Chaos Bolt",
+                    level: 1
+                },
+                {
+                    name: "Charm Person",
+                    level: 1
+                },
+                {
+                    name: "Chromatic Orb",
+                    level: 1
+                },
+                {
+                    name: "Color Spray",
+                    level: 1
+                },
+                {
+                    name: "Command",
+                    level: 1
+                },
+                {
+                    name: "Compelled Duel",
+                    level: 1
+                },
+                {
+                    name: "Comprehend Languages",
+                    level: 1
+                },
+                {
+                    name: "Create or Destroy Water",
+                    level: 1
+                },
+                {
+                    name: "Cure Wounds",
+                    level: 1
+                },
+                {
+                    name: "Detect Evil and Good",
+                    level: 1
+                },
+                {
+                    name: "Detect Magic",
+                    level: 1
+                },
+                {
+                    name: "Detect Poison and Disease",
+                    level: 1
+                },
+                {
+                    name: "Disguise Self",
+                    level: 1
+                },
+                {
+                    name: "Dissonant Whispers",
+                    level: 1
+                },
+                {
+                    name: "Distort Value",
+                    level: 1
+                },
+                {
+                    name: "Divine Favor",
+                    level: 1
+                },
+                {
+                    name: "Earth Tremor",
+                    level: 1
+                },
+                {
+                    name: "Ensnaring Strike",
+                    level: 1
+                },
+                {
+                    name: "Entangle",
+                    level: 1
+                },
+                {
+                    name: "Expeditious Retreat",
+                    level: 1
+                },
+                {
+                    name: "Fearie Fire",
+                    level: 1
+                },
+                {
+                    name: "False Life",
+                    level: 1
+                },
+                {
+                    name: "Feather Fall",
+                    level: 1
+                },
+                {
+                    name: "Find Familiar",
+                    level: 1
+                },
+                {
+                    name: "Fog Cloud",
+                    level: 1
+                },
+                {
+                    name: "Frost Fingers",
+                    level: 1
+                },
+                {
+                    name: "Gift of Alacrity",
+                    level: 1
+                },
+                {
+                    name: "Goodberry",
+                    level: 1
+                },
+                {
+                    name: "Grease",
+                    level: 1
+                },
+                {
+                    name: "Guiding Bolt",
+                    level: 1
+                },
+                {
+                    name: "Hail of Thorns",
+                    level: 1
+                },
+                {
+                    name: "Healing Word",
+                    level: 1
+                },
+                {
+                    name: "Hellish Rebuke",
+                    level: 1
+                },
+                {
+                    name: "Heroism",
+                    level: 1
+                },
+                {
+                    name: "Hex",
+                    level: 1
+                },
+                {
+                    name: "Hunter\'s Mark",
+                    level: 1
+                },
+                {
+                    name: "Ice Knife",
+                    level: 1
+                },
+                {
+                    name: "Identify",
+                    level: 1
+                },
+                {
+                    name: "Illusory Script",
+                    level: 1
+                },
+                {
+                    name: "Inflict Wounds",
+                    level: 1
+                },
+                {
+                    name: "Jim\'s Magic Missile",
+                    level: 1
+                },
+                {
+                    name: "Jump",
+                    level: 1
+                },
+                {
+                    name: "Longstrider",
+                    level: 1
+                },
+                {
+                    name: "Mage Armor",
+                    level: 1
+                },
+                {
+                    name: "Magic Missile",
+                    level: 1
+                },
+                {
+                    name: "Magnify Gravity",
+                    level: 1
+                },
+                {
+                    name: "Protection from Evil and Good",
+                    level: 1
+                },
+                {
+                    name: "Purify Food and Drink",
+                    level: 1
+                },
+                {
+                    name: "Ray of Sickness",
+                    level: 1
+                },
+                {
+                    name: "Sanctuary",
+                    level: 1
+                },
+                {
+                    name: "Searing Smite",
+                    level: 1
+                },
+                {
+                    name: "Shield",
+                    level: 1
+                },
+                {
+                    name: "Shield of Faith",
+                    level: 1
+                },
+                {
+                    name: "Silent Image",
+                    level: 1
+                },
+                {
+                    name: "Silvery Barbs",
+                    level: 1
+                },
+                {
+                    name: "Sleep",
+                    level: 1
+                },
+                {
+                    name: "Snare",
+                    level: 1
+                },
+                {
+                    name: "Speak with Animals",
+                    level: 1
+                },
+                {
+                    name: "Tasha\'s Caustic Brew",
+                    level: 1
+                },
+                {
+                    name: "Tasha\'s Hideous Laughter",
+                    level: 1
+                },
+                {
+                    name: "Tenser\'s Floating Disk",
+                    level: 1
+                },
+                {
+                    name: "Thunderous Smite",
+                    level: 1
+                },
+                {
+                    name: "Thunderwave",
+                    level: 1
+                },
+                {
+                    name: "Unseen Servant",
+                    level: 1
+                },
+                {
+                    name: "Witch Bolt",
+                    level: 1
+                },
+                {
+                    name: "Wrathful Smite",
+                    level: 1
+                },
+                {
+                    name: "Zephyr Strike",
+                    level: 1
+                },
             ],
-            misc: [],
-            mundane: []
         }
     },
 
@@ -2834,6 +3210,7 @@ var ItemStore = ItemStore || (function() {
         let items=[];
         let list=state.list.weapon;
         let rare=minrare+':'+maxrare;
+        amount=Number(amount);
         for (let i=0;i<amount;i++) {
             let pricechange;
             let namechange;
@@ -3067,6 +3444,7 @@ var ItemStore = ItemStore || (function() {
         let items=[];
         let list=state.list.armor;
         let rare=minrare+':'+maxrare;
+        amount=Number(amount);
         for (let i=0;i<amount;i++) {
             let pricechange;
             let namechange;
@@ -3504,6 +3882,7 @@ var ItemStore = ItemStore || (function() {
         let list=state.list.scroll;
         let rare=minrare+':'+maxrare;
         let level;
+        amount=Number(amount);
         switch (rare) {
             case 'common:common':
                 level=randomInteger(2)-1;
@@ -3556,41 +3935,55 @@ var ItemStore = ItemStore || (function() {
         let am;
         let sellam;
         let mods;
-        if (level==0) {
-            level="cantrip";
-        }
+        let props;
+        let desc;
+        let weight;
         for (let i=0;i<list.length;i++) {
             if (list.name.includes(String(level))) {
                 name=list[i].name;
                 price=list[i].price;
                 am=list[i].amount;
                 sellam=list[i].sellam;
-                mods=list[i].mods
+                mods=list[i].mods;
+                props=list[i].props;
+                desc=list[i].desc;
+                weight=list[i];
             }
         }
         for (let i=0;i<amount;i++) {
             if (items[i]==undefined) {
                 let spell=rollSpell(level);
-                spell[0].name=name+" ("+spell[0].name+")";
-                spell[0].price=price;
-                spell[0].amount=am;
-                spell[0].sellam=sellam;
-                spell[0].mods=mods+spell[0].mods;
-                items.push(spell[0]);
+                let truespell=[
+                    {
+                        name: name+" ("+spell[0].name+")",
+                        desc: desc,
+                        mods: mods,
+                        props: props,
+                        price: price,
+                        weight: weight,
+                        amount: am,
+                        sellam: sellam
+                    }
+                ];
+                items.push(truespell[0]);
             } else {
                 let spell=rollSpell(level);
-                spell[0].name=name+" ("+spell[0].name+")";
                 if (items[i].name==spell[0].name) {
                     items[i].amount++;
-                    spell[0].price=price;
-                    spell[0].sellam=sellam;
-                    spell[0].mods=mods+spell[0].mods;
                 } else {
-                    spell[0].price=price;
-                    spell[0].amount=am;
-                    spell[0].sellam=sellam;
-                    spell[0].mods=mods+spell[0].mods;
-                    items.push(spell[0]);
+                    let truespell=[
+                        {
+                            name: name+" ("+spell[0].name+")",
+                            desc: desc,
+                            mods: mods,
+                            props: props,
+                            price: price,
+                            weight: weight,
+                            amount: am,
+                            sellam: sellam
+                        }
+                    ];
+                    items.push(truespell[0]);
                 }
             }
         }
@@ -3603,7 +3996,7 @@ var ItemStore = ItemStore || (function() {
         let list=[];
         let count=0;
         for (let i=0;i<spellList.length;i++) {
-            if (spellList[i].level.includes(String(level))) {
+            if (spellList[i].level==level) {
                 list[count]=spellList[i];
                 count++;
             }
@@ -3621,6 +4014,7 @@ var ItemStore = ItemStore || (function() {
         let rand;
         let potionList=[];
         let count=0;
+        amount=Number(amount);
         for (let i=0;i<amount;i++) {
             switch (rare) {
                 case 'common:common':
@@ -3761,160 +4155,400 @@ var ItemStore = ItemStore || (function() {
 
     genMisc = function(amount,minrare,maxrare) {
         let items;
-        let list=state.list.misc;
+        let list;
         let rare=minrare+':'+maxrare;
-        let miscList=[];
-        let count=0;
+        const commonlist="";
+        const uncommonlist="";
+        const rarelist="";
+        const veryrarelist="";
+        const legendarylist="";
+        var rand=randomInteger(100);
+        let rarity;
+        amount=Number(amount);
         for (let i=0;i<amount;i++) {
+            rand=randomInteger(100);
             switch (rare) {
                 case 'common:common':
+                    list=commonlist;
                     rarity="common";
                 break;
                 case 'common:uncommon':
-                    rand=randomInteger(2);
-                    if (rand==1) {
+                    if (rand<=70) {
+                        list = commonlist;
                         rarity="common";
-                    } else if (rand==2) {
+                    } else if (rand>70) {
+                        list = uncommonlist;
                         rarity="uncommon";
                     }
                 break;
                 case 'common:rare':
-                    rand=randomInteger(3);
-                    if (rand==1) {
+                    if (rand<=55) {
+                        list = commonlist;
                         rarity="common";
-                    } else if (rand==2) {
+                    } else if (rand<=85) {
+                        list = uncommonlist;
                         rarity="uncommon";
-                    } else if (rand==3) {
+                    } else if (rand>85) {
+                        list = rarelist;
                         rarity="rare";
                     }
                 break;
                 case 'common:very rare':
-                    rand=randomInteger(4);
-                    if (rand==1) {
+                    if (rand<=51) {
+                        list=commonlist;
                         rarity="common";
-                    } else if (rand==2) {
+                    } else if (rand<=81) {
+                        list=uncommonlist;
                         rarity="uncommon";
-                    } else if (rand==3) {
+                    } else if (rand<=96) {
+                        list=rarelist;
                         rarity="rare";
-                    } else if (rand==4) {
+                    } else if (rand>96) {
+                        list=veryrarelist;
                         rarity="very rare";
                     }
                 break;
                 case 'common:legendary':
-                    rand=randomInteger(5);
-                    if (rand==1) {
+                    if (rand<=50) {
+                        list=commonlist;
                         rarity="common";
-                    } else if (rand==2) {
+                    } else if (rand<=80) {
+                        list=uncommonlist;
                         rarity="uncommon";
-                    } else if (rand==3) {
+                    } else if (rand<=95) {
+                        list=rarelist;
                         rarity="rare";
-                    } else if (rand==4) {
-                        rarity="very rare";
-                    } else if (rand==5) {
+                    } else if (rand<=99) {
+                        list=veryrarelist;
+                        rarity="rare";
+                    } else if (rand==100) {
+                        list=legendarylist;
                         rarity="legendary";
                     }
                 break;
                 case 'uncommon:uncommon':
+                    list=uncommonlist;
                     rarity="uncommon";
                 break;
                 case 'uncommon:rare':
-                    rand=randomInteger(2);
-                    if (rand==1) {
+                    if (rand<=85) {
+                        list=uncommonlist;
                         rarity="uncommon";
-                    } else if (rand==2) {
+                    } else if (rand>85) {
+                        list=rarelist;
                         rarity="rare";
                     }
                 break;
                 case 'uncommon:very rare':
-                    rand=randomInteger(3);
-                    if (rand==1) {
+                    if (rand<=81) {
+                        list=uncommonlist;
                         rarity="uncommon";
-                    } else if (rand==2) {
+                    } else if (rand<=96) {
+                        list=rarelist;
                         rarity="rare";
-                    } else if (rand==3) {
+                    } else if (rand>96) {
+                        list=veryrarelist;
                         rarity="very rare";
                     }
                 break;
                 case 'uncommon:legendary':
-                    rand=randomInteger(4);
-                    if (rand==1) {
+                    if (rand<=80) {
+                        list=uncommonlist;
                         rarity="uncommon";
-                    } else if (rand==2) {
+                    } else if (rand<=95) {
+                        list=rarelist;
                         rarity="rare";
-                    } else if (rand==3) {
+                    } else if (rand<=99) {
+                        list=veryrarelist;
                         rarity="very rare";
-                    } else if (rand==4) {
+                    } else if (rand==100) {
+                        list=legendarylist;
                         rarity="legendary";
                     }
                 break;
                 case 'rare:rare':
+                    list=rarelist;
                     rarity="rare";
                 break;
                 case 'rare:very rare':
-                    rand=randomInteger(2);
-                    if (rand==1) {
+                    if (rand<=96) {
+                        list=rarelist;
                         rarity="rare";
-                    } else if (rand==2) {
+                    } else if (rand>96) {
+                        list=veryrarelist;
                         rarity="very rare";
                     }
                 break;
                 case 'rare:legendary':
-                    rand=randomInteger(3);
-                    if (rand==1) {
+                    if (rand<=95) {
+                        list=rarelist;
                         rarity="rare";
-                    } else if (rand==2) {
+                    } else if (rand<=99) {
+                        list=veryrarelist;
                         rarity="very rare";
-                    } else if (rand==3) {
+                    } else if (rand==100) {
+                        list=legendarylist;
                         rarity="legendary";
                     }
                 break;
                 case 'very rare:very rare':
+                    list=veryrarelist;
                     rarity="very rare";
                 break;
                 case 'very rare:legendary':
-                    rand=randomInteger(2);
-                    if (rand==1) {
+                    if (rand<=99) {
+                        list=veryrarelist;
                         rarity="very rare";
-                    } else if (rand==2) {
+                    } else if (rand==100) {
+                        list=legendarylist;
                         rarity="legendary";
                     }
                 break;
                 case 'legendary:legendary':
+                    list=legendarylist;
                     rarity="legendary";
                 break;
             }
-            for (let j=0;j<list.length;j++) {
-                if (list[i].rarity==rarity) {
-                    miscList[count]=list[i];
-                    count++;
-                }
-            }
-            rand=randomInteger(miscList.length);
+            list=list.split(";");
+            rand=randomInteger(list.length);
+            let props;
+            let found=false;
             if (items[0]==undefined) {
-                items.push(miscList[rand]);
+                props=String(list[rand]).split(',');
+                items.push(
+                    {
+                        name: props[0],
+                        desc: "Misc Item ("+rarity+");",
+                        mods: "Item Type: Item",
+                        props: "",
+                        price: Number(props[1]),
+                        weight: 0,
+                        amount: 1,
+                        sellam: 1
+                    }
+                );
             } else {
                 for (let j=0;j<items.length;j++) {
-                    if (items[j].name==miscList[rand-1].name) {
+                    if (items[j].name==list[rand-1].name) {
                         items[j].amount++;
+                        found=true;
                     }
+                }
+                props=String(list[rand-1]).split(',');
+                if (found==false) {
+                    items.push(
+                        {
+                            name: props[0],
+                            desc: "Misc Item ("+rarity+");",
+                            mods: "Item Type: Item",
+                            props: "",
+                            price: Number(props[1]),
+                            weight: 0,
+                            amount: 1,
+                            sellam: 1
+                        }
+                    );
                 }
             }
         }
         return items;
     },
 
-    genMundane = function(amount) {
+    genMundane = function(amount,minrare,maxrare) {
         let items=[];
-        let list=state.list.mundane;
+        let mundaneList;
+        let rare=minrare+':'+maxrare;
+        amount=Number(amount);
+        var rand;
+        let rarity;
+        const commonlist="Candle,0.01;Chalk (1 piece),0.01;Sack,0.01;Torch,0.01;Wheat,0.01;Whetstone,0.01;Blowgun Needle,0.01;Chicken,0.02;Flask,0.02;Flour,0.02;Jug,0.02;Loaf of Bread,0.02;Pitcher,0.02;Soap,0.02;Tankard,0.02;Ale (mug),0.04;Sling Bullets (20),0.04;Arrow,0.05;Bucket,0.05;Caltrop,0.05;Crossbow Bolt,0.05;Dart,0.05;Feed (per day),0.05;Piton,0.05;Pole (10-foot),0.05;Salt,0.05;Signal Whistle,0.05;Canvas (1 sq. yd.),0.1;Club,0.1;Dice Set,0.1;Hunk of Cheese,0.1;Insect Repellent (Block of Incense),0.1;Iron,0.1;Iron Spike,0.1;Ladder (10-foot),0.1;Oil (flask),0.1;Parchment (one sheet),0.1;Sling,0.1;Ale (Gallon),0.2;Common Wine (Pitcher),0.2;Greatclub,0.2;Mess Kit,0.2;Paper (one sheet),0.2;Quarterstaff,0.2;Waterskin,0.2;Chunk of Meat,0.3;Basket,0.4;Blanket,0.5;Common Clothes,0.5;Copper,0.5;Cotton Cloth (1 sq. yd.),0.5;Javelin,0.5;Lamp,0.5;Playing Card Set,0.5;Pouch,0.5;Rations (1 day),0.5;Sealing Wax,0.5;Stabling (per day),0.5;Tinderbox,0.5;Arrows (20),1;Ball Bearings (bag of 1000),1;Bedroll,1;Bell,1;Block and Tackle,1;Blowgun Needles (50),1;Caltrops (bag of 20),1;Cook\'s Utensils,1;Crossbow Bolt Case,1;Crossbow Bolts (20),1;Dragonchess Set,1;Fishing Tackle,1;Ginger,1;Goat,1;Hammer,1;Hempen Rope (50 feet),1;Insect Repellent (greasy salve),1;Iron Spikes (10),1;Map or Scroll Case,1;Net,1;Quiver,1;Rain Catcher,1;Robes,1;Sickle,1;Spear,1;Spring of Mistletoe,1;Three-Dragon Ante Set,1;Totem,1;Vial,1;Weaver\'s Tools,1;Wukka Nut,1;Yahcha,1;Yklwa,1;Backpack,2;Barrel,2;Bit and Bridle,2;Cinnamon,2;Crampons,2;Crowbar,2;Dagger,2;Flute,2;Glass Bottle,2;Grappling Hook,2;Iron Pot,2;Light Hammer,2;Menacles,2;Menga leaves (1 ounce),2;Miner\'s Pick,2;Pepper,2;Abacus,2,Shawm,2;Sheep,2;Shovel,2;Sledgehammer,2;Snowshoes,2;Traveler\'s Clothes,2;Two-Person Tent,2;Whip,2;Cloves,3;Horn,3;Pig,3;Theki Root,3;Portable Ram,4;Saddlebags,4";
+        const uncommonlist="Amulet,5;Chain (10 feet),5;Chest,5;Cobbler\'s Tools,5;Costume Clothes,5;Emblem,5;Handaxe,5;Healer\'s Kit,5;Herbalism Kit,5;Hooded Lantern,5;Hunting Trap,5;Leatherworker\'s Tools,5;Linen (1 sq. yd.),5;Mace,5;Merchant\'s Scale,5;Six person Tent,5;Pack Saddle,5;Padded Armor,5;Perfume (vial),5;Pike,5;Reliquary,5;Signet Ring,5;Silver,5;Sinda berries (10),5;Staff,5;Steel Mirror,5;Trident,5;War Pick,5;Wooden Staff,5;Drum,6;Carpenter\'s Tools,8;Donkey,8;Mule,8;Battleaxe,10;Blowgun,10;Bullseye Lantern,10;Calligrapher\'s Supplies,10;Clothing (cold weather),10;Cow,10;Crystal,10;Explorer\'s Pack,10;Fine Wine (Bottle),10;Flail,10;Hide Armor,10;Ink (1-ounce bottle),10;Lance,10;Leather Armor,10;Lock,10;Mason\'s Tools,10;Maul,10;Painter\'s Supplies,10;Potter\'s Tools,10;Riding Saddle,10;Rod,10;Shield,10;Shortsword,10;Silk (1 sq. yd.),10;Silk Rope (50 feet),10;Wand,10;Yew Wand,10;Zabou,10;Dungeoneer\'s Pack,12;Pan Flute,12;Cart,15;Cartographer\'s Tools,15;Fine Clothes,15;Forgery Kit,15;Longsword,15;Morningstar,15;Ox,15;Saffron,15;Warhammer,15;Burglar\'s Pack,16;Priest\'s Pack,19;Brewer\'s Supplies,20;Dogsled,20;Glaive,20;Halberd,20;Military Saddle,20;Orb,20;Sled,20;Smith\'s Tools,20;Acid (vial),25;Book,25;Climber\'s Kit,25;Component Pouch,25;Disguise Kit,25;Dulcimer,25;Holy Water (flask),25;Hourglass,25;Jeweler\'s Tools,25;Light Crossbow,25;Navigator\'s Tools,25;Rapier,25;Scimitar,25;Shortbow,25;Thieves\' Tools,25;Wildroot,25;Yarting,25;Bagpipes,30;Glassblower\'s Tools,30;Greataxe,30;Lyre,30;Ring Mail,30;Pony,30;Viol,30;Willowshade Oil,30;Monster Hunter\'s Pack,33;Lute,35;Wagon,35;Diplomat\'s Pack,39;Entertainer\'s Pack,40;Scholar\'s Pack,40;Studded Leather Armor,45";
+        const rarelist="Alchemist\'s Fire (Flask),50,Alchemist\'s Supplies,50;Antitoxin (vial),50;Axe Beak,50;Camel,50;Canoe,50;Chain Shirt,50;Draft Horse,50;Gold,50;Greatsword,50;Heavy Crossbow,50;Longbow,50;Olisuba Leaf,50;Poisoner\'s Kit,50;Rowboat,50;Ryath Root,50;Scale Mail,50;Sled Dog,50;Spellbook,50;Tinker\'s Tools,50;Exotic Saddle,60;Chain Mail,75;Hand Crossbow,75;Riding Horse,75;Spiked Armor,75;Basic Potion (vial),100;Silvered Weapon,100;Silvered Ammunition (10),100;Carriage,100;Double-Bladed Scimitar,100;Magnifying Glass,100;Muroosa Balm,100;Pride Silk,100;Assassin\'s Blood,Soothsalts,150;Truth Serum,150;Oversized Longbow,150;Oversized Arrow (20),3";
+        const veryrarelist="Blight Ichor,200;Carrion Crawler Mucus,200;Drow Poison,200;Elephant,200;Serpent Venom,200;Splint Armor,200;Chariot,250;Malice,250;Pale Tincture,250;Black Sap,300;Essence of Ether,300;Breastplate,400;Moorbounder,400;Oil of Taggit,400;Warhorse,400;Burnt Othur Fumes,500;Platinum,500;Pride Silk Outfit,500;Vial of Stardust,500;Torpor,600;Half Plate Armor,750";
+        const legendarylist="Adamantine Bar,1000;Spyglass,1000;Wyvern Poison,1200;Midnight Tears,1500;Plate Armor,1500;Purple Worm Poison,2000;Keelboat,3000;Longship,10000;Airship,20000;Warship,25000;Galley,30000;Skyship,100000";
         for (let i=0;i<amount;i++) {
-            let rand=randomInteger(list.length);
+            rand=randomInteger(100);
+            switch (rare) {
+                case 'common:common':
+                    mundaneList=commonlist;
+                    rarity="common";
+                break;
+                case 'common:uncommon':
+                    if (rand<=70) {
+                        mundaneList = commonlist;
+                        rarity="common";
+                    } else if (rand>70) {
+                        mundaneList = uncommonlist;
+                        rarity="uncommon";
+                    }
+                break;
+                case 'common:rare':
+                    if (rand<=55) {
+                        mundaneList = commonlist;
+                        rarity="common";
+                    } else if (rand<=85) {
+                        mundaneList = uncommonlist;
+                        rarity="uncommon";
+                    } else if (rand>85) {
+                        mundaneList = rarelist;
+                        rarity="rare";
+                    }
+                break;
+                case 'common:very rare':
+                    if (rand<=51) {
+                        mundaneList=commonlist;
+                        rarity="common";
+                    } else if (rand<=81) {
+                        mundaneList=uncommonlist;
+                        rarity="uncommon";
+                    } else if (rand<=96) {
+                        mundaneList=rarelist;
+                        rarity="rare";
+                    } else if (rand>96) {
+                        mundaneList=veryrarelist;
+                        rarity="very rare";
+                    }
+                break;
+                case 'common:legendary':
+                    if (rand<=50) {
+                        mundaneList=commonlist;
+                        rarity="common";
+                    } else if (rand<=80) {
+                        mundaneList=uncommonlist;
+                        rarity="uncommon";
+                    } else if (rand<=95) {
+                        mundaneList=rarelist;
+                        rarity="rare";
+                    } else if (rand<=99) {
+                        mundaneList=veryrarelist;
+                        rarity="rare";
+                    } else if (rand==100) {
+                        mundaneList=legendarylist;
+                        rarity="legendary";
+                    }
+                break;
+                case 'uncommon:uncommon':
+                    mundaneList=uncommonlist;
+                    rarity="uncommon";
+                break;
+                case 'uncommon:rare':
+                    if (rand<=85) {
+                        mundaneList=uncommonlist;
+                        rarity="uncommon";
+                    } else if (rand>85) {
+                        mundaneList=rarelist;
+                        rarity="rare";
+                    }
+                break;
+                case 'uncommon:very rare':
+                    if (rand<=81) {
+                        mundaneList=uncommonlist;
+                        rarity="uncommon";
+                    } else if (rand<=96) {
+                        mundaneList=rarelist;
+                        rarity="rare";
+                    } else if (rand>96) {
+                        mundaneList=veryrarelist;
+                        rarity="very rare";
+                    }
+                break;
+                case 'uncommon:legendary':
+                    if (rand<=80) {
+                        mundaneList=uncommonlist;
+                        rarity="uncommon";
+                    } else if (rand<=95) {
+                        mundaneList=rarelist;
+                        rarity="rare";
+                    } else if (rand<=99) {
+                        mundaneList=veryrarelist;
+                        rarity="very rare";
+                    } else if (rand==100) {
+                        mundaneList=legendarylist;
+                        rarity="legendary";
+                    }
+                break;
+                case 'rare:rare':
+                    mundaneList=rarelist;
+                    rarity="rare";
+                break;
+                case 'rare:very rare':
+                    if (rand<=96) {
+                        mundaneList=rarelist;
+                        rarity="rare";
+                    } else if (rand>96) {
+                        mundaneList=veryrarelist;
+                        rarity="very rare";
+                    }
+                break;
+                case 'rare:legendary':
+                    if (rand<=95) {
+                        mundaneList=rarelist;
+                        rarity="rare";
+                    } else if (rand<=99) {
+                        mundaneList=veryrarelist;
+                        rarity="very rare";
+                    } else if (rand==100) {
+                        mundaneList=legendarylist;
+                        rarity="legendary";
+                    }
+                break;
+                case 'very rare:very rare':
+                    mundaneList=veryrarelist;
+                    rarity="very rare";
+                break;
+                case 'very rare:legendary':
+                    if (rand<=99) {
+                        mundaneList=veryrarelist;
+                        rarity="very rare";
+                    } else if (rand==100) {
+                        mundaneList=legendarylist;
+                        rarity="legendary";
+                    }
+                break;
+                case 'legendary:legendary':
+                    mundaneList=legendarylist;
+                    rarity="legendary";
+                break;
+            }
+            list=list.split(";");
+            rand=randomInteger(list.length);
+            let props;
+            let found=false;
             if (items[0]==undefined) {
-                items.push(list[rand-1]);
+                props=String(list[rand]).split(',');
+                items.push(
+                    {
+                        name: props[0],
+                        desc: "Misc Item ("+rarity+");",
+                        mods: "Item Type: Item",
+                        props: "",
+                        price: Number(props[1]),
+                        weight: 0,
+                        amount: 1,
+                        sellam: 1
+                    }
+                );
             } else {
                 for (let j=0;j<items.length;j++) {
                     if (items[j].name==list[rand-1].name) {
                         items[j].amount++;
+                        found=true;
                     }
+                }
+                props=String(list[rand-1]).split(',');
+                if (found==false) {
+                    items.push(
+                        {
+                            name: props[0],
+                            desc: "Mundane Item ("+rarity+");",
+                            mods: "Item Type: Item",
+                            props: "",
+                            price: Number(props[1]),
+                            weight: 0,
+                            amount: 1,
+                            sellam: 1
+                        }
+                    );
                 }
             }
         }
