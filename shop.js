@@ -1180,506 +1180,46 @@ var ItemStore = ItemStore || (function() {
             ],
             spell: [
                 {
-                    name: "Acid Splash",
-                    level: 0
+                    level: 0,
+                    list: ["Acid Splash","Blade Ward","Booming Blade","Chill Touch","Control Flames","Create Bonfire","Dancing Lights","Druidcraft","Eldritch Blast","Fire Bolt","Friends","Frostbite","Green-Flame Blade","Guidance","Gust","Infestation","Light","Lightning Lure","Mage Hand","Magic Stone","Mending","Message","Minor Illusion","Mold Earth","Poison Spray","Prestidigitation","Primal Savagery","Produce Flame","Ray of Frost","Resistance","Sacred Flame","Shape Water","Shillelagh","Shocking Grasp","Spare the Dying","Sword Burst","Thaumaturgy","Thorn Whip","Thunderclap","Toll the Dead","True Strike","Vicious Mockery","Word of Radiance"]
                 },
                 {
-                    name: "Blade Ward",
-                    level: 0
+                    level: 1,
+                    list: ["Absorb Elements","Alarm","Animal Friendship","Armor of Agathys","Arms of Hadar","Bane","Beast Bond","Bless","Burning Hands","Catapult","Cause Fear","Ceremony","Chaos Bolt","Charm Person","Chromatic Orb","Color Spray","Command","Compelled Duel","Comprehend Languages","Create or Destroy Water","Cure Wounds","Detect Evil and Good","Detect Magic","Detect Poison and Disease","Disguise Self","Dissonant Whispers","Divine Favor","Earth Tremor","Ensnaring Strike","Entangle","Expeditious Retreat","Faerie Fire","False Life","Feather Fall","Find Familiar","Fog Cloud","Goodberry","Grease","Guiding Bolt","Hail of Thorns","Healing Word","Hellish Rebuke","Heroism","Hex","Hunter\'s Mark","Ice Knife","Identify","Illusory Script","Inflict Wounds","Jump","Longstrider","Mage Armor","Magic Missile","Protection from Evil and Good","Purify Food and Drink","Ray of Sickness","Sanctuary","Searing Smite","Shield","Shield of Faith","Silent Image","Sleep","Snare","Speak with Animals","Tasha\'s Hideous Laughter","Tenser\'s Floating Disk","Thunderous Smite","Thunderwave","Unseen Servant","Witch Bolt","Wrathful Smite","Zephyr Strike"]
                 },
                 {
-                    name: "Booming Blade",
-                    level: 0
+                    level: 2,
+                    list: ["Aganazzar\'s Scorcher","Aid","Alter Self","Animal Messenger","Arcane Lock","Augury","Barkskin","Beast Sense","Blindness/Deafness","Blur","Branding Smite","Calm Emotions","Cloud of Daggers","Continual Flame","Cordon of Arrows","Crown of Madness","Darkness","Darkvision","Detect Thoughts","Dragon's Breath","Dust Devil","Earthbind","Enhance Ability","Enlarge/Reduce","Enthrall","Find Steed","Find Traps","Flame Blade","Flaming Sphere","Gentle Repose","Gust of Wind","Healing Spirit","Heat Metal","Hold Person","Invisibility","Knock","Lesser Restoration","Levitate","Locate Animals or Plants","Locate Object","Magic Mouth","Magic Weapon","Maximilian\'s Earthen Grasp","Melf\'s Acid Arrow","Mind Spike","Mirror Image","Misty Step","Moonbeam","Nystul\'s Magic Aura","Pass Without Trace","Phantasmal Force","Prayer of Healing","Protection from Poison","Pyrotechnics","Ray of Enfeeblement","Rope Trick","Scorching Ray","See invisibility","Shadow Blade","Shatter","Silence","Skywrite","Snilloc\'s Snowball Swarm","Spider Climb","Spike Growth","Spiritual Weapon","Suggestion","Warding Bond","Warding Wind","Web","Zone of Truth"]
                 },
                 {
-                    name: "Chill Touch",
-                    level: 0
+                    level: 3,
+                    list: ["Animate Dead","Aura of Vitality","Beacon of Hope","Bestow Curse","Blinding Smite","Blink","Call Lightning","Catnap","Clairvoyance","Conjure Animals","Conjure Barrage","Counterspell","Create Food and Water","Crusader\'s Mantle","Daylight","Dispel Magic","Elemental Weapon","Erupting Earth","Fear","Feign Death","Fireball","Flame Arrows","Fly","Gaseous Form","Glyph of Warding","Haste","Hunger of Hadar","Hypnotic Pattern","Leomund\'s Tiny Hut","Lightning Arrow","Lightning Bolt","Magic Circle","Major Image","Mass Healing Word","Meld into Stone","Melf\'s Minute Meteors","Nondetection","Phantom Steed","Plant Growth","Protection from Energy","Remove Curse","Revivify","Sending","Sleet Storm","Slow","Speak with Dead","Speak with Plants","Spirit Guardians","Stinking Cloud","Tidal Wave","Tongues","Vampiric Touch","Wall of Sand","Wall of Water","Water Breathing","Water Walk","Wind Wall","Enemies abound","Life Transference","Summon Lesser Demons","Thunder Step","Tiny Servant"]
                 },
                 {
-                    name: "Control Flames",
-                    level: 0
+                    level: 4,
+                    list: ["Arcane Eye","Aura of Life","Aura of Purity","Banishment","Blight","Compulsion","Confusion","Conjure Minor Elementals","Conjure Woodland Beings","Control Water","Death Ward","Dimension Door","Divination","Dominate Beast","Elemental Bane","Evard\'s Black Tentacles","Fabricate","Fire Shield","Freedom of Movement","Giant Insect","Grasping Vine","Greater Invisibility","Guardian of Faith","Hallucinatory Terrain","Ice Storm","Leomund\'s Secret Chest","Locate Creature","Mordenkainen\'s Faithful Hound","Mordenkainen\'s Private Sanctum","Otiluke\'s Resilient Sphere","Phantasmal Killer","Polymorph","Staggering Smite","Stone Shape","Stoneskin","Storm Sphere","Vitriolic Sphere","Wall of Fire","Watery Sphere","Charm Monster","Find Greater Steed","Guardian of Nature","Shadow of Moil","Sickening Radiance","Summon Greater Demon"]
                 },
                 {
-                    name: "Create Bonfire",
-                    level: 0
+                    level: 5,
+                    list: ["Animate Objects","Antilife Shell","Awaken","Banishing Smite","Bigby\'s Hand","Circle of Power","Cloudkill","Commune","Commune with Nature","Cone of Cold","Conjure Elemental","Conjure Volley","Contact Other Plane","Contagion","Control Winds","Creation","Destructive Wave","Dispel Evil and Good","Dominate Person","Dream","Flame Strike","Geas","Greater Restoration","Hallow","Hold Monster","Immolation","Insect Plague","Legend Lore","Maelstrom","Mass Cure Wounds","Mislead","Modify Memory","Passwall","Planar Binding","Raise Dead","Rary\'s Telepathic Bond","Reincarnate","Scrying","Seeming","Swift Quiver","Telekinesis","Teleportation Circle","Transmute Rock","Tree Stride","Wall of Force","Wall of Stone","Danse Macabre","Dawn","Druid Grove","Enervation","Far Step","Holy Weapon","Infernal Calling","Negative Energy Flood","Skill Empowerment","Steel Wind Strike","Synaptic Static","Wall of Light","Wrath of Nature"]
                 },
                 {
-                    name: "Dancing Lights",
-                    level: 0
+                    level: 6,
+                    list: ["Arcane Gate","Blade Barrier","Bones of the Earth","Chain Lightning","Circle of Death","Conjure Fey","Contingency","Create Undead","Disintegrate","Drawmij\'s Instant Summons","Eyebite","Find the Path","Flesh to Stone","Forbiddance","Globe of Invulnerability","Guards and Wards","Harm","Heal","Heroes\' Feast","Investiture of Flame","Investiture of Ice","Investiture of Stone","Investiture of Wind","Magic Jar","Mass Suggestion","Move Earth","Otiluke\'s Freezing Sphere","Otto\'s Irresistible Dance","Planar Ally","Primordial Ward","Programmed Illusion","Sunbeam","Transport via Plants","True Seeing","Wall of Ice","Wall of Thorns","Wind Walk","Word of Recall","Create Homunculus","Mental Prison","Primordial Ward","Scatter","Soul Cage","Tenser\'s Transformation"]
                 },
                 {
-                    name: "Druidcraft",
-                    level: 0
+                    level: 7,
+                    list: ["Conjure Celestial","Delayed Blast Fireball","Divine Word","Etherealness","Finger of Death","Fire Storm","Forcecage","Mirage Arcane","Mordenkainen\'s Magnificent Mansion","Mordenkainen\'s Sword","Plane Shift","Prismatic Spray","Project Image","Regenerate","Resurrection","Reverse Gravity","Sequester","Simulacrum","Symbol","Teleport","Whirlwind","Crown of Stars","Power Word Pain","Temple of the Gods"]
                 },
                 {
-                    name: "Eldritch Blast",
-                    level: 0
+                    level: 8,
+                    list: ["Abi-Dalzim\'s Horrid Wilting","Animal Shapes","Antimagic Field","Antipathy/Sympathy","Clone","Control Weather","Demiplane","Dominate Monster","Earthquake","Feeblemind","Glibness","Holy Aura","Incendiary Cloud","Maze","Mind Blank","Power Word Stun","Sunburst","Telepathy","Trap the Soul","Tsunami","Illusory Dragon","Maddening Darkness","Mighty Fortress"]
                 },
                 {
-                    name: "Encode Thoughts",
-                    level: 0
-                },
-                {
-                    name: "Fire Bolt",
-                    level: 0
-                },
-                {
-                    name: "Friends",
-                    level: 0
-                },
-                {
-                    name: "Frostbite",
-                    level: 0
-                },
-                {
-                    name: "Green-Flame Blade",
-                    level: 0
-                },
-                {
-                    name: "Guidance",
-                    level: 0
-                },
-                {
-                    name: "Gust",
-                    level: 0
-                },
-                {
-                    name: "Infestation",
-                    level: 0
-                },
-                {
-                    name: "Light",
-                    level: 0
-                },
-                {
-                    name: "Lightning Lure",
-                    level: 0
-                },
-                {
-                    name: "Mage Hand",
-                    level: 0
-                },
-                {
-                    name: "Magic Stone",
-                    level: 0
-                },
-                {
-                    name: "Mending",
-                    level: 0
-                },
-                {
-                    name: "Message",
-                    level: 0
-                },
-                {
-                    name: "Mind Sliver",
-                    level: 0
-                },
-                {
-                    name: "Minor Illusion",
-                    level: 0
-                },
-                {
-                    name: "Mold Earth",
-                    level: 0
-                },
-                {
-                    name: "Poison Spray",
-                    level: 0
-                },
-                {
-                    name: "Prestidigitation",
-                    level: 0
-                },
-                {
-                    name: "Primal Savagery",
-                    level: 0
-                },
-                {
-                    name: "Produce Flame",
-                    level: 0
-                },
-                {
-                    name: "Ray of Frost",
-                    level: 0
-                },
-                {
-                    name: "Resistance",
-                    level: 0
-                },
-                {
-                    name: "Sacred Flame",
-                    level: 0
-                },
-                {
-                    name: "Sapping Sting",
-                    level: 0
-                },
-                {
-                    name: "Shape Water",
-                    level: 0
-                },
-                {
-                    name: "Shillelagh",
-                    level: 0
-                },
-                {
-                    name: "Shocking Grasp",
-                    level: 0
-                },
-                {
-                    name: "Spare the Dying",
-                    level: 0
-                },
-                {
-                    name: "Sword Burst",
-                    level: 0
-                },
-                {
-                    name: "Thaumaturgy",
-                    level: 0
-                },
-                {
-                    name: "Thorn Whip",
-                    level: 0
-                },
-                {
-                    name: "Thunderclap",
-                    level: 0
-                },
-                {
-                    name: "Toll the Dead",
-                    level: 0
-                },
-                {
-                    name: "True Strike",
-                    level: 0
-                },
-                {
-                    name: "Vicious Mockery",
-                    level: 0
-                },
-                {
-                    name: "Word of Radiance",
-                    level: 0
-                },
-                {
-                    name: "Absorb Elements",
-                    level: 1
-                },
-                {
-                    name: "Alarm",
-                    level: 1
-                },
-                {
-                    name: "Animal Friendship",
-                    level: 1
-                },
-                {
-                    name: "Armor of Agathys",
-                    level: 1
-                },
-                {
-                    name: "Arms of Hadar",
-                    level: 1
-                },
-                {
-                    name: "Bane",
-                    level: 1
-                },
-                {
-                    name: "Beast Bond",
-                    level: 1
-                },
-                {
-                    name: "Bless",
-                    level: 1
-                },
-                {
-                    name: "Burning Hands",
-                    level: 1
-                },
-                {
-                    name: "Catapult",
-                    level: 1
-                },
-                {
-                    name: "Cause Fear",
-                    level: 1
-                },
-                {
-                    name: "Ceremony",
-                    level: 1
-                },
-                {
-                    name: "Chaos Bolt",
-                    level: 1
-                },
-                {
-                    name: "Charm Person",
-                    level: 1
-                },
-                {
-                    name: "Chromatic Orb",
-                    level: 1
-                },
-                {
-                    name: "Color Spray",
-                    level: 1
-                },
-                {
-                    name: "Command",
-                    level: 1
-                },
-                {
-                    name: "Compelled Duel",
-                    level: 1
-                },
-                {
-                    name: "Comprehend Languages",
-                    level: 1
-                },
-                {
-                    name: "Create or Destroy Water",
-                    level: 1
-                },
-                {
-                    name: "Cure Wounds",
-                    level: 1
-                },
-                {
-                    name: "Detect Evil and Good",
-                    level: 1
-                },
-                {
-                    name: "Detect Magic",
-                    level: 1
-                },
-                {
-                    name: "Detect Poison and Disease",
-                    level: 1
-                },
-                {
-                    name: "Disguise Self",
-                    level: 1
-                },
-                {
-                    name: "Dissonant Whispers",
-                    level: 1
-                },
-                {
-                    name: "Distort Value",
-                    level: 1
-                },
-                {
-                    name: "Divine Favor",
-                    level: 1
-                },
-                {
-                    name: "Earth Tremor",
-                    level: 1
-                },
-                {
-                    name: "Ensnaring Strike",
-                    level: 1
-                },
-                {
-                    name: "Entangle",
-                    level: 1
-                },
-                {
-                    name: "Expeditious Retreat",
-                    level: 1
-                },
-                {
-                    name: "Fearie Fire",
-                    level: 1
-                },
-                {
-                    name: "False Life",
-                    level: 1
-                },
-                {
-                    name: "Feather Fall",
-                    level: 1
-                },
-                {
-                    name: "Find Familiar",
-                    level: 1
-                },
-                {
-                    name: "Fog Cloud",
-                    level: 1
-                },
-                {
-                    name: "Frost Fingers",
-                    level: 1
-                },
-                {
-                    name: "Gift of Alacrity",
-                    level: 1
-                },
-                {
-                    name: "Goodberry",
-                    level: 1
-                },
-                {
-                    name: "Grease",
-                    level: 1
-                },
-                {
-                    name: "Guiding Bolt",
-                    level: 1
-                },
-                {
-                    name: "Hail of Thorns",
-                    level: 1
-                },
-                {
-                    name: "Healing Word",
-                    level: 1
-                },
-                {
-                    name: "Hellish Rebuke",
-                    level: 1
-                },
-                {
-                    name: "Heroism",
-                    level: 1
-                },
-                {
-                    name: "Hex",
-                    level: 1
-                },
-                {
-                    name: "Hunter\'s Mark",
-                    level: 1
-                },
-                {
-                    name: "Ice Knife",
-                    level: 1
-                },
-                {
-                    name: "Identify",
-                    level: 1
-                },
-                {
-                    name: "Illusory Script",
-                    level: 1
-                },
-                {
-                    name: "Inflict Wounds",
-                    level: 1
-                },
-                {
-                    name: "Jim\'s Magic Missile",
-                    level: 1
-                },
-                {
-                    name: "Jump",
-                    level: 1
-                },
-                {
-                    name: "Longstrider",
-                    level: 1
-                },
-                {
-                    name: "Mage Armor",
-                    level: 1
-                },
-                {
-                    name: "Magic Missile",
-                    level: 1
-                },
-                {
-                    name: "Magnify Gravity",
-                    level: 1
-                },
-                {
-                    name: "Protection from Evil and Good",
-                    level: 1
-                },
-                {
-                    name: "Purify Food and Drink",
-                    level: 1
-                },
-                {
-                    name: "Ray of Sickness",
-                    level: 1
-                },
-                {
-                    name: "Sanctuary",
-                    level: 1
-                },
-                {
-                    name: "Searing Smite",
-                    level: 1
-                },
-                {
-                    name: "Shield",
-                    level: 1
-                },
-                {
-                    name: "Shield of Faith",
-                    level: 1
-                },
-                {
-                    name: "Silent Image",
-                    level: 1
-                },
-                {
-                    name: "Silvery Barbs",
-                    level: 1
-                },
-                {
-                    name: "Sleep",
-                    level: 1
-                },
-                {
-                    name: "Snare",
-                    level: 1
-                },
-                {
-                    name: "Speak with Animals",
-                    level: 1
-                },
-                {
-                    name: "Tasha\'s Caustic Brew",
-                    level: 1
-                },
-                {
-                    name: "Tasha\'s Hideous Laughter",
-                    level: 1
-                },
-                {
-                    name: "Tenser\'s Floating Disk",
-                    level: 1
-                },
-                {
-                    name: "Thunderous Smite",
-                    level: 1
-                },
-                {
-                    name: "Thunderwave",
-                    level: 1
-                },
-                {
-                    name: "Unseen Servant",
-                    level: 1
-                },
-                {
-                    name: "Witch Bolt",
-                    level: 1
-                },
-                {
-                    name: "Wrathful Smite",
-                    level: 1
-                },
-                {
-                    name: "Zephyr Strike",
-                    level: 1
-                },
-            ],
+                    level: 9,
+                    list: ["Astral Projection","Foresight","Gate","Imprisonment","Mass Heal","Meteor Swarm","Power Word Heal","Power Word Kill","Prismatic Wall","Shapechange","Storm of Vengeance","Time Stop","True Polymorph","True Resurrection","Weird","Wish","Invulnerability","Mass Polymorph","Psychic Scream"]
+                }
+            ]
         }
     },
 
@@ -3955,7 +3495,7 @@ var ItemStore = ItemStore || (function() {
                 let spell=rollSpell(level);
                 let truespell=[
                     {
-                        name: name+" ("+spell[0].name+")",
+                        name: name+" ("+spell[0]+")",
                         desc: desc,
                         mods: mods,
                         props: props,
@@ -3968,12 +3508,12 @@ var ItemStore = ItemStore || (function() {
                 items.push(truespell[0]);
             } else {
                 let spell=rollSpell(level);
-                if (items[i].name==spell[0].name) {
+                if (items[i].name==spell[0]) {
                     items[i].amount++;
                 } else {
                     let truespell=[
                         {
-                            name: name+" ("+spell[0].name+")",
+                            name: name+" ("+spell[0]+")",
                             desc: desc,
                             mods: mods,
                             props: props,
@@ -3991,18 +3531,10 @@ var ItemStore = ItemStore || (function() {
     },
 
     rollSpell = function(level) {
-        let spellList=state.list.spell;
+        let spellList=state.list.spell[level].list;
         let spell=[];
-        let list=[];
-        let count=0;
-        for (let i=0;i<spellList.length;i++) {
-            if (spellList[i].level==level) {
-                list[count]=spellList[i];
-                count++;
-            }
-        }
-        let rand=randomInteger(list.length);
-        spell.push(list[rand-1]);
+        let rand=randomInteger(spellList.length-1);
+        spell.push(spellList[rand]);
         return spell;
     },
 
@@ -4157,11 +3689,11 @@ var ItemStore = ItemStore || (function() {
         let items;
         let list;
         let rare=minrare+':'+maxrare;
-        const commonlist="";
-        const uncommonlist="";
-        const rarelist="";
-        const veryrarelist="";
-        const legendarylist="";
+        const commonlist="Bead of Nourishment,50;Bead of Refreshment,50;Boots of False Tracks,50;Candle of the Deep,50;Charlatan\'s Die,50;Cloak of Billowing,50;Cloak of Many Fashions,50;Clockwork Amulet,50;Clothes of Mending,50;Dark Shard Amulet,50;Dread Helm,50;Ear Horn of Hearing,50;Enduring Spellbook,50;Ersatz Eye,50;Hat of Vermin,50;Hat of Wizardry,50;Heward\'s Handy Spice,50;Horn of Silent Alarm,50;Instrument of Illusions,50;Instrument of Scribing,50;Lock of Trickery,50;Mystery Key,50;Orb of Direction,50;Orb of Time,50;Perfume of Bewiching,50;Pipe of Smoke Monsters,50;Pole of Angling,50;Pole of Collapsing,50;Pot of Awakening,50;Rope of Mending,50;Ruby of the Wary Mage,50;Staff of Adornment,50;Staff of Birdcalls,50;Staff of Flowers,50;Talking Doll,50;Tankard of Sobriety,50;Unbreakable Arrow,50;Veteran\'s Cane,50;Wand of Conduction,50;Wand of Pyrotechnics,50;Wand of Scowls,50;Wand of Smiles,50";
+        const uncommonlist="Alchemy Jug,6000;Amulet of Proof Against Detection and Location,20000;Bag of Holding,4000;Boots of Elvenkind,2500;Boots of Striding and Springing,5000;Boots of the Winterlands,10000;Bracers of Archery,1500;Brooch of Shielding,7500;Broom of Flying,8000;Cap of Water Breathing,1000;Circlet of Blasting,1500;Cloak of Elvenkind,5000;Cloak of Protection,3500;Cloak of the Manta Ray,6000;Decanter of Endless Water,135000;Deck of Illusions,6120;Driftglobe,750;Dust of Disappearance,300;Dust of Dryness (1 pellet),120;Dust of Sneezing and Choking,480;Elemental Gem,960;Eversmoking Bottle,1000;Eyes of Charming,3000;Eyes of Minute Seeing,2500;Eyes of the Eagle,2500;Gauntlets of Ogre Power,8000;Gem of Brightness,5000;Gloves of Missile Snaring,3000;Gloves of Swimming and Climbing,2000;Gloves of Thievery,5000;Goggles of Night,1500;Hat of Disguise,5000;Headband of Intellect,8000;Helm of Comprehend Languages,500;Helm of Telepathy,12000;Immovable Rod,5000;Instrument of the Bards - Doss Lute,28500;Instrument of the Bards - Fochulan Bandlore,26500;Instrument of the Bards - Mac-Fuirmidh Cittern,27000;Keoghtom\'s Ointment (1 dose),120;Lantern of Revealing,5000;Luckstone,4200;Medallion of Thoughts,3000;Necklace of Adaption,1500;Pearl of Power,6000;Periapt of Health,5000;Periapt of Wound Closure,5000;Pipes of Haunting,6000;Pipes of the Sewers,2000;Quiver of Ehlonna,1000;Ring of Jumping,2500;Ring of Mind Shielding,16000;Ring of Swimming,3000;Ring of Warmth,1000;Ring of Water Walking,1500;Robe of Useful Items,2000;Rope of Climbing,2000;Saddle of the Cavalier,2000;Sending Stones,2000;Silver Raven,5000;Slippers of Spider Climbing,5000;Wind Fan,1500;Winged Boots,8000";
+        const rarelist="Amulet of Health,8000;Bead of Force,960;Belt of Dwarvenkind,6000;Boots of Levitation,4000;Boots of Speed,4000;Bowl of Commanding Water Elementals,8000;Bracers of Defense,6000;Brass Horn of Valhalla,8400;Brazier of Commanding Fire Elementals,8000;Bronze Griffon,8000;Cape of the Mountebank,8000;Censer of Controlling Air Elementals,8000;Chime of Opening,1500;Cloak of Displacement,60000;Cloak of the Bat,6000;Cube of Force,16000;Daern\'s Instant Fortress,75000;Dimensional Shackles,3000;Ebony Fly,6000;Folding Boat,10000;Gem of Seeing,32000;Goldean Lion (ea),600;Helm of Teleportation,64000;Heward\'s Handy Haversack,2000;Horn of Blasting,450;Horseshoes of Speed,5000;Instrument of the Bards - Canaith Mandolin,30000;Instrument of the Bards - Cli Lyre,35000;Ioun Stone Awareness,12000;Ioun Stone Protection,1200;Ioun Stone Reserve,6000;Ioun Stone Sustenance,1000;Iron Bands of Bilarro,4000;Ivory Goat (Terror),20000;Ivory Goat (Travail),400;Ivory Goat (Traveling),1000;Mantle of Spell Resistance,30000;Marble Elephant,6000;Necklace of Fireballs (Five beads),3840;Necklace of Fireballs (Four beads),1600;Necklace of Fireballs (One bead),300;Necklace of Fireballs (Six beads),7680;Necklace of Fireballs (Three beads),960;Necklace of Fireballs (Two beads),480;Onyx Dog,3000;Periapt of Proof Against Poison,5000;Portable Hole,8000;Prayer Bead - Bless,2000;Prayer Bead - Curing,4000;Prayer Bead - Favor,32000;Prayer Bead - Smiting,1500;Prayer Bead - Summons,128000;Prayer Bead - Wind Walking,96000;Quaal\'s Feather Token Anchor,50;Quaal\'s Feather Token Bird,3000;Quaal\'s Feather Token Fan,250;Quaal\'s Feather Token Swan Boat,3000;Quaal\'s Feather Token Whip,250;Ring of Animal Influence,4000;Ring of Evasion,5000;Ring of Feather Falling,2000;Ring of Free Action,20000;Ring of Protection,3500;Ring of Resistance,6000;Ring of Spell Storing,24000;Ring of the Ram,5000;Ring of X-Ray Vision,6000;Robe of Eyes,30000;Rope of Entanglement,4000;Serpentine Owl,8000;Silver Horn of Valhalla,5600;Stone of Controlling Earth Elementals,8000;Wings of Flying,5000";
+        const veryrarelist="Amulet of the Planes,160000;Bronze Horn of Valhalla,11200;Carpet of Flying,12000;Cloak of Arachnida,5000;Crystal Ball,50000;Horseshoes of the Zephyr,1500;Instrument of the Bards - Anstruth Harp,109000;Ioun Stone Absorption,2400;Ioun Stone Agility,3000;Ioun Stone Fortitude,3000;Ioun Stone Insight,3000;Ioun Stone Intellect,3000;Ioun Stone Leadership,3000;Ioun Stone Strength,3000;Mirror of Life Trapping,18000;Nolzur\'s Marvelous Pigments,200;Obsidian Steed,128000;Ring of Regeneration,12000;Ring of Shooting Stars,14000;Ring of Telekinesis,80000;Robe of Scintillating Colors,6000;Robe of Stars,60000";
+        const legendarylist="Apparatus of Kwalish,10000;Cloak of Invisibility,80000;Cubic Gate,40000;Efreeti Chain,20000;Instrument of the Bards - Ollamh Harp,125000;Ioun Stone Greater Absorption,31000;Ioun Stone Mastery,15000;Ioun Stone Regeneration,4000;Iron Horn of Valhalla,14000;Ring of Air Elemental Command,35000;Ring of Earth Elemental Command,31000;Ring of Fire Elemental Command,17000;Ring of Invisibility,10000;Ring of Spell Turning,30000;Ring of Water Elemental Command,25000;Robe of the Archmagi,34000;Scarab of Protection,36000;Sovereign Glue,400;Sphere of Annihilation,15000;Talisman of Pure Good,71680;Talisman of the Sphere,20000;Talisman of Ultimate Evil,61440;Universal Solvent,300";
         var rand=randomInteger(100);
         let rarity;
         amount=Number(amount);
@@ -4510,12 +4042,12 @@ var ItemStore = ItemStore || (function() {
                     rarity="legendary";
                 break;
             }
-            list=list.split(";");
-            rand=randomInteger(list.length);
+            mundaneList=mundaneList.split(";");
+            rand=randomInteger(mundaneList.length);
             let props;
             let found=false;
             if (items[0]==undefined) {
-                props=String(list[rand]).split(',');
+                props=String(mundaneList[rand]).split(',');
                 items.push(
                     {
                         name: props[0],
@@ -4530,12 +4062,12 @@ var ItemStore = ItemStore || (function() {
                 );
             } else {
                 for (let j=0;j<items.length;j++) {
-                    if (items[j].name==list[rand-1].name) {
+                    if (items[j].name==mundaneList[rand-1].name) {
                         items[j].amount++;
                         found=true;
                     }
                 }
-                props=String(list[rand-1]).split(',');
+                props=String(mundaneList[rand-1]).split(',');
                 if (found==false) {
                     items.push(
                         {
