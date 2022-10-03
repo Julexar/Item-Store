@@ -4031,7 +4031,6 @@ var ItemStore = ItemStore || (function() {
                 } else {
                     rarity[0]=minrare;
                     rarity[1]=maxrare;
-                    return rarity;
                 }
             break;
             case 'rare':
@@ -4040,7 +4039,6 @@ var ItemStore = ItemStore || (function() {
                 } else {
                     rarity[0]=minrare;
                     rarity[1]=maxrare;
-                    return rarity;
                 }
             break;
             case 'very rare':
@@ -4049,7 +4047,6 @@ var ItemStore = ItemStore || (function() {
                 } else {
                     rarity[0]=minrare;
                     rarity[1]=maxrare;
-                    return rarity;
                 }
             break;
             case 'legendary':
@@ -4058,10 +4055,113 @@ var ItemStore = ItemStore || (function() {
                 } else {
                     rarity[0]=minrare;
                     rarity[1]=maxrare;
-                    return rarity;
                 }
             break;
+            case 'random':
+                if (maxrare=="common") {
+                    minrare=maxrare;
+                } else if (maxrare=="uncommon") {
+                    let rand=randomInteger(2);
+                    if (rand==1) {
+                        minrare="common";
+                    } else if (rand==2) {
+                        minrare=maxrare;
+                    }
+                } else if (maxrare=="rare") {
+                    let rand=randomInteger(3);
+                    if (rand==1) {
+                        minrare="common";
+                    } else if (rand==2) {
+                        minrare="uncommon";
+                    } else if (rand==3) {
+                        minrare=maxrare;
+                    }
+                } else if (maxrare=="very rare") {
+                    let rand=randomInteger(4);
+                    if (rand==1) {
+                        minrare="common";
+                    } else if (rand==2) {
+                        minrare="uncommon";
+                    } else if (rand==3) {
+                        minrare="rare";
+                    } else if (rand==4) {
+                        minrare=maxrare;
+                    }
+                } else if (maxrare=="legendary") {
+                    let rand=randomInteger(5);
+                    if (rand==1) {
+                        minrare="common";
+                    } else if (rand==2) {
+                        minrare="uncommon";
+                    } else if (rand==3) {
+                        minrare="rare";
+                    } else if (rand==4) {
+                        minrare="very rare";
+                    } else if (rand==5) {
+                        minrare=maxrare;
+                    }
+                } else if (maxrare=="random") {
+                    let rand2=randomInteger(5);
+                    if (rand2==1) {
+                        maxrare="common";
+                    } else if (rand2==2) {
+                        maxrare="uncommon";
+                    } else if (rand2==3) {
+                        maxrare="rare";
+                    } else if (rand2==4) {
+                        maxrare="very rare";
+                    } else if (rand2==5) {
+                        maxrare="legendary";
+                    }
+                    if (maxrare=="common") {
+                        minrare=maxrare;
+                    } else if (maxrare=="uncommon") {
+                        let rand=randomInteger(2);
+                        if (rand==1) {
+                            minrare="common";
+                        } else if (rand==2) {
+                            minrare=maxrare;
+                        }
+                    } else if (maxrare=="rare") {
+                        let rand=randomInteger(3);
+                        if (rand==1) {
+                            minrare="common";
+                        } else if (rand==2) {
+                            minrare="uncommon";
+                        } else if (rand==3) {
+                            minrare=maxrare;
+                        }
+                    } else if (maxrare=="very rare") {
+                        let rand=randomInteger(4);
+                        if (rand==1) {
+                            minrare="common";
+                        } else if (rand==2) {
+                            minrare="uncommon";
+                        } else if (rand==3) {
+                            minrare="rare";
+                        } else if (rand==4) {
+                            minrare=maxrare;
+                        }
+                    } else if (maxrare=="legendary") {
+                        let rand=randomInteger(5);
+                        if (rand==1) {
+                            minrare="common";
+                        } else if (rand==2) {
+                            minrare="uncommon";
+                        } else if (rand==3) {
+                            minrare="rare";
+                        } else if (rand==4) {
+                            minrare="very rare";
+                        } else if (rand==5) {
+                            minrare=maxrare;
+                        }
+                    }
+                }
+                rarity[0]=minrare;
+                rarity[1]=maxrare;
+            break;
         }
+        return rarity;
     },
 
     resetInv = function(store) {
