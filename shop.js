@@ -1252,9 +1252,9 @@ var ItemStore = ItemStore || (function() {
                                 let option=args[2].replace("inv ","");
                                 if (option=="view") {
                                     if (args[3]==undefined) {
-                                        itemMenu(store);
+                                        itemMenu(store,undefined);
                                     } else if (args[3].replace("item ","")=="" || args[3].replace("item ","")==" ") {
-                                        itemMenu(store);
+                                        itemMenu(store,undefined);
                                     } else {
                                         let item=args[3].replace("item ","");
                                         itemMenu(store,item);
@@ -1818,209 +1818,109 @@ var ItemStore = ItemStore || (function() {
                 );
             }
         } else {
-            if (Number(store)) {
-                if (state.store.length==undefined || state.store.length==0) {
-                    sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
-                        '<div ' + headstyle + '>Item Store</div>' + //--
-                        '<div ' + substyle + '>GM Menu</div>' + //--
-                        '<div ' + arrowstyle + '></div>' + //--
-                        '<table>' + //--
-                        '<tr><td>Current Store: </td><td>No existing Stores!</td></tr>' + //--
-                        '</table>' + //--
-                        '<br><br>' + //--
-                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --create --name ?{Name?|Insert Name}">Create new Store</a></div>' + //--
-                        '</div>'
-                    );
-                } else if (state.store.length>=1) {
-                    let shop=state.store[Number(store)];
-                    let shopList=[];
-                    let count=-1;
+            if (state.store.length==undefined || state.store.length==0) {
+                sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
+                    '<div ' + headstyle + '>Item Store</div>' + //--
+                    '<div ' + substyle + '>GM Menu</div>' + //--
+                    '<div ' + arrowstyle + '></div>' + //--
+                    '<table>' + //--
+                    '<tr><td>Current Store: </td><td>No existing Stores!</td></tr>' + //--
+                    '</table>' + //--
+                    '<br><br>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --create --name ?{Name?|Insert Name}">Create new Store</a></div>' + //--
+                    '</div>'
+                );
+            } else if (state.store.length>=1) {
+                let shop;
+                let shopList;
+                for (let i=0;i<state.store.length;i++) {
+                    if (state.store[i].name==store) {
+                        shop=state.store[i];
+                    }
+                }
+                if (shop==undefined) {
+                    sendChat("Item Store","/w gm Could not find a Store with that Number!")
+                } else if (shop!==undefined) {
+                    let count=0;
                     for (let i=0;i<state.store.length;i++) {
-                        shopList[i]=state.store[i].name;
+                        if (state.store[i].name!==shop.name) {
+                            count++;
+                            shopList[count]=state.store[i].name;
+                        }
                     }
                     shopList=String(shopList);
                     for (let i=0;i<state.store.length;i++) {
                         shopList=shopList.replace(",","|");
                     }
-                    if (shop==undefined) {
-                        sendChat("Item Store","/w gm Could not find a Store with that Number!")
-                    } else {
-                        let inv=shop.inv;
-                        let invList="";
-                        let border="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; ";
-                        for (let i=0;i<inv.length;i++) {
-                            let price=inv[i].price+(shop.cprice*inv[i].price);
-                            let desc=inv[i].desc.split(";");
-                            if (i>=1) {
-                                border="border-bottom: 1px solid #cccccc; ";
-                            }
-                            invList += '<tr style="'+border+'border-left:1px solid #cccccc; border-right: 1px solid #cccccc;"><td style="border-right: 1px solid #cccccc; text-align:center;">'+ inv[i].amount + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + i + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + inv[i].name + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + desc[0] + '</td><td style="text-align:center;">' + price + '</td></tr>';
+                    let inv=shop.inv;
+                    let invList="";
+                    let border="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; ";
+                    for (let i=0;i<inv.length;i++) {
+                        let price=inv[i].price+(shop.cprice*inv[i].price);
+                        let desc=inv[i].desc.split(";");
+                        if (i>=1) {
+                            border="border-bottom: 1px solid #cccccc; ";
                         }
-                        if (shop.active==true) {
-                            sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
-                                '<div ' + headstyle + '>Item Store</div>' + //--
-                                '<div ' + substyle + '>GM Menu</div>' + //--
-                                '<div ' + arrowstyle + '></div>' + //--
-                                '<table' + tablestyle + '>' + //--
-                                '<tr><td>Current Store: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!store --store ?{Select a Store|' + shopList + '}">' + shop.name + ' (active)</a></td></tr>' + //--
-                                '</table>' + //--
-                                '<br><br><div style="text-align:center;"><b>Inventory</b></div>' + //--
-                                '<table ' + tablestyle + '>' + //--
-                                '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th></tr></thead>' + //--
-                                '<tbody>' + invList + '</tbody>' + //--
-                                '</table>' + //--
-                                '<br><br>' + //--
-                                '<table' + tablestyle + '>' + //--
-                                '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
-                                '</table>' + //--
-                                '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
-                                '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
-                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv gen --type ?{Item Type?|' + state.typeList + '} --minrare ?{Minimum Rarity?|' + state.rareList + '} --maxrare ?{Maximum Rarity?|' + state.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv reset">Reset Inventory</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deactivate">Deactivate Store</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle1 + '" href="!store --create --name ?{Shop name?|Insert Name}">Create Store</a>' + //--
-                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --delete">Delete Store</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --players">Show to Players</a></div>' + //--
-                                '</div>'
-                            );
-                        } else if (shop.active==false) {
-                            sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
-                                '<div ' + headstyle + '>Item Store</div>' + //--
-                                '<div ' + substyle + '>GM Menu</div>' + //--
-                                '<div ' + arrowstyle + '></div>' + //--
-                                '<table' + tablestyle + '>' + //--
-                                '<tr><td>Current Store: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!store --store ?{Select a Store|' + shopList + '}">' + shop.name + ' (active)</a></td></tr>' + //--
-                                '</table>' + //--
-                                '<br><br><div style="text-align:center;"><b>Inventory</b></div>' + //--
-                                '<table ' + tablestyle + '>' + //--
-                                '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th></tr></thead>' + //--
-                                '<tbody>' + invList + '</tbody>' + //--
-                                '</table>' + //--
-                                '<br><br>' + //--
-                                '<table' + tablestyle + '>' + //--
-                                '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
-                                '</table>' + //--
-                                '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
-                                '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
-                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv gen --type ?{Item Type?|' + state.typeList + '} --minrare ?{Minimum Rarity?|' + state.rareList + '} --maxrare ?{Maximum Rarity?|' + state.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv reset">Reset Inventory</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deactivate">Deactivate Store</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle1 + '" href="!store --create --name ?{Shop name?|Insert Name}">Create Store</a>' + //--
-                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --delete">Delete Store</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --players">Show to Players</a></div>' + //--
-                                '</div>'
-                            );
-                        }
+                        invList += '<tr style="'+border+'border-left:1px solid #cccccc; border-right: 1px solid #cccccc;"><td style="border-right: 1px solid #cccccc; text-align:center;">' + i + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + inv[i].amount + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + inv[i].name + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + desc[0] + '</td><td style="text-align:center;">' + price + '</td></tr>';
                     }
-                }
-            } else {
-                if (state.store.length==undefined || state.store.length==0) {
-                    sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
-                        '<div ' + headstyle + '>Item Store</div>' + //--
-                        '<div ' + substyle + '>GM Menu</div>' + //--
-                        '<div ' + arrowstyle + '></div>' + //--
-                        '<table>' + //--
-                        '<tr><td>Current Store: </td><td>No existing Stores!</td></tr>' + //--
-                        '</table>' + //--
-                        '<br><br>' + //--
-                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --create --name ?{Name?|Insert Name}">Create new Store</a></div>' + //--
-                        '</div>'
-                    );
-                } else if (state.store.length>=1) {
-                    let shop;
-                    let shopList;
-                    for (let i=0;i<state.store.length;i++) {
-                        if (state.store[i].name==store) {
-                            shop=state.store[i];
-                        }
-                    }
-                    if (shop==undefined) {
-                        sendChat("Item Store","/w gm Could not find a Store with that Number!")
-                    } else {
-                        for (let i=0;i<state.store.length;i++) {
-                            if (state.store[i].name!==shop.name) {
-                                count++;
-                                shopList[count]=state.store[i].name;
-                            }
-                        }
-                        shopList=String(shopList);
-                        for (let i=0;i<state.store.length;i++) {
-                            shopList=shopList.replace(",","|");
-                        }
-                        let inv=shop.inv;
-                        let invList="";
-                        let border="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; ";
-                        for (let i=0;i<inv.length;i++) {
-                            let price=inv[i].price+(shop.cprice*inv[i].price);
-                            let desc=inv[i].desc.split(";");
-                            if (i>=1) {
-                                border="border-bottom: 1px solid #cccccc; ";
-                            }
-                            invList += '<tr style="'+border+'border-left:1px solid #cccccc; border-right: 1px solid #cccccc;"><td style="border-right: 1px solid #cccccc; text-align:center;">' + i + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + inv[i].amount + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + inv[i].name + '</td><td style="border-right: 1px solid #cccccc; text-align:center;">' + desc[0] + '</td><td style="text-align:center;">' + price + '</td></tr>';
-                        }
-                        if (shop.active==true) {
-                            sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
-                                '<div ' + headstyle + '>Item Store</div>' + //--
-                                '<div ' + substyle + '>GM Menu</div>' + //--
-                                '<div ' + arrowstyle + '></div>' + //--
-                                '<table' + tablestyle + '>' + //--
-                                '<tr><td>Current Store: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!store --store ?{Select a Store|' + shopList + '}">' + shop.name + ' (active)</a></td></tr>' + //--
-                                '</table>' + //--
-                                '<br><br><div style="text-align:center;"><b>Inventory</b></div>' + //--
-                                '<table ' + tablestyle + '>' + //--
-                                '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th></tr></thead>' + //--
-                                '<tbody>' + invList + '</tbody>' + //--
-                                '</table>' + //--
-                                '<br><br>' + //--
-                                '<table' + tablestyle + '>' + //--
-                                '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
-                                '</table>' + //--
-                                '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
-                                '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
-                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv gen --type ?{Item Type?|' + state.typeList + '} --minrare ?{Minimum Rarity?|' + state.rareList + '} --maxrare ?{Maximum Rarity?|' + state.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv reset">Reset Inventory</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deactivate">Deactivate Store</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle1 + '" href="!store --create --name ?{Shop name?|Insert Name}">Create Store</a>' + //--
-                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --delete">Delete Store</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --players">Show to Players</a></div>' + //--
-                                '</div>'
-                            );
-                        } else if (shop.active==false) {
-                            sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
-                                '<div ' + headstyle + '>Item Store</div>' + //--
-                                '<div ' + substyle + '>GM Menu</div>' + //--
-                                '<div ' + arrowstyle + '></div>' + //--
-                                '<table' + tablestyle + '>' + //--
-                                '<tr><td>Current Store: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!store --store ?{Select a Store|' + shopList + '}">' + shop.name + ' (active)</a></td></tr>' + //--
-                                '</table>' + //--
-                                '<br><br><div style="text-align:center;"><b>Inventory</b></div>' + //--
-                                '<table ' + tablestyle + '>' + //--
-                                '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th></tr></thead>' + //--
-                                '<tbody>' + invList + '</tbody>' + //--
-                                '</table>' + //--
-                                '<br><br>' + //--
-                                '<table' + tablestyle + '>' + //--
-                                '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
-                                '</table>' + //--
-                                '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
-                                '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
-                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv gen --type ?{Item Type?|' + state.typeList + '} --minrare ?{Minimum Rarity?|' + state.rareList + '} --maxrare ?{Maximum Rarity?|' + state.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv reset">Reset Inventory</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deactivate">Deactivate Store</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle1 + '" href="!store --create --name ?{Shop name?|Insert Name}">Create Store</a>' + //--
-                                '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --delete">Delete Store</a></div>' + //--
-                                '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --players">Show to Players</a></div>' + //--
-                                '</div>'
-                            );
-                        }
+                    if (shop.active==true) {
+                        sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
+                            '<div ' + headstyle + '>Item Store</div>' + //--
+                            '<div ' + substyle + '>GM Menu</div>' + //--
+                            '<div ' + arrowstyle + '></div>' + //--
+                            '<table' + tablestyle + '>' + //--
+                            '<tr><td>Current Store: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!store --store ?{Select a Store|' + shopList + '}">' + shop.name + ' (active)</a></td></tr>' + //--
+                            '</table>' + //--
+                            '<br><br><div style="text-align:center;"><b>Inventory</b></div>' + //--
+                            '<table ' + tablestyle + '>' + //--
+                            '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th></tr></thead>' + //--
+                            '<tbody>' + invList + '</tbody>' + //--
+                            '</table>' + //--
+                            '<br><br>' + //--
+                            '<table' + tablestyle + '>' + //--
+                            '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
+                            '</table>' + //--
+                            '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
+                            '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
+                            '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv gen --type ?{Item Type?|' + state.typeList + '} --minrare ?{Minimum Rarity?|' + state.rareList + '} --maxrare ?{Maximum Rarity?|' + state.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv reset">Reset Inventory</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deactivate">Deactivate Store</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle1 + '" href="!store --create --name ?{Shop name?|Insert Name}">Create Store</a>' + //--
+                            '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --delete">Delete Store</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --players">Show to Players</a></div>' + //--
+                            '</div>'
+                        );
+                    } else if (shop.active==false) {
+                        sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
+                            '<div ' + headstyle + '>Item Store</div>' + //--
+                            '<div ' + substyle + '>GM Menu</div>' + //--
+                            '<div ' + arrowstyle + '></div>' + //--
+                            '<table' + tablestyle + '>' + //--
+                            '<tr><td>Current Store: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!store --store ?{Select a Store|' + shopList + '}">' + shop.name + ' (active)</a></td></tr>' + //--
+                            '</table>' + //--
+                            '<br><br><div style="text-align:center;"><b>Inventory</b></div>' + //--
+                            '<table ' + tablestyle + '>' + //--
+                            '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th></tr></thead>' + //--
+                            '<tbody>' + invList + '</tbody>' + //--
+                            '</table>' + //--
+                            '<br><br>' + //--
+                            '<table' + tablestyle + '>' + //--
+                            '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
+                            '</table>' + //--
+                            '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
+                            '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
+                            '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv gen --type ?{Item Type?|' + state.typeList + '} --minrare ?{Minimum Rarity?|' + state.rareList + '} --maxrare ?{Maximum Rarity?|' + state.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv reset">Reset Inventory</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --deactivate">Deactivate Store</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle1 + '" href="!store --create --name ?{Shop name?|Insert Name}">Create Store</a>' + //--
+                            '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --delete">Delete Store</a></div>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --players">Show to Players</a></div>' + //--
+                            '</div>'
+                        );
                     }
                 }
             }
@@ -2031,7 +1931,7 @@ var ItemStore = ItemStore || (function() {
         //Creates a new Store
         let store=[
             {
-                name: name,
+                name: `${name}`,
                 inv: [],
                 hdc: 10,
                 cprice: 0,
@@ -2105,6 +2005,39 @@ var ItemStore = ItemStore || (function() {
                     '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv edit --item ?{Item?|' + itemList + '} --remove">Remove Item</a></div>' + //--
                     '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv view --item ?{Item?|' + itemList + '}">View Item</a></div>' + //--
                     '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv gen --type ?{Item Type?|' + state.typeList + '} --minrare ?{Minimum Rarity?|' + state.rareList + '} --maxrare ?{Maximum Rarity?|' + state.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
+                    '</div>'
+                );
+            } else if (item!==undefined) {
+                let inv=store.inv;
+                let itemList=[];
+                let border="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; ";
+                item=inv.find(i => i.name==item);
+                for (let i=0;i<inv.length;i++) {
+                    itemList.push(inv[i].name);
+                }
+                let len=itemList.length;
+                for (let i=0;i<len;i++) {
+                    itemList=String(itemList).replace(',','|');
+                }
+                let desc=item.desc.split(';')
+                sendChat('Item Store',"/w gm <div "+divstyle+">"+//--
+                    '<div ' + headstyle + '>Item Menu</div>' + //--
+                    '<div ' + substyle + '></div>' + //--
+                    '<div ' + arrowstyle + '></div>' + //--
+                    '<div style="text-align:center;">Store: ' + store.name + '</div>' + //--
+                    '<br><br>' + //--
+                    '<table>' + //--
+                    '<tr><td>Item: </td><td><a ' + astyle1 + '" href="!store --store ' + store.name + ' --inv view --item ?{Item?|' + itemList + '}">' + item.name + '</a></td></tr>' + //--
+                    '<tr><td>Description (1/2): </td><td>' + desc[0] + '</td></tr>' + //--
+                    '<tr><td>Description (2/2): </td><td>' + desc[1] + '</td></tr>' + //--
+                    '<tr><td>Modifiers: </td><td>' + item.mods + '</td></tr>' + //--
+                    '<tr><td>Properties: </td><td>' + item.props + '</td></tr>' + //--
+                    '<tr><td>Price: </td><td>' + Number(item.price+item.price*store.cprice) + ' GP</td></tr>' + //--
+                    '<tr><td>Weight: </td><td>' + Number(item.weight) + ' lbs</td></tr>' + //--
+                    '</table>' + //--
+                    '<br><br>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv edit --item ' + item.name + '">Edit Item</a></div>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + '">Go back</a></div>' + //--
                     '</div>'
                 );
             }
