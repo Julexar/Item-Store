@@ -8,7 +8,8 @@
 | 1.1   | :x: |
 | 1.2   | :x: |
 | 1.3   | :white_check_mark: |
-| 1.5  | :white_check_mark: |
+| 1.5 - Multiple Stores | :x: |
+| 1.6   | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
