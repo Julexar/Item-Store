@@ -64,11 +64,7 @@ GM & Players
 var ItemStore = ItemStore || (function() {
     'use strict';
     
-<<<<<<< Updated upstream
-    var version = '1.5',
-=======
-    var version = '1.7',
->>>>>>> Stashed changes
+    var version = "1.7";
     
     setDefaults = function() {
         state.store = [];
@@ -1442,12 +1438,9 @@ var ItemStore = ItemStore || (function() {
                                 deleteStore(store);
                             }
                         } 
-<<<<<<< Updated upstream
-=======
                     } else if (args[1]=="reset") {
                         resetStores();
                         storeMenu(undefined);
->>>>>>> Stashed changes
                     }
                 return;
             }
