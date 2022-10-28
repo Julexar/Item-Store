@@ -2,7 +2,6 @@
 Item Store Generator for D&D 5e
 Original created by Kirsty (https://app.roll20.net/users/1165285/kirsty)
 Updated Version by Julexar (https://app.roll20.net/users/9989180/julexar)
-
 API Commands:
 GM ONLY
 !store - Pulls up the Menu and allows the GM to create and modify Stores
@@ -66,7 +65,7 @@ GM & Players
 var ItemStore = ItemStore || (function() {
     'use strict';
     
-    var version = "1.7",
+    var version = "1.8",
     
     setDefaults = function() {
         state.store = [];
@@ -1420,7 +1419,7 @@ var ItemStore = ItemStore || (function() {
                                     sendChat("Item Store","/w gm The new name of a Store cannot be empty!");
                                 } else {
                                     editStore(store,"name",name);
-                                    storeMenu(store);
+                                    storeMenu(name);
                                 }
                             } else if (args[2].includes("inflate")) {
                                 let num=Number(args[2].replace("inflate ",""));
@@ -1888,6 +1887,7 @@ var ItemStore = ItemStore || (function() {
                             '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
                             '</table>' + //--
                             '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --name ?[Name?|Insert Name}">Change Name</a></div>' + //--
                             '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
                             '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
                             '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
@@ -1914,9 +1914,10 @@ var ItemStore = ItemStore || (function() {
                             '</table>' + //--
                             '<br><br>' + //--
                             '<table' + tablestyle + '>' + //--
-                            '<tr><td>Haggle DC: </td><td><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
+                            '<tr><td>Haggle DC: </td><td><a ' + astyle1 + '" href="!store --store ' + shop.name + ' --hdc ?{Haggle DC|10}">' + shop.hdc + '</a></td></tr>' + //--
                             '</table>' + //--
                             '<br><br>Price Change %: ' + shop.cprice + '<br><br>' + //--
+                            '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --name ?[Name?|Insert Name}">Change Name</a></div>' + //--
                             '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + shop.name + ' --inflate ?{Inflation %|0}">Inflate Price</a>' + //--
                             '<a ' + astyle3 + '" href="!store --store ' + shop.name + ' --deflate ?{Deflation %|0}">Deflate Price</a></div>' + //--
                             '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Item Menu</a></div>' + //--
