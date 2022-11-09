@@ -11,7 +11,8 @@
 | 1.5   | :x: |
 | 1.6   | :x: |
 | 1.7   | :x: |
-| 1.8   | :white_check_mark: |
+| 1.8   | :x: |
+| 1.9   | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
