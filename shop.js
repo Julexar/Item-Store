@@ -13,8 +13,6 @@ GM ONLY
             --item {Insert Item name/number} - Select a specific Item that you wish to edit/view.
                 Edit Only
                 --del - Deletes the selected Item
-                --mode add - Adds a selected Property to an already existing one
-                --mode none - Replaces a selected Property
             --new - Adds a new Item
                     --name {Insert new Name} - Set the Name of an Item
                     --desc {Insert new Description} - Set the Description of an Item (Check the Wiki to see how a Description is structured)
@@ -28,7 +26,7 @@ GM ONLY
             Generate Only
             --type {Insert Item Type} --amount {Insert Number of Items} --minrare {Insert minimum Rarity} --maxrare {Insert maximum Rarity} - Generate a random Inventory based on Item Type and Rarity. (For a list of available Types and Rarities, check the Wiki)
                 --overwrite true/false - Select whether you wish you to Overwrite an already existing Inventory. (Put true if so, put false if not) Default: true
-        --players - Add this Option if you want to show the selected Store to the Players.
+        --show - Add this Option if you want to show the selected Store to the Players.
         --name {Insert new Name} - Changes the Name of the selected Store.
         --hdc {Insert new Haggle DC} - Sets the Haggle DC for the selected Store. (Default: 10)
         --inflate {Insert number from 0.1 to Infinity} - Set a Percentage of Inflation to increase prices.
@@ -1257,46 +1255,36 @@ var ItemStore = ItemStore || (function() {
                                         if (item=="" || item==" ") {
                                             sendChat("Item Store","/w gm Invalid Item!");
                                         } else {
-                                            let mode;
                                             if (!args[4]) {
-                                                mode="none";
-                                                editMenu(store,mode,item);
-                                            } else if (args[4].includes("mode")) {
-                                                mode=args[4].replace("mode ","");
-                                                if (mode!="none" && mode!="add") {
-                                                    mode="none";
+                                                editMenu(store,item);
+                                            } else if (args[4]!="del") {
+                                                let name,desc,mods,props,price,amount,weight,sellam;
+                                                let num;
+                                                for (let i=4;i<args.length-1;i++) {
+                                                    if (args[i].includes("name")) {
+                                                        name=args[i].replace("name ","");
+                                                    } else if (args[i].includes("desc")) {
+                                                        desc=args[i].replace("desc ","");
+                                                    } else if (args[i].includes("mods")) {
+                                                        mods=args[i].replace("mods ","");
+                                                    } else if (args[i].includes("props")) {
+                                                        props=args[i].replace("props ","");
+                                                    } else if (args[i].includes("price")) {
+                                                        price=Number(args[i].replace("price ",""));
+                                                    } else if (args[i].includes("amount")) {
+                                                        amount=Number(args[i].replace("amount ",""));
+                                                    } else if (args[i].includes("weight")) {
+                                                        weight=Number(args[i].replace("weight ",""));
+                                                    } else if (args[i].includes("sellam")) {
+                                                        sellam=Number(args[i].replace("sellam ",""));
+                                                    }
+                                                    num=i;
                                                 }
-                                                if (!args[5]) {
-                                                    editMenu(store,mode,item);
-                                                } else if (args[5]) {
-                                                    let name,desc,mods,props,price,amount,weight,sellam;
-                                                    let num;
-                                                    for (let i=5;i<args.length-1;i++) {
-                                                        if (args[i].includes("name")) {
-                                                            name=args[i].replace("name ","");
-                                                        } else if (args[i].includes("desc")) {
-                                                            desc=args[i].replace("desc ","");
-                                                        } else if (args[i].includes("mods")) {
-                                                            mods=args[i].replace("mods ","");
-                                                        } else if (args[i].includes("props")) {
-                                                            props=args[i].replace("props ","");
-                                                        } else if (args[i].includes("price")) {
-                                                            price=Number(args[i].replace("price ",""));
-                                                        } else if (args[i].includes("amount")) {
-                                                            amount=Number(args[i].replace("amount ",""));
-                                                        } else if (args[i].includes("weight")) {
-                                                            weight=Number(args[i].replace("weight ",""));
-                                                        } else if (args[i].includes("sellam")) {
-                                                            sellam=Number(args[i].replace("sellam ",""));
-                                                        }
-                                                        num=i;
-                                                    }
-                                                    if (!args[num+1]) {
-                                                        editMenu(store,mode,item,name,desc,mods,props,price,weight,amount,sellam);
-                                                    } else if (args[num+1]=="confirm") {
-                                                        state.basics.setup=false;
-                                                        editItem(store,item,name,desc,mods,props,price,weight,amount,sellam);
-                                                    }
+                                                if (!args[num+1]) {
+                                                    editMenu(store,item,name,desc,mods,props,price,weight,amount,sellam);
+                                                } else if (args[num+1]=="confirm") {
+                                                    state.basics.setup=false;
+                                                    editItem(store,name,desc,mods,props,price,weight,amount,sellam);
                                                 }
                                             } else if (args[4]=="del") {
                                                 removeItem(store,item);
@@ -1309,10 +1297,71 @@ var ItemStore = ItemStore || (function() {
                                         editMenu(store,"none",item);
                                     }
                                 } else if (option=="generate" || option=="gen") {
-
+                                    if (!args[3]) {
+                                        sendChat("Item Store","/w gm You need to define a type!");
+                                    } else if (args[3].includes("type")) {
+                                        let type = args[3].replace("type ","").toLowerCase();
+                                        if (!state.basics.typeList.toLowerCase().includes(type)) {
+                                            sendChat("Item List","/w gm Invalid Type! Please check the [Wiki](https://github.com/Julexar/itemstore/wiki/Type-List) for a list of available Options!");
+                                        } else if (state.basics.typeList.toLowerCase().includes(type)) {
+                                            if (!args[4]) {
+                                                sendChat("Item Store","/w gm Invalid Amount!");
+                                            } else if (args[4].includes("amount")) {
+                                                let amount = Number(args[4].replace("amount ",""));
+                                                if (!args[5]) {
+                                                    sendChat("Item Store","/w gm You need to define a minimum Rarity!");
+                                                } else if (args[5].includes("minrare")) {
+                                                    let minrare = args[5].replace("minrare ","").toLowerCase();
+                                                    if (!state.basics.rareList.toLowerCase().includes(minrare)) {
+                                                        sendChat("Item Store","/w gm Invalid Rarity! Please check the [Wiki](https://github.com/Julexar/itemstore/wiki/Rarity-List) for a list of available Options!");
+                                                    } else if (state.basics.rareList.toLowerCase().includes(minrare)) {
+                                                        if (!args[6]) {
+                                                            sendChat("Item Store","/w gm You need to define a minimum Rarity!");
+                                                        } else if (args[6].includes("maxrare")) {
+                                                            let maxrare = args[6].replace("maxrare ","").toLowerCase();
+                                                            if (!state.basics.rareList.toLowerCase().includes(maxrare)) {
+                                                                sendChat("Item Store","/w gm Invalid Rarity! Please check the [Wiki](https://github.com/Julexar/itemstore/wiki/Rarity-List) for a list of available Options!");
+                                                            } else if (state.basics.rareList.toLowerCase().includes(maxrare)) {
+                                                                let overwrite;
+                                                                if (!args[7]) {
+                                                                    overwrite="true";
+                                                                } else if (args[7].includes("overwrite")) {
+                                                                    overwrite=args[7].replace("overwrite ","");
+                                                                }
+                                                                createInv(store,type,amount,minrare,maxrare,overwrite);
+                                                                storeMenu(store);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 } else if (option=="reset") {
-
+                                    resetInv(store);
+                                    storeMenu(store);
                                 }
+                            } else if (args[2]=="show") {
+                                showStore(store);
+                            } else if (args[2].includes("name")) {
+                                let name = args[2].replace("name ","");
+                                editStore(store,"name",name)
+                            } else if (args[2].includes("hdc")) {
+                                let hdc = Number(args[2].replace("hdc ",""));
+                                editStore(store,"hdc",hdc);
+                            } else if (args[2].includes("inflate")) {
+                                let change = Number(args[2].replace("inflate ",""));
+                                editStore(store,"cprice",change);
+                            } else if (args[2].includes("deflate")) {
+                                let change = Number(args[2].replace("deflate ",""))*-1;
+                                editStore(store,"cprice",change);
+                            } else if (args[2]=="activate") {
+                                editStore(store,"active",true);
+                            } else if (args[2]=="deactivate") {
+                                editStore(store,"active",false);
+                            } else if (args[2]=="delete") {
+                                deleteStore(store);
+                                storeMenu(undefined);
                             }
                         }
                     }
@@ -1351,8 +1400,121 @@ var ItemStore = ItemStore || (function() {
         var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"';
         var headstyle = 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
         var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
-        var trstyle = 'style="border-top: 1px solid #cccccc; text-align: left;"';
-        var tdstyle = 'style="text-align: right;"';
+        var tablestyle2 = 'style="border-top: 1px solid #cccccc; border-left: 1px solid #cccccc; border-right: 1px solid #cccccc; text-align:center; font-size: 12px; width: 100%;"';
+        var trstyle = 'style="border-right: 1px solid #cccccc;"';
+        var trstyle2 = 'style="border-right: 1px solid #cccccc; border-bottom: 1px"';
+        var tdstyle = 'style="border-right: 1px solid #cccccc;"';
+        store=state.store.find(s => s.name==store);
+        if (store) {
+            let storeList=[];
+            for (let i=0;i<state.store.length;i++) {
+                storeList.push(state.store[i].name);
+            }
+            for (let i=0;i<state.store.length;i++) {
+                storeList=String(storeList).replace(",","|");
+            }
+            let invList="";
+            let items=[];
+            if (store.inv.length && store.inv.length>0) {
+                for (let i=0;i<store.inv.length;i++) {
+                    let desc = store.inv[i].desc;
+                    desc=desc.split(";");
+                    invList+=`<tr ${trstyle2}><td ${tdstyle}>${i+1}</td><td ${tdstyle}>${store.inv[i].name} (x${store.inv[i].sellam})</td><td ${tdstyle}>${desc[0]}</td><td ${tdstyle}>${store.inv[i].price} GP</td><td>${store.inv[i].amount}</td></tr>`;
+                    items.push(store.inv[i].name);
+                }
+                for (let i=0;i<store.inv.length;i++) {
+                    items=String(items).replace(",","|");
+                }
+                if (store.active==true) {
+                    sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
+                        '<div ' + headstyle + '>Store Menu</div>' + //--
+                        '<div ' + arrowstyle + '></div>' + //--
+                        '<div style="text-align:center;">Store: <a ' + astyle1 + '" href="!store --store ?{Store?|' + storeList + '}">' + store.name + ' (active)</a></div>' + //--
+                        '<br>' + //--
+                        '<div style="text-align:center;"><b>Inventory</b></div>' + //--
+                        '<br>' + //--
+                        '<table ' + tablestyle2 + '>' + //--
+                        '<thead><tr ' + trstyle2 + '><th>Pos.</th><th>Name</th><th>Description</th><th>Price</th><th>Amount</th></tr></thead>' + //--
+                        '<tbody>' + //--
+                        invList + //--
+                        '</tbody></table>' + //--
+                        '<br><br>' + //--
+                        '<div style="text-align:center;">Hagggle DC: <a ' + astyle1 + '" href="!store --store ' + store.name + ' --hdc ?{Haggle DC?|10}">' + store.hdc + '</a></div>' + //--
+                        '<br>' + //--
+                        `<div style="text-align:center;">Price Change: ${store.cprice}%</div>` + //--
+                        '<br><br>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --name ?{Name?|Insert Name}">Change Name</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + store.name + ' --inflate ?{Inlation %?|0}">Inflate Price</a>' + //--
+                        '<a ' + astyle3 + '" href="!store --store ' + store.name + ' --deflate ?{Deflation %?|0}">Deflate Price</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv view">Item Menu</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv gen --type ?{Type?|' + state.basics.typeList + '} --amount ?{Amount?|1} --minrare ?{Minimum Rarity?|' + state.basics.rareList + '} --maxrare ?{Maximum Rarity?|' + state.basics.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv reset">Reset Inventory</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --deactivate">Deactivate Store</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --create --name ?{Name?|Insert Name}">Create Store</a>' + //--
+                        '<a ' + astyle3 + '" href="!store --store ' + store.name + ' --delete">Delete Store</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --show">Show to Players</a></div>' + //--
+                        '</div>'
+                    );
+                } else if (store.active==false) {
+                    sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
+                        '<div ' + headstyle + '>Store Menu</div>' + //--
+                        '<div ' + arrowstyle + '></div>' + //--
+                        '<div style="text-align:center;">Store: <a ' + astyle1 + '" href="!store --store ?{Store?|' + storeList + '}">' + store.name + ' (deactive)</a></div>' + //--
+                        '<br>' + //--
+                        '<div style="text-align:center;"><b>Inventory</b></div>' + //--
+                        '<br>' + //--
+                        '<table ' + tablestyle2 + '>' + //--
+                        '<thead><tr ' + trstyle2 + '><th>Pos.</th><th>Name</th><th>Description</th><th>Price</th><th>Amount</th></tr></thead>' + //--
+                        '<tbody>' + //--
+                        invList + //--
+                        '</tbody></table>' + //--
+                        '<br><br>' + //--
+                        '<div style="text-align:center;">Hagggle DC: <a ' + astyle1 + '" href="!store --store ' + store.name + ' --hdc ?{Haggle DC?|10}">' + store.hdc + '</a></div>' + //--
+                        '<br>' + //--
+                        `<div style="text-align:center;">Price Change: ${store.cprice}%</div>` + //--
+                        '<br><br>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --name ?{Name?|Insert Name}">Change Name</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --store ' + store.name + ' --inflate ?{Inlation %?|0}">Inflate Price</a>' + //--
+                        '<a ' + astyle3 + '" href="!store --store ' + store.name + ' --deflate ?{Deflation %?|0}">Deflate Price</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv view">Item Menu</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv gen --type ?{Type?|' + state.basics.typeList + '} --amount ?{Amount?|1} --minrare ?{Minimum Rarity?|' + state.basics.rareList + '} --maxrare ?{Maximum Rarity?|' + state.basics.rareList + '} --overwrite ?{Overwrite Inventory?|true|false}">Generate Inventory</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --inv reset">Reset Inventory</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --activate">Activate Store</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle3 + '" href="!store --create --name ?{Name?|Insert Name}">Create Store</a>' + //--
+                        '<a ' + astyle3 + '" href="!store --store ' + store.name + ' --delete">Delete Store</a></div>' + //--
+                        '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + store.name + ' --show">Show to Players</a></div>' + //--
+                        '</div>'
+                    );
+                }
+            }
+        } else if (!store) {
+            if (state.store.length && state.store.length>=1) {
+                let storeList=[];
+                for (let i=0;i<state.store.length;i++) {
+                    storeList.push(state.store[i].name);
+                }
+                for (let i=0;i<state.store.length;i++) {
+                    storeList=String(storeList).replace(",","|");
+                }
+                sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
+                    '<div ' + headstyle + '>Store Menu</div>' + //--
+                    '<div ' + arrowstyle + '></div>' + //--
+                    '<div style="text-align:center;">Store: <a ' + astyle1 + '" href="!store --store ?{Store?|' + storeList + '}">Not selected</a></div>' + //--
+                    '<br><br>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --create --name ?{Name?|Insert Name}">Create new Store</a></div>' + //--
+                    '</div>'
+                );
+            } else if (!state.store.length || state.store.length==0) {
+                sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
+                    '<div ' + headstyle + '>Store Menu</div>' + //--
+                    '<div ' + arrowstyle + '></div>' + //--
+                    '<div style="text-align:center;">No existing Stores!</div>' + //--
+                    '<br><br>' + //--
+                    '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --create --name ?{Name?|Insert Name}">Create new Store</a></div>' + //--
+                    '</div>'
+                );
+            }
+        }
     },
 
     createStore = function(name) {
@@ -1400,7 +1562,7 @@ var ItemStore = ItemStore || (function() {
         
     },
     
-    editMenu = function(shop,mode,item,name,desc,mods,props,price,weight,amount,sellam) {
+    editMenu = function(shop,item,name,desc,mods,props,price,weight,amount,sellam) {
         //Pulls up Menu where you can edit Items
         var divstyle = 'style="width: 260px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
         var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
@@ -1516,7 +1678,6 @@ var ItemStore = ItemStore || (function() {
                     } else if (sellam>=1) {
                         temp.sellam=sellam;
                     }
-                    
                     sendChat("Item Store","/w gm <div " + divstyle + ">" + //--
                         '<div ' + headstyle + '>Item Editor</div>' + //--
                         '<div ' + arrowstyle + '></div>' + //--
@@ -1539,13 +1700,6 @@ var ItemStore = ItemStore || (function() {
                         '<div style="text-align:center;"><a ' + astyle2 + '" href="!store --store ' + shop.name + ' --inv view">Go Back</a></div>' + //--
                         '</div>'
                     );
-                } else if (!item) {
-                    sendChat("Item Store","/w gm Couldn\'t find an Item with that name!");
-                }
-            } else if (mode=="add") {
-                item=shop.inv.find(it => it.name==item);
-                if (item) {
-
                 } else if (!item) {
                     sendChat("Item Store","/w gm Couldn\'t find an Item with that name!");
                 }
@@ -3372,7 +3526,7 @@ var ItemStore = ItemStore || (function() {
         }
     },
 
-    showStore = function(store,msg) {
+    showStore = function(store) {
         //Shows a certain Store or all available Stores to Players.
         var divstyle = 'style="width: 260px; border: 1px solid black; background-color: #ffffff; padding: 5px;"';
         var astyle1 = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;';
