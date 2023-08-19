@@ -4,6 +4,122 @@ Original created by Kirsty (https://app.roll20.net/users/1165285/kirsty)
 Updated Version by Julexar (https://app.roll20.net/users/9989180/julexar)
 
 API Commands:
+
+GM Commands
+
+!reset
+Resets everything (use with caution!)
+
+!store
+Pulls up the Store Menu
+    --reset
+    Resets all Stores
+    --create --name {Insert Name}
+    Creates a new Store with the chosen Name
+    --{Insert Name/Number}
+    Selects a Store and pulls up its Menu
+        --inv view
+        Pulls up a Menu with all Items in the Shop
+            --item {Insert Name/Number}
+            Pulls up Info about a specific Item
+        --inv edit --item {Insert Name/Number}
+        Pulls up the Item Editor
+            --del
+            Deletes the selected Item
+            --add
+            Adds a Modifier/Property to an Item
+                --mod {Insert Modifier}
+                --prop {Insert Property}
+            --rem
+            Removes a Modifier/Property from an Item
+                --mod {Insert Modifier}
+                --prop {Insert Property}
+        --inv gen/generate --type {Insert Type} --amount {Insert Number} --minrare {Insert Rarity} --maxrare {Insert Rarity}
+        Generates a random Inventory based on Item Type and Rarity
+            --overwrite true/false
+            If true, overwrites existing Inventory. (Default: true)
+        --inv reset
+        Resets the Store Inventory
+        --players/show
+        Shows the Store to the Players
+        --setname {Insert Name}
+        Sets the Name of the Store
+        --sethdc {Insert Number}
+        Sets the Haggle DC of the Store
+        --inflate {Insert Number in %}
+        Inflates the Store's prices
+        --deflate {Insert Number in %}
+        Deflates the Store's prices
+        --activate
+        Activates a Store and makes it available for Players
+        --deactivate
+        Deactivates a Store and makes it unavailable for Players
+        --reset
+        Resets the Store to Default Settings
+        --delete
+        Deletes the Store
+
+!item
+Pulls up the Item Menu
+    --new
+    Pulls up the Item Creator
+    --reset
+    Resets all Items
+    --{Insert Name/Number}
+    Pulls up Info about a specific Item
+        --setname {Insert Name}
+        Sets the Name of an Item
+        --setdesc {Insert Description}
+        Sets the Description of an Item
+        --settype {Insert Type}
+        Sets the Type of the Item
+        --setmods {Insert Modifiers}
+        Sets the Modifiers of an Item
+        --setprops {Insert Properties}
+        Sets the Properties of an Item
+        --bundle {Insert Number}
+        Sets the bundle size of the Item
+        --del
+        Deletes the Item
+        --reset
+        Resets the Item
+
+!!IMPORTANT!! Select a Character Token before you issue these Commands
+!haggle --grant-all
+Grants a Haggle for the full price and lowers the Price
+!haggle --grant-part --price {Insert Number}
+Partially grants a Haggle and lowers the Price for the selected amount
+!haggle --deny
+Denies a Haggle
+    --inc {Insert Number}
+    Increases the price of a denied Haggle
+!haggle --set-dc {Insert Number}
+Sets the DC of a Haggle
+!haggle --proc
+Allows the Player to issue the !haggle --exec Command to finalize the Haggle
+
+Player Commands
+
+!!IMPORTANT!! Select a Character Token before you issue these Commands
+
+!shop
+Pulls up the Shop Menu
+    --cart
+    Pulls up the Player's personal Cart
+        --checkout
+        Buys all Items in a Player's Cart
+    --store {Insert Name/Number}
+    Pulls up a Store's Inventory
+        --haggle --item {Insert Name/Number} --price {Insert Number} --persuasion/intimidation
+        Allows Players to attempt to haggle the price of an Item down (you can only have one active Haggle at any given time)
+        --buy --item {Insert Name/Number} --amount {Insert Number}
+        Adds a certain amount of an Item to the Player's Cart
+
+!haggle --exec
+Executes the latest Haggle
+
+!haggle --abort
+Cancels the latest Haggle
 */
 const styles = {
     divMenu: 'style="width: 300px; border: 1px solid black; background-color: #ffffff; padding: 5px;"',
