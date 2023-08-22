@@ -153,7 +153,7 @@ const defaults = {
     used: false
 };
 
-const items = {
+const itemList = {
     weapon: [
         {
             name: "Club",
@@ -1322,7 +1322,7 @@ class ItemStore {
         this.style = styles;
         this.default = defaults;
         this.list = state.store;
-        this.items = items;
+        this.items = itemList;
     };
     
     handleInput(msg) {
@@ -1332,50 +1332,70 @@ class ItemStore {
         if (playerIsGM(msg.playerid)) {
             switch (args[0]) {
                 case "!store":
-                    switch (args[1]) {
-                        case undefined:
-                            storeMenu();
-                        return;
-                        case "create":
-                            if (!args[2]) {
-                                sendChat("Item Store", `/w gm Incorrect usage!%NEWLINE%%NEWLINE%The correct usage is:%NEWLINE%<span ${store.style.span}>!store --create --name {Insert Name}</span>`);
-                            } else {
-                                args[2] = args[2].replace("create ","");
-                                const store = {
-                                    name: args[2]
-                                };
-                                if (args[2]=="" || args[2]==" ") {
-                                    sendChat("Item Store", "/w gm Please define a Name for the Store you wish to create!");
-                                } else {
-                                    createStore(store);
-                                    storeMenu(store);
-                                }
-                            }
-                        return;
-                        case "store":
-                            const store = {
-                                name: args[2].replace("store ", "")
+                    if (!args[1]) {
+                        storeMenu();
+                    } else if (args[1].includes("create")) {
+                        if (!args[2]) {
+                            sendChat("Item Store", `/w gm Incorrect usage!%NEWLINE%%NEWLINE%The correct usage is:%NEWLINE%<span ${store.style.span}>!store --create --name {Insert Name}</span>`);
+                        } else if (args[2].includes("name")) {
+                            args[2] = args[2].replace("name ","");
+                            const shop = {
+                                name: args[2]
                             };
-                            switch (args[3]) {
+                            if (args[2]=="" || args[2]==" ") {
+                                sendChat("Item Store", "/w gm Please define a Name for the Store you wish to create!");
+                            } else {
+                                createStore(shop);
+                                storeMenu(shop);
+                            }
+                        }
+                    } else if (args[1]!=="" && args[1]!==" ") {
+                        let shop;
+                        if (Number(args[1])) {
+                            shop = store.list.find(s => s.id == Number(args[1]));
+                        } else {
+                            shop = store.list.find(s => s.name == args[1]);
+                        }
+                        if (!shop) {
+                            sendChat("Item Store", "/w gm Could not find that Store! Please check if the ID/Name is correct. You can find both in the Store's Handout");
+                        } else {
+                            switch (args[2]) {
+                                case undefined:
+                                    storeMenu(shop);
+                                return;
                                 case "inv view":
-                                    if (!args[4]) {
-                                        itemMenu(store);
-                                    } else if (args[4].includes("item")) {
-                                        let it = args[4].replace("item ","");
-                                        const item = {
-                                            id: null,
-                                            name: null
-                                        };
-                                        if (Number(it)) {
-                                            item.id = Number(it);
+                                    if (!args[3]) {
+                                        itemMenu(shop);
+                                    } else if (args[3].includes("item")) {
+                                        args[3] = args[3].replace("item ","");
+                                        let item;
+                                        if (Number(args[3])) {
+                                            item = store.items.find(it => it.id == Number(args[3]));
                                         } else {
-                                            item.name = it;
+                                            item = store.items.find(it => it.name == args[3]);
                                         }
-                                        itemMenu(store, item);
+                                        if (!item) {
+                                            sendChat("Item Store", "/w gm Invalid Item! Please check if the ID/Name is correct. You can find both in the Store's Handout");
+                                        } else {
+                                            itemMenu(shop, item);
+                                        }
                                     }
                                 return;
                                 case "inv edit":
-                                    
+                                    if (!args[3]) {
+                                        sendChat("Item Store", `/w gm Incorrect usage!%NEWLINE%%NEWLINE%The correct usage is:%NEWLINE%<span ${store.style.span}>!store --${shop.name}/${shop.id} --inv edit --item {Insert Name/ID}</span>`);
+                                    } else if (args[3].includes("item")) {
+                                        args[3] = args[3].replace("item ","");
+                                        let item;
+                                        if (Number(args[3])) {
+                                            item = store.items.find(it => it.id == Number(args[3]));
+                                        } else {
+                                            item = store.items.find(it => it.name == args[3]);
+                                        }
+                                        if (!item) {
+                                            sendChat("Item Store", "/w gm Invalid Item! Please check if the ID/Name is correct. You can find both in the Store's Handout");
+                                        }
+                                    }
                                 return;
                                 case "inv gen" || "inv generate":
 
@@ -1383,32 +1403,29 @@ class ItemStore {
                                 case "inv reset":
 
                                 return;
-                                case "show" || "players":
+                                case "players" || "show":
 
                                 return;
-                                case "setname":
+                                case "activate":
 
                                 return;
-                                case "sethdc":
+                                case "deactivate":
 
                                 return;
-                                case "inf" || "inflate":
-
-                                return;
-                                case "def" || "deflate":
-
-                                return;
-                                case "act" || "activate":
-
-                                return;
-                                case "deact" || "deactivate":
-
-                                return;
-                                case "del" || "delete":
+                                case "delete":
 
                                 return;
                             }
-                        return;
+                            if (args[2].includes("setname")) {
+
+                            } else if (args[2].includes("sethdc")) {
+
+                            } else if (args[2].includes("inflate")) {
+
+                            } else if (args[2].includes("deflate")) {
+
+                            }
+                        }
                     }
                 return;
                 case "!item":
@@ -1421,6 +1438,9 @@ class ItemStore {
         }
         switch (args[0]) {
             case "!shop":
+
+            return;
+            case "!haggle":
 
             return;
         }
