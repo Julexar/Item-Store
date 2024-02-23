@@ -1,7 +1,7 @@
 # itemstore
 
 This Script allows you to create an Item Store, with multiple Options for Items.
-v1.5 allows you to create multiple Stores, create, edit and generate Items as well as set markup prices and much more!
+v2.0 allows you to create multiple Stores, create, edit and generate Items as well as set markup prices and much more!
 Created by [Julexar](https://app.roll20.net/users/9989180/julexar).
 Inspired by [Kirsty](https://app.roll20.net/users/1165285/kirsty).
 
