@@ -1,4 +1,4 @@
-# itemstore
+# Item Store
 
 This Script allows you to create an Item Store, with multiple Options for Items.
 v1.5 allows you to create multiple Stores, create, edit and generate Items as well as set markup prices and much more!
