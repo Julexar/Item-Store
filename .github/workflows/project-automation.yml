@@ -1,0 +1,47 @@
+name: Project Automation
+
+on:
+  issues:
+    types:
+      - opened
+      - labeled
+  pull_request:
+    types:
+      - opened
+      - labeled
+
+jobs:
+  move_issues:
+    name: Move Issues in Project
+    runs-on: ubuntu-latest
+    if: (github.event.label.name == 'wontfix' || github.event.label.name == 'duplicate' || github.event.label.name == 'in progress') || (contains(github.event.pull_request.labels.*.name, 'wontfix') || contains(github.event.pull_request.labels.*.name, 'duplicate') || contains(github.event.pull_request.labels.*.name, 'in progress')) || (contains(github.event.issue.labels.*.name, 'wontfix') || contains(github.event.issue.labels.*.name, 'duplicate') || contains(github.event.issue.labels.*.name, 'in progress'))
+    steps:
+      - uses: PaperMC/update-projects-action@v0.2.0
+        with:
+          github-token: ${{ secrets.WORKFLOW_TOKEN }}
+          project-url: https://github.com/users/Julexar/projects/16/views/1
+          column-field: Status
+          label-to-column-map: |
+            {
+              "wontfix": "Scrapped",
+              "duplicate": "Scrapped",
+              "in progress": "In Progress"
+            }
+
+  set_prio:
+    name: Set Priority in Project 
+    if: (github.event.label && contains(github.event.label.name, 'priority')) || (github.event.pull_request && contains(github.event.pull_request.labels.*.name, 'priority')) || (github.event.issue && contains(github.event.issue.labels.*.name, 'priority'))
+    runs-on: ubuntu-latest 
+    steps: 
+      - uses: PaperMC/update-projects-action@v0.2.0
+        with:
+          github-token: ${{ secrets.WORKFLOW_TOKEN }}
+          project-url: https://github.com/users/Julexar/projects/16/views/1
+          column-field: Priority
+          label-to-column-map: |
+            {
+              "low priority": "low",
+              "medium priority": "medium",
+              "high priority": "high",
+              "no priority": "none"
+            }
