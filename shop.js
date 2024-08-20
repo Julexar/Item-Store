@@ -14,17 +14,12 @@ Pulls up the Store Menu
     Selects a Store and displays it
         --inv
         Displays the Store's Inventory
-            --item --{Insert Item Name}
+            --add --{Insert Item Name} --{Insert Item Type} --amount --{Insert Number}
+            Adds the inserted Amount of the Item to the Inventory
+            --item --{Insert Item Pos}
             Selects and displays a specific Item in the Store
-                --rem/del
+                --rem
                 Removes the Item from the Inventory
-                --add --{Insert Item Name} --amount --{Insert Number}
-                Adds the inserted Amount of the Item to the Inventory
-                    Optional:
-                    --price --{Insert Number}
-                    Sets the Price for the Item
-                    --bundle --{Insert Number}
-                    Sets the bundle size of the Item (the amount of the Item you receive upon buying)
                 --edit
                 Pulls up the Item Editor
                     --name --{Insert Name}
@@ -1877,9 +1872,30 @@ class ItemStore {
                                         case 'add':
                                             if (!args[4] || !args[5]) return sendChat('Item Store', 'Invalid Syntax! You must provide the Name and the Type of the Item.');
 
-                                            item = store.inventory.find(i => i.name === args[4]);
+                                            switch (args[5].toLowerCase()) {
+                                                case 'weapon':
+                                                    item = itemstore.list.weapons.find(i => i.name === args[4]);
+                                                    break;
+                                                case 'armor':
+                                                    item = itemstore.list.armor.find(i => i.name === args[4]);
+                                                    break;
+                                                case 'scroll':
+                                                    item = itemstore.list.scrolls.find(i => i.name === args[4]);
+                                                    break;
+                                                case 'potion':
+                                                    item = itemstore.list.potions.find(i => i.name === args[4]);
+                                                    break;
+                                                case 'misc':
+                                                    item = itemstore.list.misc.find(i => i.name === args[4]);
+                                                    break;
+                                                case 'mundane':
+                                                    item = itemstore.list.mundane.find(i => i.name === args[4]);
+                                                    break;
+                                            }
 
-                                            if (isNaN(parseInt(args[7]))) sendChat('Item Store', 'Invalid Amount! You must provide a number for the Item to be added!');
+                                            if (!item) return sendChat('Item Store', 'Invalid Item! Either the Item does not exist or you provided the wrong Type.');
+
+                                            if (isNaN(parseInt(args[7]))) return sendChat('Item Store', 'Invalid Amount! You must provide a number for the Item to be added!');
 
                                             addItemToInv(store, item, parseInt(args[7]));
                                             break;
@@ -1892,8 +1908,77 @@ class ItemStore {
                                                 default:
                                                     itemView(store, item);
                                                     break;
-                                                case 'rem' || 'del':
+                                                case 'rem':
                                                     removeInvItem(store, item);
+                                                    break;
+                                                case 'edit':
+                                                    switch (args[7]) {
+                                                        case undefined:
+                                                            itemView(store, item);
+                                                            break;
+                                                        default:
+                                                            if (isNaN(parseInt(args[8]))) invItemEdit(store, item, args[7], args[8]);
+                                                            else invItemEdit(store, item, args[7], parseInt(args[8]));
+                                                            break;
+                                                        case 'mods':
+                                                            let mod;
+                                                            switch (args[8]) {
+                                                                case undefined:
+                                                                    invItemModEditor(store, item);
+                                                                    break;
+                                                                case 'set':
+                                                                    const mods = args[9];
+
+                                                                    if (!mods) return sendChat('Invalid Syntax! You need to provide the Modifiers you want to set for the Item!');
+
+                                                                    setInvItemMods(store, item, mods);
+                                                                    break;
+                                                                case 'add':
+                                                                    mod = args[9];
+
+                                                                    if (!mod) return sendChat('Invalid Syntax! You need to provide a Modifier you want to add to the Item!');
+
+                                                                    addInvItemMod(store, item, mod);
+                                                                    break;
+                                                                case 'rem':
+                                                                    mod = args[9];
+
+                                                                    if (!mod) return sendChat('Invalid Syntax! You need to provide a Modifier you want to remove from the Item!');
+
+                                                                    remInvItemMod(store, item, mod);
+                                                                    break;
+                                                            }
+                                                            break;
+                                                        case 'props':
+                                                            let prop;
+                                                            switch (args[8]) {
+                                                                case undefined:
+                                                                    invItemModEditor(store, item);
+                                                                    break;
+                                                                case 'set':
+                                                                    const props = args[9];
+
+                                                                    if (!props) return sendChat('Invalid Syntax! You need to provide the Properties you want to set for the Item!');
+
+                                                                    setInvItemMods(store, item, props);
+                                                                    break;
+                                                                case 'add':
+                                                                    prop = args[9];
+
+                                                                    if (!prop) return sendChat('Invalid Syntax! You need to provide a Property you want to add to the Item!');
+
+                                                                    addInvItemMod(store, item, prop);
+                                                                    break;
+                                                                case 'rem':
+                                                                    prop = args[9];
+
+                                                                    if (!prop) return sendChat('Invalid Syntax! You need to provide a Property you want to remove from the Item!');
+
+                                                                    remInvItemMod(store, item, prop);
+                                                                    break;
+                                                            }
+                                                            break;
+                                                    }
                                                     break;
                                             }
                                             break;
