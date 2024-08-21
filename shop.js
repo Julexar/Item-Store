@@ -45,8 +45,10 @@ Pulls up the Store Menu
                     --price --{Insert Number}
                     Sets the Price (GP) of the Item (must be 0 or above)
                     --amount --{Insert Number}
+                    Sets the Amount of Items present in the Inventory
+                    --bundle --{Insert Number}
                     Sets the Amount of Items you receive upon buying (Default: 1; Must be at least 1; No Fractions)
-            --gen/generate --amount --{Insert Number} --type --{Insert Type} --minrare --{Insert min Rarity} --maxrare --{Insert max Rarity}
+            --gen --amount --{Insert Number} --type --{Insert Type} --minrare --{Insert min Rarity} --maxrare --{Insert max Rarity}
             Generates a random Inventory based on Type and Rarity (check the Wiki for a list of valid Types and Rarities)
                 Optional:
                 --overwrite --true/false
@@ -63,7 +65,7 @@ Pulls up the Store Menu
         Sets the percentage with which the prices of the Items in the Store will be decreased
         --toggle
         Toggles the Store to be un-/available to Players (Default: available)
-        --del/delete
+        --del
         Deletes the Store
 
 !items
@@ -182,9 +184,12 @@ Displays the Shopping Cart Menu
 const styles = {
     divMenu: 'style="width: 300px; border: 1px solid black; background-color: #ffffff; padding: 5px;"',
     divCenter: 'style="text-align: center;"',
-    buttonSmall: 'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 75px;',
-    buttonMedium: 'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;',
-    buttonLarge: 'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;',
+    buttonSmall:
+        'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 75px;',
+    buttonMedium:
+        'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;',
+    buttonLarge:
+        'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;',
     table: 'style="text-align: center; font-size: 12px; width: 100%; border-style: 3px solid #cccccc;"',
     arrow: 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"',
     header: 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"',
@@ -1857,124 +1862,209 @@ class ItemStore {
                 case '!store':
                     switch (args[1]) {
                         default:
-                            const store = args[1] ? itemstore.stores.find(s => s.name === args[1]) : undefined;
+                            const store = itemstore.stores.find(s => s.name === args[1]);
 
                             switch (args[2]) {
-                                default:
+                                case undefined:
                                     storeMenu(store);
                                     break;
                                 case 'inv':
-                                    let item;
                                     switch (args[3]) {
-                                        default:
+                                        case undefined:
                                             storeInv(store);
                                             break;
                                         case 'add':
-                                            if (!args[4] || !args[5]) return sendChat('Item Store', 'Invalid Syntax! You must provide the Name and the Type of the Item.');
+                                            if (!args[4] && !args[5])
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid Syntax! You must provide the Name and the Type of the Item you wish to add to the Inventory!'
+                                                );
+
+                                            let addItem;
 
                                             switch (args[5].toLowerCase()) {
                                                 case 'weapon':
-                                                    item = itemstore.list.weapons.find(i => i.name === args[4]);
+                                                    addItem = itemstore.list.weapons.find(i => i.name === args[4]);
                                                     break;
                                                 case 'armor':
-                                                    item = itemstore.list.armor.find(i => i.name === args[4]);
+                                                    addItem = itemstore.list.armor.find(i => i.name === args[4]);
                                                     break;
                                                 case 'scroll':
-                                                    item = itemstore.list.scrolls.find(i => i.name === args[4]);
+                                                    addItem = itemstore.list.scrolls.find(i => i.name === args[4]);
                                                     break;
                                                 case 'potion':
-                                                    item = itemstore.list.potions.find(i => i.name === args[4]);
+                                                    addItem = itemstore.list.potions.find(i => i.name === args[4]);
                                                     break;
                                                 case 'misc':
-                                                    item = itemstore.list.misc.find(i => i.name === args[4]);
+                                                    addItem = itemstore.list.misc.find(i => i.name === args[4]);
                                                     break;
                                                 case 'mundane':
-                                                    item = itemstore.list.mundane.find(i => i.name === args[4]);
+                                                    addItem = itemstore.list.mundane.find(i => i.name === args[4]);
                                                     break;
                                             }
 
-                                            if (!item) return sendChat('Item Store', 'Invalid Item! Either the Item does not exist or you provided the wrong Type.');
+                                            if (!addItem)
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid Item! An Item with that Name and Type does not exist. Please ensure you wrote the Name correctly and chose the right Type.'
+                                                );
 
-                                            if (isNaN(parseInt(args[7]))) return sendChat('Item Store', 'Invalid Amount! You must provide a number for the Item to be added!');
-
-                                            addItemToInv(store, item, parseInt(args[7]));
+                                            addInvItem(store, addItem);
+                                            storeInv(store);
                                             break;
                                         case 'item':
-                                            if (!isNaN(parseInt(args[4]))) item = store.inventory[parseInt(args[4])];
-                                            else if (!args[5]) return sendChat('Item Store', 'Invalid Item! You must provide the Item Type if you use the Item Name!');
-                                            else item = store.inventory.find(i => i.name === args[4] && i.type === args[5]);
+                                            if (isNaN(parseInt(args[4])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid Syntax! You must provide the Position of the Item to view its Details!'
+                                                );
 
-                                            switch (args[6]) {
+                                            const item = store.inventory[parseInt(args[4]) - 1];
+
+                                            if (!item)
+                                                return sendChat('Item Store', '/w gm Invalid Item! Could not find that Item in the Inventory!');
+
+                                            switch (args[5]) {
                                                 default:
-                                                    itemView(store, item);
+                                                    showInvItem(store, item);
                                                     break;
                                                 case 'rem':
-                                                    removeInvItem(store, item);
+                                                    remInvItem(store, item);
                                                     break;
                                                 case 'edit':
-                                                    switch (args[7]) {
-                                                        case undefined:
-                                                            itemView(store, item);
-                                                            break;
+                                                    if (itemstore.temp.mods.length === 0) itemstore.temp.mods = item.mods.split(', ');
+                                                    if (itemstore.temp.props.length === 0) itemstore.temp.props = item.props.split(', ');
+
+                                                    switch (args[6]) {
                                                         default:
-                                                            if (isNaN(parseInt(args[8]))) invItemEdit(store, item, args[7], args[8]);
-                                                            else invItemEdit(store, item, args[7], parseInt(args[8]));
+                                                            invItemEditor(store, item);
+                                                            break;
+                                                        case 'name':
+                                                            if (args[7] === '' || args[7] === ' ')
+                                                                return sendChat(
+                                                                    'Item Store',
+                                                                    '/w gm Invalid Syntax! The new name of the Item may not be empty!'
+                                                                );
+
+                                                            itemstore.temp.name = args[7];
+                                                            invItemEditor(store, item);
+                                                            break;
+                                                        case 'desc':
+                                                            if (args[7] === '' || args[7] === ' ')
+                                                                return sendChat(
+                                                                    'Item Store',
+                                                                    '/w gm Invalid Syntax! The new description of the Item may not be empty!'
+                                                                );
+                                                            if (!args[7].includes(';'))
+                                                                return sendChat(
+                                                                    'Item Store',
+                                                                    '/w gm Invalid Format! The Description must contain a semicolon!'
+                                                                );
+
+                                                            itemstore.temp.desc = args[7];
+                                                            invItemEditor(store, item);
+                                                            break;
+                                                        case 'price':
+                                                            if (isNaN(parseInt(args[7])))
+                                                                return sendChat(
+                                                                    'Item Store',
+                                                                    '/w gm Invalid Syntax! You must provide a number to set the price of the Item!'
+                                                                );
+
+                                                            itemstore.temp.price = parseInt(args[7]);
+                                                            invItemEditor(store, item);
+                                                            break;
+                                                        case 'bundle':
+                                                            if (isNaN(parseInt(args[7])))
+                                                                return sendChat(
+                                                                    'Item Store',
+                                                                    '/w gm Invalid Syntax! You must provide a number to set the bundle size of the Item!'
+                                                                );
+
+                                                            itemstore.temp.bundle = parseInt(args[7]);
+                                                            invItemEditor(store, item);
+                                                            break;
+                                                        case 'amount':
+                                                            if (isNaN(parseInt(args[7])))
+                                                                return sendChat(
+                                                                    'Item Store',
+                                                                    '/w gm Invalid Syntax! You must provide a number to set the amount of the Item!'
+                                                                );
+
+                                                            itemstore.temp.amount = parseInt(args[7]);
+                                                            invItemEditor(store, item);
                                                             break;
                                                         case 'mods':
-                                                            let mod;
                                                             switch (args[8]) {
-                                                                case undefined:
+                                                                default:
                                                                     invItemModEditor(store, item);
                                                                     break;
                                                                 case 'set':
-                                                                    const mods = args[9];
+                                                                    if (!args[9].includes('; '))
+                                                                        return sendChat(
+                                                                            'Item Store',
+                                                                            '/w gm Invalid Syntax! Modifiers need to be separated by a semicolon and a space!'
+                                                                        );
 
-                                                                    if (!mods) return sendChat('Invalid Syntax! You need to provide the Modifiers you want to set for the Item!');
-
-                                                                    setInvItemMods(store, item, mods);
+                                                                    itemstore.temp.mods = args[9].split('; ');
+                                                                    invItemModEditor(store, item);
                                                                     break;
                                                                 case 'add':
-                                                                    mod = args[9];
+                                                                    if (args[9] === '' || args[9] === ' ')
+                                                                        return sendChat(
+                                                                            'Item Store',
+                                                                            '/w gm Invalid Syntax! A Modifier you wish to add may not be empty!'
+                                                                        );
 
-                                                                    if (!mod) return sendChat('Invalid Syntax! You need to provide a Modifier you want to add to the Item!');
-
-                                                                    addInvItemMod(store, item, mod);
+                                                                    itemstore.temp.mods.push(args[9]);
+                                                                    invItemModEditor(store, item);
                                                                     break;
                                                                 case 'rem':
-                                                                    mod = args[9];
+                                                                    if (args[9] === '' || args[9] === ' ')
+                                                                        return sendChat(
+                                                                            'Item Store',
+                                                                            '/w gm Invalid Syntax! A Modifier you wish to remove may not be empty!'
+                                                                        );
 
-                                                                    if (!mod) return sendChat('Invalid Syntax! You need to provide a Modifier you want to remove from the Item!');
-
-                                                                    remInvItemMod(store, item, mod);
+                                                                    itemstore.temp.mods.splice(itemstore.temp.mods.indexOf(args[9]));
+                                                                    invItemModEditor(store, item);
                                                                     break;
                                                             }
                                                             break;
                                                         case 'props':
-                                                            let prop;
                                                             switch (args[8]) {
-                                                                case undefined:
-                                                                    invItemModEditor(store, item);
+                                                                default:
+                                                                    invItemPropEditor(store, item);
                                                                     break;
                                                                 case 'set':
-                                                                    const props = args[9];
+                                                                    if (!args[9].includes('; '))
+                                                                        return sendChat(
+                                                                            'Item Store',
+                                                                            '/w gm Invalid Syntax! Properties need to be separated by a semicolon and a space!'
+                                                                        );
 
-                                                                    if (!props) return sendChat('Invalid Syntax! You need to provide the Properties you want to set for the Item!');
-
-                                                                    setInvItemMods(store, item, props);
+                                                                    itemstore.temp.props = args[9].split('; ');
+                                                                    invItemPropEditor(store, item);
                                                                     break;
                                                                 case 'add':
-                                                                    prop = args[9];
+                                                                    if (args[9] === '' || args[9] === ' ')
+                                                                        return sendChat(
+                                                                            'Item Store',
+                                                                            '/w gm Invalid Syntax! A Property you wish to add may not be empty!'
+                                                                        );
 
-                                                                    if (!prop) return sendChat('Invalid Syntax! You need to provide a Property you want to add to the Item!');
-
-                                                                    addInvItemMod(store, item, prop);
+                                                                    itemstore.temp.props.push(args[9]);
+                                                                    invItemPropEditor(store, item);
                                                                     break;
                                                                 case 'rem':
-                                                                    prop = args[9];
+                                                                    if (args[9] === '' || args[9] === ' ')
+                                                                        return sendChat(
+                                                                            'Item Store',
+                                                                            '/w gm Invalid Syntax! A Property you wish to remove may not be empty!'
+                                                                        );
 
-                                                                    if (!prop) return sendChat('Invalid Syntax! You need to provide a Property you want to remove from the Item!');
-
-                                                                    remInvItemMod(store, item, prop);
+                                                                    itemstore.temp.props.splice(itemstore.temp.props.indexOf(args[9]));
+                                                                    invItemPropEditor(store, item);
                                                                     break;
                                                             }
                                                             break;
@@ -1982,35 +2072,91 @@ class ItemStore {
                                                     break;
                                             }
                                             break;
-                                        case 'gen' || 'generate':
+                                        case 'gen':
+                                            if (isNaN(parseInt(args[5])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid Syntax! You must provide a number for the amount of Items you wish to generate!'
+                                                );
+
+                                            if (
+                                                (args[7].toLowerCase() === 'misc' && itemstore.list.misc.length === 0) ||
+                                                (args[7].toLowerCase() === 'mundane' && itemstore.list.mundane.length === 0)
+                                            )
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Error! Misc and/or Mundane Items cannot be generated as their Lists are empty. Please import a list of items before generating!'
+                                                );
+                                            else if (!typeList.find(t => t.toLowerCase() === args[7].toLowerCase()))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid Type! That Type is not valid. Please provide a valid Type!'
+                                                );
+                                            else if (!rareList.find(r => r.toLowerCase() === args[9]))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid minimum Rarity! That minimum Rarity is not valid. Please provide a valid minimum Rarity!'
+                                                );
+                                            else if (!rareList.find(r => r.toLowerCase() === args[11]))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid maximum Rarity! That maximum Rarity is not valid. Please provide a valid maximum Rarity!'
+                                                );
+
+                                            if (args[7].toLowerCase() === 'random') {
+                                                let rand = Math.floor(Math.random() * (typeList.length - 1));
+                                                args[7] = typeList[rand];
+                                            }
+
+                                            const [minrare, maxrare] = checkRarities(args[9], args[11]);
+                                            genStoreInv(parseInt(args[5]));
+                                            storeInv(store);
                                             break;
                                     }
                                     break;
                                 case 'show':
+                                    displayStore(store);
                                     break;
                                 case 'setname':
+                                    if (args[3] === '' || args[3] === ' ')
+                                        return sendChat('Item Store', '/w gm Invalid Syntax! The new name of the Store may not be empty!');
+
+                                    setStoreName(store, args[3]);
                                     break;
                                 case 'sethdc':
+                                    if (isNaN(parseInt(args[3])))
+                                        return sendChat('Item Store', '/w gm Invalid Syntax! You must provide a number to change the Haggle DC.');
+
+                                    setStoreHaggleDC();
                                     break;
                                 case 'inflate':
+                                    if (isNaN(parseFloat(args[3])))
+                                        return sendChat('Item Store', '/w gm Invalid Syntax! You must provide a valid number to change the Markup.');
+
+                                    setStorePrice(store, parseFloat(args[3]));
                                     break;
                                 case 'deflate':
-                                    changeStorePrice(store);
+                                    if (isNaN(parseFloat(args[3])))
+                                        return sendChat('Item Store', '/w gm Invalid Syntax! You must provide a valid number to change the Markup.');
+
+                                    setStorePrice(store, -1 * parseFloat(args[3]));
                                     break;
                                 case 'toggle':
                                     toggleStore(store);
                                     storeMenu(store);
                                     break;
-                                case 'reset':
-                                    resetStore(store);
-                                    storeMenu(store);
-                                    break;
-                                case 'del' || 'delete':
+                                case 'del':
                                     deleteStore(store);
+                                    storeMenu();
                                     break;
                             }
                             break;
                         case 'create':
+                            if (args[2] === '' || args[2] === ' ')
+                                return sendChat('Item Store', '/w gm Invalid Syntax! The name of the Store may not be empty!');
+
+                            createStore(args[2]);
+                            storeMenu(args[2]);
                             break;
                         case 'reset':
                             setStoreDefaults();
@@ -2020,17 +2166,183 @@ class ItemStore {
                 case '!item':
                     switch (args[1]) {
                         case undefined:
+                            itemMenu();
                             break;
                         default:
                             const type = args[2];
 
-                            if (!typeList.find(t => t.toLowerCase() === type.toLowerCase())) return sendChat('Item Store', '/w gm Invalid Type. Please provide a valid Item Type.');
+                            if (!typeList.find(t => t.toLowerCase() === type.toLowerCase()))
+                                return sendChat('Item Store', '/w gm Invalid Type. Please provide a valid Item Type.');
 
                             let item;
+                            const filter = i => i.name === args[1];
 
                             switch (type.toLowerCase()) {
                                 case 'weapon':
-                                    item;
+                                    item = itemstore.list.weapons.find(filter);
+                                    break;
+                                case 'armor':
+                                    item = itemstore.list.armor.find(filter);
+                                    break;
+                                case 'scroll':
+                                    item = itemstore.list.scrolls.find(filter);
+                                    break;
+                                case 'potion':
+                                    item = itemstore.list.potions.find(filter);
+                                    break;
+                                case 'misc':
+                                    item = itemstore.list.misc.find(filter);
+                                    break;
+                                case 'mundane':
+                                    item = itemstore.list.mundane.find(filter);
+                                    break;
+                            }
+
+                            if (!item) return sendChat('Item Store', '/w gm Invalid Item. Please provide a valid Item Name.');
+
+                            switch (args[3]) {
+                                default:
+                                    itemMenu(item);
+                                    break;
+                                case 'del':
+                                    deleteItem(item);
+                                    itemMenu();
+                                    break;
+                                case 'setname':
+                                    if (args[4] === '' || args[4] === ' ')
+                                        return sendChat('Item Store', '/w gm Invalid Syntax! The new name of the Item may not be empty!');
+
+                                    editItem(item, 'name', args[4]);
+                                    itemMenu(item);
+                                    break;
+                                case 'setdesc':
+                                    if (args[4] === '' || args[4] === ' ')
+                                        return sendChat('Item Store', '/w gm Invalid Syntax! The new description of the Item may not be empty!');
+
+                                    editItem(item, 'desc', args[4]);
+                                    itemMenu(item);
+                                    break;
+                                case 'settype':
+                                    if (!typeList.find(t => t.toLowerCase() === args[4].toLowerCase()))
+                                        return sendChat('Item Store', '/w gm Invalid Type. Please provide a valid Item Type.');
+                                    else if (args[4].toLowerCase() === 'random')
+                                        return sendChat('Item Store', '/w gm Invalid Type. You cannot set an Item Type to Random.');
+
+                                    editItem(item, 'type', args[4]);
+                                    itemMenu(item);
+                                    break;
+                                case 'setrare':
+                                    if (!rareList.find(r => r.toLowerCase() === args[4].toLowerCase()))
+                                        return sendChat('Item Store', '/w gm Invalid Rarity. Please provide a valid Rarity.');
+                                    else if (args[4].toLowerCase() === 'random')
+                                        return sendChat('Item Store', '/w gm Invalid Rarity. You cannot set an Item Rarity to Random.');
+
+                                    editItem(item, 'rarity', args[4]);
+                                    itemMenu(item);
+                                    break;
+                                case 'setprice':
+                                    if (isNaN(parseFloat(args[4])))
+                                        return sendChat(
+                                            'Item Store',
+                                            '/w gm Invalid Syntax! You must provide a number to set the price of the Item!'
+                                        );
+                                    else if (parseFloat(args[4]) < 0)
+                                        return sendChat('Item Store', '/w gm Invalid Syntax! The price of an Item cannot be negative!');
+
+                                    editItem(item, 'price', parseInt(args[4]));
+                                    itemMenu(item);
+                                    break;
+                                case 'setweight':
+                                    if (isNaN(parseFloat(args[4])))
+                                        return sendChat(
+                                            'Item Store',
+                                            '/w gm Invalid Syntax! You must provide a number to set the weight of the Item!'
+                                        );
+                                    else if (parseFloat(args[4]) < 0)
+                                        return sendChat('Item Store', '/w gm Invalid Syntax! The weight of an Item cannot be negative!');
+
+                                    editItem(item, 'weight', parseFloat(args[4]));
+                                    itemMenu(item);
+                                    break;
+                                case 'setbundle':
+                                    if (isNaN(parseInt(args[4])))
+                                        return sendChat(
+                                            'Item Store',
+                                            '/w gm Invalid Syntax! You must provide a number to set the bundle size of the Item!'
+                                        );
+                                    else if (parseInt(args[4]) < 1)
+                                        return sendChat('Item Store', '/w gm Invalid Syntax! The bundle size of an Item must be at least 1!');
+
+                                    editItem(item, 'bundle', parseInt(args[4]));
+                                    itemMenu(item);
+                                    break;
+                                case 'mods':
+                                    switch (args[4]) {
+                                        default:
+                                            itemModMenu(item);
+                                            break;
+                                        case 'set':
+                                            if (!args[5].includes('; '))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid Syntax! Modifiers need to be separated by a semicolon and a space!'
+                                                );
+
+                                            editItem(item, 'mods', args[5]);
+                                            itemModMenu(item);
+                                            break;
+                                        case 'add':
+                                            if (args[5] === '' || args[5] === ' ')
+                                                return sendChat('Item Store', '/w gm Invalid Syntax! A Modifier you wish to add may not be empty!');
+
+                                            addItemMod(item, args[5]);
+                                            itemModMenu(item);
+                                            break;
+                                        case 'rem':
+                                            if (args[5] === '' || args[5] === ' ')
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid Syntax! A Modifier you wish to remove may not be empty!'
+                                                );
+
+                                            remItemMod(item, args[5]);
+                                            itemModMenu(item);
+                                            break;
+                                    }
+                                    break;
+                                case 'props':
+                                    switch (args[4]) {
+                                        default:
+                                            itemPropMenu(item);
+                                            break;
+                                        case 'set':
+                                            if (!args[5].includes('; '))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid Syntax! Properties need to be separated by a semicolon and a space!'
+                                                );
+
+                                            editItem(item, 'props', args[5]);
+                                            itemPropMenu(item);
+                                            break;
+                                        case 'add':
+                                            if (args[5] === '' || args[5] === ' ')
+                                                return sendChat('Item Store', '/w gm Invalid Syntax! A Property you wish to add may not be empty!');
+
+                                            addItemProp(item, args[5]);
+                                            itemPropMenu(item);
+                                            break;
+                                        case 'rem':
+                                            if (args[5] === '' || args[5] === ' ')
+                                                return sendChat(
+                                                    'Item Store',
+                                                    '/w gm Invalid Syntax! A Property you wish to remove may not be empty!'
+                                                );
+
+                                            remItemProp(item, args[5]);
+                                            itemPropMenu(item);
+                                            break;
+                                    }
                                     break;
                             }
                             break;
@@ -2039,10 +2351,302 @@ class ItemStore {
             }
         }
 
+        let char;
         switch (args[0]) {
             case '!shop':
+                switch (args[1]) {
+                    case undefined:
+                        sendChat('Item Store', '/w gm Invalid Syntax! You must provide an argument!');
+                        break;
+                    case 'sel':
+                        char = findObjs(
+                            {
+                                _type: 'character',
+                                _id: getIdFromToken(msg.selected),
+                            },
+                            { caseInsensitive: true }
+                        )[0];
+                        break;
+                    case 'char':
+                        char = findObjs(
+                            {
+                                _type: 'character',
+                                name: args[2],
+                            },
+                            { caseInsensitive: true }
+                        )[0];
+                        break;
+                    case 'charid':
+                        char = findObjs(
+                            {
+                                _type: 'character',
+                                _id: args[2],
+                            },
+                            { caseInsensitive: true }
+                        )[0];
+                        break;
+                }
+
+                if (!char) return sendChat('Item Store', `/w ${msg.who} Invalid Character! Could not find a Character with that Name or ID!`);
+
+                if (args[1] === 'sel') {
+                    switch (args[2]) {
+                        default:
+                            shopMenu(char);
+                            break;
+                        case 'store':
+                            if (args[3] === '' || args[3] === ' ')
+                                return sendChat(
+                                    'Item Store',
+                                    `/w ${msg.who} Invalid Syntax! You must provide the Name of the Store you wish to access!`
+                                );
+
+                            const store = itemstore.stores.find(s => s.active && s.name === args[3]);
+
+                            if (!store) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
+
+                            switch (args[4]) {
+                                case undefined:
+                                    shopMenu(char, store);
+                                    break;
+                                default:
+                                    const item = store.inventory[parseInt(args[4]) - 1];
+
+                                    if (!item)
+                                        return sendChat(
+                                            'Item Store',
+                                            `/w ${msg.who} Invalid Item! Could not find that Item in the Store's Inventory!`
+                                        );
+
+                                    switch (args[5]) {
+                                        default:
+                                            showShopItem(char, store, item);
+                                            break;
+                                        case 'haggle':
+                                            if (isNaN(parseInt(args[6])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide a number for the price you wish to haggle for!`
+                                                );
+                                            if (!args[8] || !['Persuasion', 'Intimitation'].toString().toLowerCase().includes(args[8].toLowerCase()))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide a valid Skill (Persuasion/Intimidation) to use for Haggle!`
+                                                );
+
+                                            haggleShopItem(char, store, item, parseInt(args[6]), args[8]);
+                                            break;
+                                        case 'addtocart':
+                                            if (isNaN(parseInt(args[6])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide the Number of the Cart you wish to use!`
+                                                );
+                                            if (isNaN(parseInt(args[7])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide the Amount of the Item you wish to add to the Cart!`
+                                                );
+
+                                            addToCart(char, store, item, parseInt(args[6], parseInt(args[8])));
+                                            break;
+                                        case 'buy':
+                                            if (isNaN(parseInt(args[6])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide the Number of the Cart you wish to use!`
+                                                );
+
+                                            buyFromShop(char, store, item, parseInt(args[6]));
+                                            break;
+                                    }
+                                    break;
+                            }
+                    }
+                } else {
+                    switch (args[3]) {
+                        default:
+                            shopMenu(char);
+                            break;
+                        case 'store':
+                            if (args[4] === '' || args[4] === ' ')
+                                return sendChat(
+                                    'Item Store',
+                                    `/w ${msg.who} Invalid Syntax! You must provide the Name of the Store you wish to access!`
+                                );
+
+                            const store = itemstore.stores.find(s => s.active && s.name === args[4]);
+
+                            if (!store) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
+
+                            switch (args[5]) {
+                                case undefined:
+                                    shopMenu(char, store);
+                                    break;
+                                default:
+                                    const item = store.inventory[parseInt(args[5]) - 1];
+
+                                    if (!item)
+                                        return sendChat(
+                                            'Item Store',
+                                            `/w ${msg.who} Invalid Item! Could not find that Item in the Store's Inventory!`
+                                        );
+
+                                    switch (args[6]) {
+                                        default:
+                                            showShopItem(char, store, item);
+                                            break;
+                                        case 'haggle':
+                                            if (isNaN(parseInt(args[7])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide a number for the price you wish to haggle for!`
+                                                );
+                                            if (!args[9] || !['Persuasion', 'Intimitation'].toString().toLowerCase().includes(args[9].toLowerCase()))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide a valid Skill (Persuasion/Intimidation) to use for Haggle!`
+                                                );
+
+                                            haggleShopItem(char, store, item, parseInt(args[7]), args[9]);
+                                            break;
+                                        case 'addtocart':
+                                            if (isNaN(parseInt(args[7])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide the Number of the Cart you wish to use!`
+                                                );
+                                            if (isNaN(parseInt(args[8])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide the Amount of the Item you wish to add to the Cart!`
+                                                );
+
+                                            addToCart(char, store, item, parseInt(args[7], parseInt(args[8])));
+                                            break;
+                                        case 'buy':
+                                            if (isNaN(parseInt(args[7])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide the Number of the Cart you wish to use!`
+                                                );
+
+                                            buyFromShop(char, store, item, parseInt(args[7]));
+                                            break;
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                }
                 return;
             case '!cart':
+                switch (args[1]) {
+                    case 'reset':
+                        if (!playerIsGM(msg.playerid))
+                            return sendChat('Item Store', `/w ${msg.who} Invalid Permissions! You must be a GM to reset the Carts!`);
+
+                        setCartDefaults();
+                        break;
+                    case 'sel':
+                        char = findObjs(
+                            {
+                                _type: 'character',
+                                _id: getIdFromToken(msg.selected),
+                            },
+                            { caseInsensitive: true }
+                        )[0];
+                        break;
+                    case 'char':
+                        char = findObjs(
+                            {
+                                _type: 'character',
+                                name: args[2],
+                            },
+                            { caseInsensitive: true }
+                        )[0];
+                        break;
+                    case 'charid':
+                        char = findObjs(
+                            {
+                                _type: 'character',
+                                _id: args[2],
+                            },
+                            { caseInsensitive: true }
+                        )[0];
+                        break;
+                }
+
+                if (!char) return sendChat('Item Store', `/w ${msg.who} Invalid Character! Could not find a Character with that Name or ID!`);
+
+                if (args[1] === 'sel') {
+                    switch (args[2]) {
+                        case undefined:
+                            cartMenu(char);
+                            break;
+                        default:
+                            if (isNaN(parseInt(args[2])))
+                                return sendChat(
+                                    'Item Store',
+                                    `/w ${msg.who} Invalid Syntax! You must provide the Number of the Cart you wish to access!`
+                                );
+
+                            let cart = itemstore.carts.find(c => c.charid === char.id && c.num === parseInt(args[2]));
+
+                            switch (args[3]) {
+                                case undefined:
+                                    cartMenu(char, cart);
+                                    break;
+                                case 'item':
+                                    if (isNaN(parseInt(args[4])))
+                                        return sendChat(
+                                            'Item Store',
+                                            `/w ${msg.who} Invalid Syntax! You must provide the Position of the Item to view its Details!`
+                                        );
+
+                                    const item = cart.content[parseInt(args[4]) - 1];
+
+                                    if (!item) return sendChat('Item Store', `/w ${msg.who} Invalid Item! Could not find that Item in the Cart!`);
+
+                                    switch (args[5]) {
+                                        default:
+                                            showCartItem(char, cart, item);
+                                            break;
+                                        case 'haggle':
+                                            if (isNaN(parseInt(args[6])))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide a number for the price you wish to haggle for!`
+                                                );
+                                            if (!args[8] || !['Persuasion', 'Intimitation'].toString().toLowerCase().includes(args[8].toLowerCase()))
+                                                return sendChat(
+                                                    'Item Store',
+                                                    `/w ${msg.who} Invalid Syntax! You must provide a valid Skill (Persuasion/Intimidation) to use for Haggle!`
+                                                );
+
+                                            haggleCartItem(char, cart, item, parseInt(args[6]), args[8]);
+                                            showCartItem(char, cart, item);
+                                            break;
+                                        case 'rem':
+                                            remCartItem(char, cart, item);
+                                            cartMenu(char, cart);
+                                            break;
+                                        case 'checkout':
+                                            buyFromCart(char, cart);
+                                            break;
+                                    }
+                                    break;
+                                case 'del':
+                                    deleteCart(char, cart);
+                                    cartMenu(char);
+                                    break;
+                            }
+                            break;
+                        case 'new':
+                            createCart(char);
+                            break;
+                    }
+                }
                 return;
         }
     }
@@ -2069,6 +2673,14 @@ class ItemStore {
 }
 
 const itemstore = new ItemStore();
+
+function getIdFromToken(selected) {
+    return (selected || [])
+        .map(obj => getObj('graphic', obj._id))
+        .filter(x => !!x)
+        .map(token => token.get('represents'))
+        .filter(id => getObj('character', id || ''));
+}
 
 /*
 {
