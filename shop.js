@@ -182,30 +182,48 @@ Displays the Shopping Cart Menu
 */
 
 const styles = {
-    divMenu: 'style="width: 300px; border: 1px solid black; background-color: #ffffff; padding: 5px;"',
+    divMenu: 'style="width: 200px; border: 1px solid black; background-color: #ffffff; padding: 5px;"',
     divCenter: 'style="text-align: center;"',
     buttonSmall:
-        'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 75px;',
+        'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 75px;"',
     buttonMedium:
-        'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;',
+        'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 100px;"',
     buttonLarge:
-        'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;',
-    table: 'style="text-align: center; font-size: 12px; width: 100%; border-style: 3px solid #cccccc;"',
+        'style="text-align: center; border: 1px solid black; margin: 1px; background-color: #7E2D40; border-radius: 4px;  box-shadow: 1px 1px 1px #707070; width: 150px;"',
+    table: 'style="text-align: center; font-size: 12px; width: 100%; border: 1px solid #cccccc;"',
     arrow: 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"',
     header: 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"',
     sub: 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"',
     tdReg: 'style="text-align: right;"',
     tdTab: 'style="text-align: center; border-right: 1px solid #cccccc;"',
-    trTab: 'style="text-align: left; border-bottom: 1px solid #cccccc;"',
     trInv: 'style="border-bottom: 1px solid #cccccc; border-left: 1px solid #cccccc; border-right: 1px solid #cccccc;"',
+    tdInv: 'style="text-align: center; border-right: 1px solid #cccccc;"',
     span: 'style="display: inline; width: 10px; height: 10px; padding: 1px; border: 1px solid black; background-color: white;"',
-    invTr: 'style="border: 1px solid #cccccc;"',
-    invTh: 'style="text-align: center; border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;"',
+    invHeader: '<thead><tr style="border-top: 1px solid #cccccc;"><th style="border-right: 1px solid #cccccc; border-left: 1px solid #cccccc;">Pos.</th><th style="border-right: 1px solid #cccccc; text-align:center;">Amount</th><th style="border-right: 1px solid #cccccc; text-align:center;">Item Name</th><th style="border-right: 1px solid #cccccc; text-align:center;">Description</th><th style="border-right: 1px solid #cccccc; text-align:center;">Price (GP)</th></tr></thead>',
 };
 
 const typeList = ['Weapon', 'Armor', 'Scroll', 'Potion', 'Misc', 'Mundane Item', 'Random'];
 
 const rareList = ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Legendary', 'Random'];
+
+/*
+{
+    name: string,
+    desc: string,
+    mods: string,
+    props: string,
+    price: number,
+    weight: number,
+    amount: number,
+    bundle: number,
+    rarity: string
+}
+
+{
+    level: number,
+    list: array
+}
+*/
 
 const itemList = {
     weapons: [
@@ -1846,9 +1864,6 @@ const itemList = {
 class ItemStore {
     constructor() {
         this.style = styles;
-        this.temp = state.temp;
-        this.stores = state.stores;
-        this.carts = state.carts;
         this.list = itemList;
     }
 
@@ -1861,8 +1876,13 @@ class ItemStore {
             switch (args[0]) {
                 case '!store':
                     switch (args[1]) {
+                        case undefined:
+                            storeMenu();
+                        break;
                         default:
-                            const store = itemstore.stores.find(s => s.name === args[1]);
+                            const store = state.stores.find(s => s.name === args[1]);
+
+                            if (!store) return sendChat("Item Store", "/w gm Invalid Store! Could not find a Store with that Name!");
 
                             switch (args[2]) {
                                 case undefined:
@@ -1932,8 +1952,8 @@ class ItemStore {
                                                     remInvItem(store, item);
                                                     break;
                                                 case 'edit':
-                                                    if (itemstore.temp.mods.length === 0) itemstore.temp.mods = item.mods.split(', ');
-                                                    if (itemstore.temp.props.length === 0) itemstore.temp.props = item.props.split(', ');
+                                                    if (state.temp.mods.length === 0) state.temp.mods = item.mods.split(', ');
+                                                    if (state.temp.props.length === 0) state.temp.props = item.props.split(', ');
 
                                                     switch (args[6]) {
                                                         default:
@@ -1946,7 +1966,7 @@ class ItemStore {
                                                                     '/w gm Invalid Syntax! The new name of the Item may not be empty!'
                                                                 );
 
-                                                            itemstore.temp.name = args[7];
+                                                            state.temp.name = args[7];
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'desc':
@@ -1961,7 +1981,7 @@ class ItemStore {
                                                                     '/w gm Invalid Format! The Description must contain a semicolon!'
                                                                 );
 
-                                                            itemstore.temp.desc = args[7];
+                                                            state.temp.desc = args[7];
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'price':
@@ -1971,7 +1991,7 @@ class ItemStore {
                                                                     '/w gm Invalid Syntax! You must provide a number to set the price of the Item!'
                                                                 );
 
-                                                            itemstore.temp.price = parseInt(args[7]);
+                                                            state.temp.price = parseInt(args[7]);
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'bundle':
@@ -1981,7 +2001,7 @@ class ItemStore {
                                                                     '/w gm Invalid Syntax! You must provide a number to set the bundle size of the Item!'
                                                                 );
 
-                                                            itemstore.temp.bundle = parseInt(args[7]);
+                                                            state.temp.bundle = parseInt(args[7]);
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'amount':
@@ -1991,7 +2011,7 @@ class ItemStore {
                                                                     '/w gm Invalid Syntax! You must provide a number to set the amount of the Item!'
                                                                 );
 
-                                                            itemstore.temp.amount = parseInt(args[7]);
+                                                            state.temp.amount = parseInt(args[7]);
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'mods':
@@ -2006,7 +2026,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! Modifiers need to be separated by a semicolon and a space!'
                                                                         );
 
-                                                                    itemstore.temp.mods = args[9].split('; ');
+                                                                    state.temp.mods = args[9].split('; ');
                                                                     invItemModEditor(store, item);
                                                                     break;
                                                                 case 'add':
@@ -2016,7 +2036,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! A Modifier you wish to add may not be empty!'
                                                                         );
 
-                                                                    itemstore.temp.mods.push(args[9]);
+                                                                    state.temp.mods.push(args[9]);
                                                                     invItemModEditor(store, item);
                                                                     break;
                                                                 case 'rem':
@@ -2026,7 +2046,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! A Modifier you wish to remove may not be empty!'
                                                                         );
 
-                                                                    itemstore.temp.mods.splice(itemstore.temp.mods.indexOf(args[9]));
+                                                                    state.temp.mods.splice(state.temp.mods.indexOf(args[9]));
                                                                     invItemModEditor(store, item);
                                                                     break;
                                                             }
@@ -2043,7 +2063,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! Properties need to be separated by a semicolon and a space!'
                                                                         );
 
-                                                                    itemstore.temp.props = args[9].split('; ');
+                                                                    state.temp.props = args[9].split('; ');
                                                                     invItemPropEditor(store, item);
                                                                     break;
                                                                 case 'add':
@@ -2053,7 +2073,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! A Property you wish to add may not be empty!'
                                                                         );
 
-                                                                    itemstore.temp.props.push(args[9]);
+                                                                    state.temp.props.push(args[9]);
                                                                     invItemPropEditor(store, item);
                                                                     break;
                                                                 case 'rem':
@@ -2063,7 +2083,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! A Property you wish to remove may not be empty!'
                                                                         );
 
-                                                                    itemstore.temp.props.splice(itemstore.temp.props.indexOf(args[9]));
+                                                                    state.temp.props.splice(state.temp.props.indexOf(args[9]));
                                                                     invItemPropEditor(store, item);
                                                                     break;
                                                             }
@@ -2401,7 +2421,7 @@ class ItemStore {
                                     `/w ${msg.who} Invalid Syntax! You must provide the Name of the Store you wish to access!`
                                 );
 
-                            const store = itemstore.stores.find(s => s.active && s.name === args[3]);
+                            const store = state.stores.find(s => s.active && s.name === args[3]);
 
                             if (!store) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
 
@@ -2475,7 +2495,7 @@ class ItemStore {
                                     `/w ${msg.who} Invalid Syntax! You must provide the Name of the Store you wish to access!`
                                 );
 
-                            const store = itemstore.stores.find(s => s.active && s.name === args[4]);
+                            const store = state.stores.find(s => s.active && s.name === args[4]);
 
                             if (!store) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
 
@@ -2591,7 +2611,7 @@ class ItemStore {
                                     `/w ${msg.who} Invalid Syntax! You must provide the Number of the Cart you wish to access!`
                                 );
 
-                            let cart = itemstore.carts.find(c => c.charid === char.id && c.num === parseInt(args[2]));
+                            let cart = state.carts.find(c => c.charid === char.id && c.num === parseInt(args[2]));
 
                             switch (args[3]) {
                                 case undefined:
@@ -2720,3 +2740,105 @@ function setTempDefaults() {
         bundle: 1,
     };
 }
+
+function storeMenu(store) {
+    if (!store) {
+        if (state.stores.length === 0) {
+            sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
+                `<div ${itemstore.style.header}>Item Store</div>` + //--
+                `<div ${itemstore.style.sub}>GM Menu</div>` + //--
+                `<div ${itemstore.style.arrow}></div>` + //--
+                `<table>` + //--
+                `<tr><td>Current Store: </td><td>No existing Stores!</td></tr>` + //--
+                `</table>` + //--
+                `<br><br>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge} href="!store --create --?{Name?|Insert Name}">Create new Store</a></div>` +//--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge} href="!store --reset">Reset Stores</a></div>` + //--
+                `</div>`
+            );
+        } else if (state.stores.length >= 1) {
+            const shopList = state.stores.map(s => s.name).toString().replaceAll(",","|");
+
+            sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
+                `<div ${itemstore.style.header}>Item Store</div>` + //--
+                `<div ${itemstore.style.sub}>GM Menu</div>` + //--
+                `<div ${itemstore.style.arrow}></div>` + //--
+                `<table>` + //--
+                `<tr><td>Current Store: </td><td ${itemstore.style.tdReg}><a ${itemstore.style.buttonMedium} href="!store --?{Select a Store|${shopList}}">Not selected</a></td></tr>` + //--
+                `</table>` + //--
+                `<br><br>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --create --?{Name?|Insert Name}">Create new Store</a></div>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --reset">Reset Stores</a></div>` + //--
+                `</div>`
+            );
+        }
+    } else {
+        const shopList = state.stores.map(s => s.name).toString().replaceAll(",","|");
+
+        if (store.inventory.length === 0) {
+            sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
+                `<div ${itemstore.style.header}>Item Store</div>` + //--
+                `<div ${itemstore.style.sub}>GM Menu</div>` + //--
+                `<div ${itemstore.style.arrow}></div>` + //--
+                `<table>` + //--
+                `<tr><td>Current Store: </td><td ${itemstore.style.tdReg}><a ${itemstore.style.buttonMedium} href="!store --?{Select a Store|${shopList}}">${store.name}</a></td></tr>` + //--
+                `<tr><td>Active: </td><td ${itemstore.style.tdReg}>${store.active ? 'Yes' : 'No'}</td></tr>` + //--
+                `<tr><td>Price Markup: </td><td ${itemstore.style.tdReg}>${store.price_change}%</td></tr>` + //--
+                `</table>` + //--
+                `<br><br>` + //--
+                `<div ${itemstore.style.divCenter}><b>Inventory</b></div>` + //--
+                `<table>` + //--
+                `<tr><td>No Items in Inventory!</td></tr>` + //--
+                `</table>` + //--
+                `<br><br>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --${store.name} --toggle">Toggle Active</a></div>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --${store.name} --del">Delete Store</a></div>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --${store.name} --inv">Manage Inventory</a></div>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --${store.name} --show">Display Store</a></div>` + //--
+                `</div>`
+            )
+        }
+
+        let invList = [""];
+        let pos = 0;
+
+        if (store.inventory.length > 10) {
+
+        } else {
+            store.inventory.map(item => {
+                pos++;
+                const price = item.price + (item.price / 100) * store.price_change;
+                const desc = item.desc.split(';')[0];
+                invList += `<tr ${itemstore.style.trInv}><td ${itemstore.style.tdInv}>${pos}</td><td ${itemstore.style.tdInv}>${item.amount}</td><td ${itemstore.style.tdInv}>${item.name}</td><td ${itemstore.style.tdInv}>${desc}</td><td ${itemstore.style.divCenter}>${price}</td></tr>`;
+            });
+
+            sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
+                `<div ${itemstore.style.header}>Item Store</div>` + //--
+                `<div ${itemstore.style.sub}>GM Menu</div>` + //--
+                `<div ${itemstore.style.arrow}></div>` + //--
+                `<table>` + //--
+                `<tr><td>Current Store: </td><td ${itemstore.style.tdReg}><a ${itemstore.style.buttonMedium} href="!store --?{Select a Store|${shopList}}">${store.name}</a></td></tr>` + //--
+                `<tr><td>Active: </td><td ${itemstore.style.tdReg}>${store.active ? 'Yes' : 'No'}</td></tr>` + //--
+                `<tr><td>Price Markup: </td><td ${itemstore.style.tdReg}>${store.price_change}%</td></tr>` + //--
+                `</table>` + //--
+                `<br><br>` + //--
+                `<div ${itemstore.style.divCenter}><b>Inventory</b></div>` + //--
+                `<table ${itemstore.style.table}>` + //--
+                `${itemstore.style.invHeader}` + //--
+                `<tbody>${invList}</tbody>` + //--
+                `</table>` + //--
+                `<br><br>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --${store.name} --toggle">Toggle Active</a></div>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --${store.name} --del">Delete Store</a></div>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --${store.name} --inv">Manage Inventory</a></div>` + //--
+                `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge}" href="!store --${store.name} --show">Display Store</a></div>` + //--
+                `</div>`
+            );
+        }
+    }
+}
+
+on('ready', () => {
+    itemstore.checkInstall();
+    itemstore.registerEventHandlers();
+});
