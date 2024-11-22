@@ -70,7 +70,7 @@ Pulls up the Store Menu
 
 !items
 Pulls up the Item Menu
-    --new 
+    --new
     Pulls up the Item Creator
         --name --{Insert Name}
         Sets the Name of the Item
@@ -224,6 +224,29 @@ const rareList = ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Legendary', 'Rando
     list: array
 }
 */
+
+/*
+We are using a name space of julexar for any and all of julexar's projects,
+and a shopObjs subspace for this specific project.
+*/
+
+// Ensure the 'julexar' namespace exists within the 'state' object
+if (!state.julexar) {
+    state.julexar = {};
+}
+
+// Initialize the 'shopObjs' namespace within 'julexar' if it doesn't exist
+if (!state.julexar.shopObjs) {
+    state.julexar.shopObjs = {};
+}
+
+// Create a local reference to the 'shopObjs' object for easier access
+const shopObjs = state.julexar.shopObjs;
+
+
+/*
+Initalizing the itemList
+ */
 
 const itemList = {
     weapons: [
@@ -1861,6 +1884,268 @@ const itemList = {
     mundane: [],
 };
 
+function checkRarities(string, string2) {
+    const name=checkRarities.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function setStoreHaggleDC() {
+    const name=setStoreHaggleDC.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function setStorePrice(store, number) {
+    const name=setStorePrice.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function genStoreInv(number) {
+    const name=genStoreInv.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function storeInv(store) {
+    const name=storeInv.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function displayStore(store) {
+    const name=displayStore.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function setStoreName(store, string) {
+    const name=setStoreName.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function toggleStore(store) {
+    const name=toggleStore.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function deleteStore(store) {
+    const name=deleteStore.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function createStore(storeName) {
+    const name=createStore.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    //Creates a new Store
+    if (shopObjs.stores.has(storeName)) {
+        sendChat("Item Store",`A store named (${storeName}) already exists`);
+        return;
+    };
+    let newStore = {};
+    newStore= {
+            name: `${storeName}`,
+            inv: [],
+            hdc: 10,
+            cprice: 0,
+            active: true
+        };
+    sendChat("Item Store",`store is ${JSON.stringify(newStore)}`);
+    shopObjs.stores.set(storeName, newStore);
+    sendChat("Item Store",`shopObjs.stores is ${JSON.stringify(shopObjs.stores)}`);
+    sendChat("Item Store",`/w gm Store with the name ${storeName} created!`);
+    log("Entering checkStores()");
+    checkStores();
+    return;
+}
+
+function checkStores() {
+    const name=checkStores.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function findActiveStore() {
+    log("finding active store");
+    let rv = null;
+    let foundOne = false;
+    for (const [storeName, store] of shopObjs.stores) {
+        if(store.active) {
+            if(foundOne) {
+                sendChat("Item Store",`Found multiple active stores.  Using first active store`)
+                return rv;
+            }
+            rv=storeName;
+            foundOne = true;
+        };
+    };
+    if(!foundOne) {
+        sendChat("Item Store",`Found no stores.`)
+    }
+    log("returning zero or one stores");
+    return rv;
+};
+
+function itemMenu() {
+    const name=itemMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function editItem(item, itemName, string) {
+    const name=editItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function deleteItem(item) {
+    const name=deleteItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function itemModMenu(item) {
+    const name=itemModMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function addItemMod(item, string) {
+    const name=addItemMod.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function remItemMod(item, string) {
+    const name=remItemMod.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function itemPropMenu(item) {
+    const name=itemPropMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function addItemProp(item, string) {
+    const name=addItemProp.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function remItemProp(item, string) {
+    const name=remItemProp.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function shopMenu(char) {
+    const name=shopMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function showShopItem(char, store, item) {
+    const name=showShopItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function addToCart(char, store, item, number) {
+    const name=addToCart.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function buyFromShop(char, store, item, number) {
+    const name=buyFromShop.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function haggleShopItem(char, store, item, number, string) {
+    const name=haggleShopItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function cartMenu(char) {
+    const name=cartMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function showCartItem(char, cart, item) {
+    const name=showCartItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function haggleCartItem(char, cart, item, number, string) {
+    const name=haggleCartItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function remCartItem(char, cart, item) {
+    const name=remCartItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function buyFromCart(char, cart) {
+    const name=buyFromCart.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function deleteCart(char, cart) {
+    const name=deleteCart.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function createCart(char) {
+    const name=createCart.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function showInvItem(store, item) {
+    const name=showInvItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function remInvItem(store, item) {
+    const name=remInvItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function invItemEditor(store, item) {
+    const name=invItemEditor.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function invItemModEditor(store, item) {
+    const name=invItemModEditor.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function invItemPropEditor(store, item) {
+    const name=invItemPropEditor.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
 class ItemStore {
     constructor() {
         this.style = styles;
@@ -1873,19 +2158,26 @@ class ItemStore {
         if (msg.type !== 'api') return;
 
         if (playerIsGM(msg.playerid)) {
+            log("Player is GM");
             switch (args[0]) {
                 case '!store':
+                    log("using the !store option");
+                    sendChat("Item Store",`Calling Store! with args ${args[1]}`);
                     switch (args[1]) {
                         case undefined:
+                            log("Calling storeMenu");
+                            sendChat("Item Store","Calling storeMenu");
                             storeMenu();
-                        break;
+                            break;
                         default:
-                            const store = state.stores.find(s => s.name === args[1]);
+                            const store = shopObjs.stores.get(args[1]);
+                            sendChat("Item Store",`Store is ${store}`);
 
-                            if (!store) return sendChat("Item Store", "/w gm Invalid Store! Could not find a Store with that Name!");
+                            if (!store) return sendChat("Item Store","/w gm Invalid Store! Could not find a Store with that Name!");
 
                             switch (args[2]) {
                                 case undefined:
+                                    log("Calling storeMenu");
                                     storeMenu(store);
                                     break;
                                 case 'inv':
@@ -1938,7 +2230,7 @@ class ItemStore {
                                                     'Item Store',
                                                     '/w gm Invalid Syntax! You must provide the Position of the Item to view its Details!'
                                                 );
-
+                                            
                                             const item = store.inventory[parseInt(args[4]) - 1];
 
                                             if (!item)
@@ -1952,8 +2244,8 @@ class ItemStore {
                                                     remInvItem(store, item);
                                                     break;
                                                 case 'edit':
-                                                    if (state.temp.mods.length === 0) state.temp.mods = item.mods.split(', ');
-                                                    if (state.temp.props.length === 0) state.temp.props = item.props.split(', ');
+                                                    if (shopObjs.temp.mods.length === 0) shopObjs.temp.mods = item.mods.split(', ');
+                                                    if (shopObjs.temp.props.length === 0) shopObjs.temp.props = item.props.split(', ');
 
                                                     switch (args[6]) {
                                                         default:
@@ -1966,7 +2258,7 @@ class ItemStore {
                                                                     '/w gm Invalid Syntax! The new name of the Item may not be empty!'
                                                                 );
 
-                                                            state.temp.name = args[7];
+                                                            shopObjs.temp.name = args[7];
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'desc':
@@ -1981,7 +2273,7 @@ class ItemStore {
                                                                     '/w gm Invalid Format! The Description must contain a semicolon!'
                                                                 );
 
-                                                            state.temp.desc = args[7];
+                                                            shopObjs.temp.desc = args[7];
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'price':
@@ -1991,7 +2283,7 @@ class ItemStore {
                                                                     '/w gm Invalid Syntax! You must provide a number to set the price of the Item!'
                                                                 );
 
-                                                            state.temp.price = parseInt(args[7]);
+                                                            shopObjs.temp.price = parseInt(args[7]);
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'bundle':
@@ -2001,7 +2293,7 @@ class ItemStore {
                                                                     '/w gm Invalid Syntax! You must provide a number to set the bundle size of the Item!'
                                                                 );
 
-                                                            state.temp.bundle = parseInt(args[7]);
+                                                            shopObjs.temp.bundle = parseInt(args[7]);
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'amount':
@@ -2011,7 +2303,7 @@ class ItemStore {
                                                                     '/w gm Invalid Syntax! You must provide a number to set the amount of the Item!'
                                                                 );
 
-                                                            state.temp.amount = parseInt(args[7]);
+                                                            shopObjs.temp.amount = parseInt(args[7]);
                                                             invItemEditor(store, item);
                                                             break;
                                                         case 'mods':
@@ -2026,7 +2318,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! Modifiers need to be separated by a semicolon and a space!'
                                                                         );
 
-                                                                    state.temp.mods = args[9].split('; ');
+                                                                    shopObjs.temp.mods = args[9].split('; ');
                                                                     invItemModEditor(store, item);
                                                                     break;
                                                                 case 'add':
@@ -2036,7 +2328,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! A Modifier you wish to add may not be empty!'
                                                                         );
 
-                                                                    state.temp.mods.push(args[9]);
+                                                                    shopObjs.temp.mods.push(args[9]);
                                                                     invItemModEditor(store, item);
                                                                     break;
                                                                 case 'rem':
@@ -2046,7 +2338,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! A Modifier you wish to remove may not be empty!'
                                                                         );
 
-                                                                    state.temp.mods.splice(state.temp.mods.indexOf(args[9]));
+                                                                    shopObjs.temp.mods.splice(shopObjs.temp.mods.indexOf(args[9]));
                                                                     invItemModEditor(store, item);
                                                                     break;
                                                             }
@@ -2063,7 +2355,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! Properties need to be separated by a semicolon and a space!'
                                                                         );
 
-                                                                    state.temp.props = args[9].split('; ');
+                                                                    shopObjs.temp.props = args[9].split('; ');
                                                                     invItemPropEditor(store, item);
                                                                     break;
                                                                 case 'add':
@@ -2073,7 +2365,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! A Property you wish to add may not be empty!'
                                                                         );
 
-                                                                    state.temp.props.push(args[9]);
+                                                                    shopObjs.temp.props.push(args[9]);
                                                                     invItemPropEditor(store, item);
                                                                     break;
                                                                 case 'rem':
@@ -2083,7 +2375,7 @@ class ItemStore {
                                                                             '/w gm Invalid Syntax! A Property you wish to remove may not be empty!'
                                                                         );
 
-                                                                    state.temp.props.splice(state.temp.props.indexOf(args[9]));
+                                                                    shopObjs.temp.props.splice(shopObjs.temp.props.indexOf(args[9]));
                                                                     invItemPropEditor(store, item);
                                                                     break;
                                                             }
@@ -2163,6 +2455,7 @@ class ItemStore {
                                     break;
                                 case 'toggle':
                                     toggleStore(store);
+                                    log("Calling storeMenu");
                                     storeMenu(store);
                                     break;
                                 case 'del':
@@ -2174,12 +2467,15 @@ class ItemStore {
                         case 'create':
                             if (args[2] === '' || args[2] === ' ')
                                 return sendChat('Item Store', '/w gm Invalid Syntax! The name of the Store may not be empty!');
-
+                            log("Store created - setting menu");
                             createStore(args[2]);
+                            log("Store created - setting menu");
                             storeMenu(args[2]);
                             break;
                         case 'reset':
                             setStoreDefaults();
+                            setTempDefaults();
+                            setCartDefaults();
                             break;
                     }
                     return;
@@ -2420,10 +2716,9 @@ class ItemStore {
                                     'Item Store',
                                     `/w ${msg.who} Invalid Syntax! You must provide the Name of the Store you wish to access!`
                                 );
+                            const store = shopObjs.get(args[3]);
 
-                            const store = state.stores.find(s => s.active && s.name === args[3]);
-
-                            if (!store) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
+                            if (!store.active) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
 
                             switch (args[4]) {
                                 case undefined:
@@ -2494,10 +2789,9 @@ class ItemStore {
                                     'Item Store',
                                     `/w ${msg.who} Invalid Syntax! You must provide the Name of the Store you wish to access!`
                                 );
+                            const store = shopObjs.stores.get(args[4]);
 
-                            const store = state.stores.find(s => s.active && s.name === args[4]);
-
-                            if (!store) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
+                            if (!store.active) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
 
                             switch (args[5]) {
                                 case undefined:
@@ -2611,7 +2905,7 @@ class ItemStore {
                                     `/w ${msg.who} Invalid Syntax! You must provide the Number of the Cart you wish to access!`
                                 );
 
-                            let cart = state.carts.find(c => c.charid === char.id && c.num === parseInt(args[2]));
+                            let cart = shopObjs.carts.find(c => c.charid === char.id && c.num === parseInt(args[2]));
 
                             switch (args[3]) {
                                 case undefined:
@@ -2672,18 +2966,21 @@ class ItemStore {
     }
 
     checkInstall() {
-        if (!state.check) {
-            state.check = true;
+        log("Checking Install");
+        sendChat("Item Store","Checking Install");
+        if (!shopObjs.check) {
+            sendChat("Item Store","In .check Routine");
+            shopObjs.check = true;
             setStoreDefaults();
             setTempDefaults();
             setCartDefaults();
         }
 
-        if (!state.stores) setStoreDefaults();
+        if (!shopObjs.stores) setStoreDefaults();
 
-        if (!state.carts) setCartDefaults();
+        if (!shopObjs.carts) setCartDefaults();
 
-        if (!state.temp) setTempDefaults();
+        if (!shopObjs.temp) setTempDefaults();
     }
 
     registerEventHandlers() {
@@ -2713,7 +3010,8 @@ function getIdFromToken(selected) {
 */
 
 function setStoreDefaults() {
-    state.stores = [];
+    sendChat("Item Store","Creating stores Map");
+    shopObjs.stores = new Map();
 }
 
 /*
@@ -2725,11 +3023,12 @@ function setStoreDefaults() {
 */
 
 function setCartDefaults() {
-    state.carts = [];
+    shopObjs.carts = [];
 }
 
 function setTempDefaults() {
-    state.temp = {
+    sendChat("Item Store","Initializing "temp" object");
+    shopObjs.temp = {
         name: '',
         desc: '',
         mods: [],
@@ -2741,9 +3040,13 @@ function setTempDefaults() {
     };
 }
 
-function storeMenu(store) {
-    if (!store) {
-        if (state.stores.length === 0) {
+function storeMenu(storeName) {
+    sendChat("Item Store",`In store menu with store name ${storeName}`);
+    if (!storeName) {
+        sendChat("Item Store",`No name found.  Stores is: ${JSON.stringify(shopObjs.stores)}`);
+        sendChat("Item Store",`No name found.  Count is ${shopObjs.stores.size}`);
+        if (shopObjs.stores.size === 0) {
+            sendChat("Item Store","No shops found");
             sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
                 `<div ${itemstore.style.header}>Item Store</div>` + //--
                 `<div ${itemstore.style.sub}>GM Menu</div>` + //--
@@ -2756,10 +3059,10 @@ function storeMenu(store) {
                 `<div ${itemstore.style.divCenter}><a ${itemstore.style.buttonLarge} href="!store --reset">Reset Stores</a></div>` + //--
                 `</div>`
             );
-        } else if (state.stores.length >= 1) {
-            const shopList = state.stores.map(s => s.name).toString().replaceAll(",","|");
-
-            sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
+        } else if (shopObjs.stores.size >= 1) {
+            const shopList = shopObjs.stores.keys();
+            sendChat("Item Store",`Found stores: ${JSON.stringify(shopList)}`);
+            sendChat("Item Store",`/w gm <div ${itemstore.style.divMenu}>` + //--
                 `<div ${itemstore.style.header}>Item Store</div>` + //--
                 `<div ${itemstore.style.sub}>GM Menu</div>` + //--
                 `<div ${itemstore.style.arrow}></div>` + //--
@@ -2773,10 +3076,24 @@ function storeMenu(store) {
             );
         }
     } else {
-        const shopList = state.stores.map(s => s.name).toString().replaceAll(",","|");
+        sendChat("Item Store",`Shop list size is: ${shopObjs.stores.size}`);
+        const shopList = shopObjs.stores.keys();
 
-        if (store.inventory.length === 0) {
-            sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
+        log("Found stores in Else");
+        sendChat("Item Store",`Found stores in Else: ${JSON.stringify(Array.from(shopList))}`);
+       let storeName=findActiveStore();
+       if (!storeName) {
+           return;
+       };
+       let store=shopObjs.stores.get(storeName);
+       log (`got store with name ${storeName}`);
+       if (!Array.isArray(store.inv)) { //confirming that we have an inventory array
+           sendChat("Item Store",`Store object is malformed.  No Inventory array found`);
+           sendChat("Item Store",`Store is: ${JSON.stringify(store.inv)}`);
+           return;
+       }  //remember that the inventory array in a store is called "inv"
+        if (store.inv.length === 0) {
+            sendChat("Item Store",`/w gm <div ${itemstore.style.divMenu}>` + //--
                 `<div ${itemstore.style.header}>Item Store</div>` + //--
                 `<div ${itemstore.style.sub}>GM Menu</div>` + //--
                 `<div ${itemstore.style.arrow}></div>` + //--
@@ -2801,18 +3118,19 @@ function storeMenu(store) {
 
         let invList = [""];
         let pos = 0;
-
-        if (store.inventory.length > 10) {
+        sendChat("Item Store","Checking Inventory length");
+        if (store.inv.length > 10) {
 
         } else {
-            store.inventory.map(item => {
+            store.inv.map(item => {
+                sendChat("Item Store","Mapping Inventory?");
                 pos++;
                 const price = item.price + (item.price / 100) * store.price_change;
                 const desc = item.desc.split(';')[0];
                 invList += `<tr ${itemstore.style.trInv}><td ${itemstore.style.tdInv}>${pos}</td><td ${itemstore.style.tdInv}>${item.amount}</td><td ${itemstore.style.tdInv}>${item.name}</td><td ${itemstore.style.tdInv}>${desc}</td><td ${itemstore.style.divCenter}>${price}</td></tr>`;
             });
 
-            sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
+            sendChat("Item Store",`/w gm <div ${itemstore.style.divMenu}>` + //--
                 `<div ${itemstore.style.header}>Item Store</div>` + //--
                 `<div ${itemstore.style.sub}>GM Menu</div>` + //--
                 `<div ${itemstore.style.arrow}></div>` + //--
