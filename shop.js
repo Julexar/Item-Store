@@ -1886,64 +1886,64 @@ const itemList = {
 
 function checkRarities(string, string2) {
     const name=checkRarities.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function setStoreHaggleDC() {
     const name=setStoreHaggleDC.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function setStorePrice(store, number) {
     const name=setStorePrice.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function genStoreInv(number) {
     const name=genStoreInv.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function storeInv(store) {
     const name=storeInv.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function displayStore(store) {
     const name=displayStore.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function setStoreName(store, string) {
     const name=setStoreName.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function toggleStore(store) {
     const name=toggleStore.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function deleteStore(store) {
     const name=deleteStore.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function createStore(storeName) {
     const name=createStore.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     //Creates a new Store
     if (shopObjs.stores.has(storeName)) {
-        sendChat("Item Store","A store named ("+storeName+") already exists");
+        sendChat("Item Store",`A store named (${storeName}) already exists`);
         return;
     };
     let newStore = {};
@@ -1954,10 +1954,10 @@ function createStore(storeName) {
             cprice: 0,
             active: true
         };
-    sendChat("Item Store","store is"+JSON.stringify(newStore));
+    sendChat("Item Store",`store is ${JSON.stringify(newStore)}`);
     shopObjs.stores.set(storeName, newStore);
-    sendChat("Item Store","shopObjs.stores is"+JSON.stringify(shopObjs.stores));
-    sendChat("Item Store","/w gm Store with the name \""+storeName+"\" created!");
+    sendChat("Item Store",`shopObjs.stores is ${JSON.stringify(shopObjs.stores)}`);
+    sendChat("Item Store",`/w gm Store with the name ${storeName} created!`);
     log("Entering checkStores()");
     checkStores();
     return;
@@ -1965,7 +1965,7 @@ function createStore(storeName) {
 
 function checkStores() {
     const name=checkStores.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
@@ -1976,7 +1976,7 @@ function findActiveStore() {
     for (const [storeName, store] of shopObjs.stores) {
         if(store.active) {
             if(foundOne) {
-                sendChat("Item Store","Found multiple active stores.  Using first active store")
+                sendChat("Item Store",`Found multiple active stores.  Using first active store`)
                 return rv;
             }
             rv=storeName;
@@ -1984,7 +1984,7 @@ function findActiveStore() {
         };
     };
     if(!foundOne) {
-        sendChat("Item Store","Found no stores.")
+        sendChat("Item Store",`Found no stores.`)
     }
     log("returning zero or one stores");
     return rv;
@@ -1992,157 +1992,157 @@ function findActiveStore() {
 
 function itemMenu() {
     const name=itemMenu.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function editItem(item, itemName, string) {
     const name=editItem.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function deleteItem(item) {
     const name=deleteItem.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function itemModMenu(item) {
     const name=itemModMenu.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function addItemMod(item, string) {
     const name=addItemMod.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function remItemMod(item, string) {
     const name=remItemMod.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function itemPropMenu(item) {
     const name=itemPropMenu.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function addItemProp(item, string) {
     const name=addItemProp.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function remItemProp(item, string) {
     const name=remItemProp.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function shopMenu(char) {
     const name=shopMenu.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function showShopItem(char, store, item) {
     const name=showShopItem.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function addToCart(char, store, item, number) {
     const name=addToCart.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function buyFromShop(char, store, item, number) {
     const name=buyFromShop.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function haggleShopItem(char, store, item, number, string) {
     const name=haggleShopItem.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function cartMenu(char) {
     const name=cartMenu.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function showCartItem(char, cart, item) {
     const name=showCartItem.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function haggleCartItem(char, cart, item, number, string) {
     const name=haggleCartItem.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function remCartItem(char, cart, item) {
     const name=remCartItem.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function buyFromCart(char, cart) {
     const name=buyFromCart.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function deleteCart(char, cart) {
     const name=deleteCart.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function createCart(char) {
     const name=createCart.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function showInvItem(store, item) {
     const name=showInvItem.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function remInvItem(store, item) {
     const name=remInvItem.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function invItemEditor(store, item) {
     const name=invItemEditor.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function invItemModEditor(store, item) {
     const name=invItemModEditor.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
 function invItemPropEditor(store, item) {
     const name=invItemPropEditor.name;
-    sendChat("Item Store","This function ("+name+") is currently under construction");
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
     return;
 }
 
@@ -2162,20 +2162,18 @@ class ItemStore {
             switch (args[0]) {
                 case '!store':
                     log("using the !store option");
-                    sendChat("Item Store","Calling Store! with args "+args[1]);
+                    sendChat("Item Store",`Calling Store! with args ${args[1]}`);
                     switch (args[1]) {
                         case undefined:
                             log("Calling storeMenu");
-                            sendChat("Item Store","Calling storeMenu");
+                            sendChat("Item Store",`Calling storeMenu`);
                             storeMenu();
                             break;
                         default:
-                            log("Or this?");
-                            sendChat("Item Store","Or this?");
                             const store = shopObjs.stores.get(args[1]);
-                            sendChat("Item Store","Store is "+store);
+                            sendChat("Item Store",`Store is ${store}`);
 
-                            if (!store) return sendChat("Item Store","/w gm Invalid Store! Could not find a Store with that Name!");
+                            if (!store) return sendChat("Item Store",`/w gm Invalid Store! Could not find a Store with that Name!`);
 
                             switch (args[2]) {
                                 case undefined:
@@ -2233,8 +2231,6 @@ class ItemStore {
                                                     '/w gm Invalid Syntax! You must provide the Position of the Item to view its Details!'
                                                 );
                                             
-                                            log("Maybe here");
-                                            sendChat("Item Store","Maybe here");
                                             const item = store.inventory[parseInt(args[4]) - 1];
 
                                             if (!item)
@@ -2720,8 +2716,6 @@ class ItemStore {
                                     'Item Store',
                                     `/w ${msg.who} Invalid Syntax! You must provide the Name of the Store you wish to access!`
                                 );
-                            log("Here???");
-                            sendChat("Item Store","Here???");
                             const store = shopObjs.get(args[3]);
 
                             if (!store.active) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
@@ -2795,8 +2789,6 @@ class ItemStore {
                                     'Item Store',
                                     `/w ${msg.who} Invalid Syntax! You must provide the Name of the Store you wish to access!`
                                 );
-                            log("This one??");
-                            sendChat("Item Store","This one??");
                             const store = shopObjs.stores.get(args[4]);
 
                             if (!store.active) return sendChat('Item Store', `/w ${msg.who} Invalid Store! Could not find an active Store with that Name!`);
@@ -2806,8 +2798,6 @@ class ItemStore {
                                     shopMenu(char, store);
                                     break;
                                 default:
-                                    log("Weird if here");
-                                    sendChat("Item Store","Weird if here")
                                     const item = store.inventory[parseInt(args[5]) - 1];
 
                                     if (!item)
@@ -2977,9 +2967,9 @@ class ItemStore {
 
     checkInstall() {
         log("Checking Install");
-        sendChat("Item Store","Checking Install");
+        sendChat("Item Store",`Checking Install`);
         if (!shopObjs.check) {
-            sendChat("Item Store","In .check Routine");
+            sendChat("Item Store",`In .check Routine`);
             shopObjs.check = true;
             setStoreDefaults();
             setTempDefaults();
@@ -3020,7 +3010,7 @@ function getIdFromToken(selected) {
 */
 
 function setStoreDefaults() {
-    sendChat("Item Store","Creating stores Map");
+    sendChat("Item Store",`Creating stores Map`);
     shopObjs.stores = new Map();
 }
 
@@ -3037,7 +3027,7 @@ function setCartDefaults() {
 }
 
 function setTempDefaults() {
-    sendChat("Item Store","Initializing 'temp' object");
+    sendChat("Item Store",`Initializing "temp" object`);
     shopObjs.temp = {
         name: '',
         desc: '',
@@ -3051,12 +3041,12 @@ function setTempDefaults() {
 }
 
 function storeMenu(storeName) {
-    sendChat("Item Store","In store menu with store name "+storeName);
+    sendChat("Item Store",`In store menu with store name ${storeName}`);
     if (!storeName) {
-        sendChat("Item Store","No name found.  Stores is: "+ JSON.stringify(shopObjs.stores));
-        sendChat("Item Store","No name found.  Count is "+shopObjs.stores.size);
+        sendChat("Item Store",`No name found.  Stores is: ${JSON.stringify(shopObjs.stores)}`);
+        sendChat("Item Store",`No name found.  Count is ${shopObjs.stores.size}`);
         if (shopObjs.stores.size === 0) {
-            sendChat("Item Store","No shops found");
+            sendChat("Item Store",`No shops found`);
             sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
                 `<div ${itemstore.style.header}>Item Store</div>` + //--
                 `<div ${itemstore.style.sub}>GM Menu</div>` + //--
@@ -3071,7 +3061,7 @@ function storeMenu(storeName) {
             );
         } else if (shopObjs.stores.size >= 1) {
             const shopList = shopObjs.stores.keys();
-            sendChat("Item Store","Found stores: "+JSON.stringify(shopList));
+            sendChat("Item Store",`Found stores: ${JSON.stringify(shopList)}`);
             sendChat("Item Store",`/w gm <div ${itemstore.style.divMenu}>` + //--
                 `<div ${itemstore.style.header}>Item Store</div>` + //--
                 `<div ${itemstore.style.sub}>GM Menu</div>` + //--
@@ -3086,20 +3076,20 @@ function storeMenu(storeName) {
             );
         }
     } else {
-        sendChat("Item Store","Shop list size is: "+shopObjs.stores.size);
+        sendChat("Item Store",`Shop list size is: ${shopObjs.stores.size}`);
         const shopList = shopObjs.stores.keys();
 
         log("Found stores in Else");
-        sendChat("Item Store","Found stores in Else: "+JSON.stringify(Array.from(shopList)));
+        sendChat("Item Store",`Found stores in Else: ${JSON.stringify(Array.from(shopList))}`);
        let storeName=findActiveStore();
        if (!storeName) {
            return;
        };
        let store=shopObjs.stores.get(storeName);
-       log ("got store with name "+storeName);
+       log (`got store with name ${storeName}`);
        if (!Array.isArray(store.inv)) { //confirming that we have an inventory array
-           sendChat("Item Store","Store object is malformed.  No Inventory array found");
-           sendChat("Item Store","Store is :" +JSON.stringify(store.inv));
+           sendChat("Item Store",`Store object is malformed.  No Inventory array found`);
+           sendChat("Item Store",`Store is: ${JSON.stringify(store.inv)}`);
            return;
        }  //remember that the inventory array in a store is called "inv"
         if (store.inv.length === 0) {
@@ -3128,14 +3118,12 @@ function storeMenu(storeName) {
 
         let invList = [""];
         let pos = 0;
-        sendChat("Item Store","Checking Inventory length");
+        sendChat("Item Store",`Checking Inventory length`);
         if (store.inv.length > 10) {
 
         } else {
-            log("Is this it?");
-            sendChat("Item Store","Is this it?");
             store.inv.map(item => {
-                sendChat("Item Store","Mapping Inventory?");
+                sendChat("Item Store",`Mapping Inventory?`);
                 pos++;
                 const price = item.price + (item.price / 100) * store.price_change;
                 const desc = item.desc.split(';')[0];
