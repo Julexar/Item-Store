@@ -16,5 +16,4 @@ jobs:
       - uses: Julexar/Milestone-Assigner@v1.0 
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
-          milestone: "v*"
-          use-glob: 'true'
+          milestone: "Finish the Item Store"
