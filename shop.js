@@ -2166,14 +2166,14 @@ class ItemStore {
                     switch (args[1]) {
                         case undefined:
                             log("Calling storeMenu");
-                            sendChat("Item Store",`Calling storeMenu`);
+                            sendChat("Item Store","Calling storeMenu");
                             storeMenu();
                             break;
                         default:
                             const store = shopObjs.stores.get(args[1]);
                             sendChat("Item Store",`Store is ${store}`);
 
-                            if (!store) return sendChat("Item Store",`/w gm Invalid Store! Could not find a Store with that Name!`);
+                            if (!store) return sendChat("Item Store","/w gm Invalid Store! Could not find a Store with that Name!");
 
                             switch (args[2]) {
                                 case undefined:
@@ -2967,9 +2967,9 @@ class ItemStore {
 
     checkInstall() {
         log("Checking Install");
-        sendChat("Item Store",`Checking Install`);
+        sendChat("Item Store","Checking Install");
         if (!shopObjs.check) {
-            sendChat("Item Store",`In .check Routine`);
+            sendChat("Item Store","In .check Routine");
             shopObjs.check = true;
             setStoreDefaults();
             setTempDefaults();
@@ -3010,7 +3010,7 @@ function getIdFromToken(selected) {
 */
 
 function setStoreDefaults() {
-    sendChat("Item Store",`Creating stores Map`);
+    sendChat("Item Store","Creating stores Map");
     shopObjs.stores = new Map();
 }
 
@@ -3027,7 +3027,7 @@ function setCartDefaults() {
 }
 
 function setTempDefaults() {
-    sendChat("Item Store",`Initializing "temp" object`);
+    sendChat("Item Store","Initializing "temp" object");
     shopObjs.temp = {
         name: '',
         desc: '',
@@ -3046,7 +3046,7 @@ function storeMenu(storeName) {
         sendChat("Item Store",`No name found.  Stores is: ${JSON.stringify(shopObjs.stores)}`);
         sendChat("Item Store",`No name found.  Count is ${shopObjs.stores.size}`);
         if (shopObjs.stores.size === 0) {
-            sendChat("Item Store",`No shops found`);
+            sendChat("Item Store","No shops found");
             sendChat("Item Store", `/w gm <div ${itemstore.style.divMenu}>` + //--
                 `<div ${itemstore.style.header}>Item Store</div>` + //--
                 `<div ${itemstore.style.sub}>GM Menu</div>` + //--
@@ -3118,12 +3118,12 @@ function storeMenu(storeName) {
 
         let invList = [""];
         let pos = 0;
-        sendChat("Item Store",`Checking Inventory length`);
+        sendChat("Item Store","Checking Inventory length");
         if (store.inv.length > 10) {
 
         } else {
             store.inv.map(item => {
-                sendChat("Item Store",`Mapping Inventory?`);
+                sendChat("Item Store","Mapping Inventory?");
                 pos++;
                 const price = item.price + (item.price / 100) * store.price_change;
                 const desc = item.desc.split(';')[0];
