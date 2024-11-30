@@ -3027,7 +3027,7 @@ function setCartDefaults() {
 }
 
 function setTempDefaults() {
-    sendChat("Item Store","Initializing "temp" object");
+    sendChat("Item Store","Initializing 'temp' object");
     shopObjs.temp = {
         name: '',
         desc: '',
