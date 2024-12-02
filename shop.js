@@ -225,29 +225,7 @@ const rareList = ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Legendary', 'Rando
 }
 */
 
-/*
-We are using a name space of julexar for any and all of julexar's projects,
-and a shopObjs subspace for this specific project.
-*/
-
-// Ensure the 'julexar' namespace exists within the 'state' object
-if (!state.julexar) {
-    state.julexar = {};
-}
-
-// Initialize the 'shopObjs' namespace within 'julexar' if it doesn't exist
-if (!state.julexar.shopObjs) {
-    state.julexar.shopObjs = {};
-}
-
-// Create a local reference to the 'shopObjs' object for easier access
-const shopObjs = state.julexar.shopObjs;
-
-
-/*
-Initalizing the itemList
- */
-
+//Initalizing the itemList
 const itemList = {
     weapons: [
         {
@@ -1884,268 +1862,6 @@ const itemList = {
     mundane: [],
 };
 
-function checkRarities(string, string2) {
-    const name=checkRarities.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function setStoreHaggleDC() {
-    const name=setStoreHaggleDC.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function setStorePrice(store, number) {
-    const name=setStorePrice.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function genStoreInv(number) {
-    const name=genStoreInv.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function storeInv(store) {
-    const name=storeInv.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function displayStore(store) {
-    const name=displayStore.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function setStoreName(store, string) {
-    const name=setStoreName.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function toggleStore(store) {
-    const name=toggleStore.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function deleteStore(store) {
-    const name=deleteStore.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function createStore(storeName) {
-    const name=createStore.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    //Creates a new Store
-    if (shopObjs.stores.has(storeName)) {
-        sendChat("Item Store",`A store named (${storeName}) already exists`);
-        return;
-    };
-    let newStore = {};
-    newStore= {
-            name: `${storeName}`,
-            inv: [],
-            hdc: 10,
-            cprice: 0,
-            active: true
-        };
-    sendChat("Item Store",`store is ${JSON.stringify(newStore)}`);
-    shopObjs.stores.set(storeName, newStore);
-    sendChat("Item Store",`shopObjs.stores is ${JSON.stringify(shopObjs.stores)}`);
-    sendChat("Item Store",`/w gm Store with the name ${storeName} created!`);
-    log("Entering checkStores()");
-    checkStores();
-    return;
-}
-
-function checkStores() {
-    const name=checkStores.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function findActiveStore() {
-    log("finding active store");
-    let rv = null;
-    let foundOne = false;
-    for (const [storeName, store] of shopObjs.stores) {
-        if(store.active) {
-            if(foundOne) {
-                sendChat("Item Store",`Found multiple active stores.  Using first active store`)
-                return rv;
-            }
-            rv=storeName;
-            foundOne = true;
-        };
-    };
-    if(!foundOne) {
-        sendChat("Item Store",`Found no stores.`)
-    }
-    log("returning zero or one stores");
-    return rv;
-};
-
-function itemMenu() {
-    const name=itemMenu.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function editItem(item, itemName, string) {
-    const name=editItem.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function deleteItem(item) {
-    const name=deleteItem.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function itemModMenu(item) {
-    const name=itemModMenu.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function addItemMod(item, string) {
-    const name=addItemMod.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function remItemMod(item, string) {
-    const name=remItemMod.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function itemPropMenu(item) {
-    const name=itemPropMenu.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function addItemProp(item, string) {
-    const name=addItemProp.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function remItemProp(item, string) {
-    const name=remItemProp.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function shopMenu(char) {
-    const name=shopMenu.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function showShopItem(char, store, item) {
-    const name=showShopItem.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function addToCart(char, store, item, number) {
-    const name=addToCart.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function buyFromShop(char, store, item, number) {
-    const name=buyFromShop.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function haggleShopItem(char, store, item, number, string) {
-    const name=haggleShopItem.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function cartMenu(char) {
-    const name=cartMenu.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function showCartItem(char, cart, item) {
-    const name=showCartItem.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function haggleCartItem(char, cart, item, number, string) {
-    const name=haggleCartItem.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function remCartItem(char, cart, item) {
-    const name=remCartItem.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function buyFromCart(char, cart) {
-    const name=buyFromCart.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function deleteCart(char, cart) {
-    const name=deleteCart.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function createCart(char) {
-    const name=createCart.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function showInvItem(store, item) {
-    const name=showInvItem.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function remInvItem(store, item) {
-    const name=remInvItem.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function invItemEditor(store, item) {
-    const name=invItemEditor.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function invItemModEditor(store, item) {
-    const name=invItemModEditor.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
-function invItemPropEditor(store, item) {
-    const name=invItemPropEditor.name;
-    sendChat("Item Store",`This function (${name}) is currently under construction`);
-    return;
-}
-
 class ItemStore {
     constructor() {
         this.style = styles;
@@ -2385,12 +2101,13 @@ class ItemStore {
                                             }
                                             break;
                                         case 'gen':
+                                            // args[5] = amount
                                             if (isNaN(parseInt(args[5])))
                                                 return sendChat(
                                                     'Item Store',
                                                     '/w gm Invalid Syntax! You must provide a number for the amount of Items you wish to generate!'
                                                 );
-
+                                            // args[7] = type
                                             if (
                                                 (args[7].toLowerCase() === 'misc' && itemstore.list.misc.length === 0) ||
                                                 (args[7].toLowerCase() === 'mundane' && itemstore.list.mundane.length === 0)
@@ -2404,7 +2121,9 @@ class ItemStore {
                                                     'Item Store',
                                                     '/w gm Invalid Type! That Type is not valid. Please provide a valid Type!'
                                                 );
-                                            else if (!rareList.find(r => r.toLowerCase() === args[9]))
+                                            // args[9] = minrare
+                                            // args[11] = maxrare 
+                                            if (!rareList.find(r => r.toLowerCase() === args[9]))
                                                 return sendChat(
                                                     'Item Store',
                                                     '/w gm Invalid minimum Rarity! That minimum Rarity is not valid. Please provide a valid minimum Rarity!'
@@ -2421,7 +2140,8 @@ class ItemStore {
                                             }
 
                                             const [minrare, maxrare] = checkRarities(args[9], args[11]);
-                                            genStoreInv(parseInt(args[5]));
+                                            // args[12] = overwrite
+                                            genStoreInv(parseInt(args[5]), args[7], minrare, maxrare, args[12]);
                                             storeInv(store);
                                             break;
                                     }
@@ -2966,15 +2686,8 @@ class ItemStore {
     }
 
     checkInstall() {
-        log("Checking Install");
-        sendChat("Item Store","Checking Install");
-        if (!shopObjs.check) {
-            sendChat("Item Store","In .check Routine");
-            shopObjs.check = true;
-            setStoreDefaults();
-            setTempDefaults();
-            setCartDefaults();
-        }
+        log("Item Store - Checking Install...");
+        setScriptDefaults();
 
         if (!shopObjs.stores) setStoreDefaults();
 
@@ -2998,6 +2711,26 @@ function getIdFromToken(selected) {
         .map(token => token.get('represents'))
         .filter(id => getObj('character', id || ''));
 }
+
+/*
+We are using a name space of julexar for any and all of julexar's projects,
+and a shopObjs subspace for this specific project.
+*/
+function setScriptDefaults() {
+    if (!state.julexar) {
+        // Ensure the 'julexar' namespace exists within the 'state' object
+        state.julexar = {};
+        log("Item Store - Created base namespace!");
+    }
+    if (!state.julexar.shopObjs) {
+        // Initialize the 'shopObjs' namespace within 'julexar' if it doesn't exist
+        state.julexar.shopObjs = {};
+        log("Item Store - Created script namespace!");
+    }
+}
+
+// Create a local reference to the 'shopObjs' object for easier access
+const shopObjs = state.julexar.shopObjs;
 
 /*
 {
@@ -3038,6 +2771,112 @@ function setTempDefaults() {
         amount: 1,
         bundle: 1,
     };
+}
+
+class Store {
+    constructor(name) {
+        if (name === "" || name === " ") return sendChat('Item Store', '/w gm Invalid Syntax! The name of the Store may not be empty!');
+        this.name = name;
+        this.hdc = 10;
+        this.inventory = [];
+        this.active = true;
+        this.price_change = 0;
+    }
+
+    menu() {
+        // storeMenu goes here
+    }
+
+    setHaggleDC(num) {
+        const name = `store-${this.setHaggleDC.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    setPriceChange(num) {
+        const name = `store-${this.setPriceChange.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    generateInv(amount, type, minrare, maxrare, overwrite) {
+        const name = `store-${this.generateInv.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    inventoryMenu() {
+        const name = `store-${this.inventoryMenu.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    itemMenu(item) {
+        const name = `store-${this.itemMenu.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    addItem(amount, item) {
+        const name = `store-${this.addItem.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    remItem(amount, item) {
+        const name = `store-${this.remItem.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    editItem(item) {
+        const name = `store-${this.editItem.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    itemModMenu(item) {
+        const name = `store-${this.itemModMenu.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    addItemMod(item, mod) {
+        const name = `store-${this.addItemMod.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    remItemMod(item, mod) {
+        const name = `store-${this.remItemMod.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    itemPropMenu(item) {
+        const name = `store-${this.itemPropMenu.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    addItemProp(item, prop) {
+        const name = `store-${this.addItemProp.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    remItemProp(item, prop) {
+        const name = `store-${this.remItemProp.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    display() {
+        const name = `store-${this.display.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
+
+    setName(name) {
+        if (name === "" || name === " ") return sendChat('Item Store', '/w gm Invalid Syntax! The name of the Store may not be empty!');
+        this.name = name;
+    }
+
+    toggle() {
+        this.active = !this.active;
+        const action = this.active ? 'activated' : 'deactivated';
+        return sendChat('Item Store', `Successfully ${action} the Store "${this.name}"`);
+    }
+
+    delete() {
+        const name = `store-${this.delete.name}`;
+        return sendChat("Item Store",`The function (${name}) is currently under construction`);
+    }
 }
 
 function storeMenu(storeName) {
@@ -3154,6 +2993,190 @@ function storeMenu(storeName) {
             );
         }
     }
+}
+
+function checkRarities(string, string2) {
+    const name=checkRarities.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function createStore(storeName) {
+    const name=createStore.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    //Creates a new Store
+    if (shopObjs.stores.has(storeName)) {
+        sendChat("Item Store",`A store named (${storeName}) already exists`);
+        return;
+    };
+    let newStore = {};
+    newStore= {
+            name: `${storeName}`,
+            inv: [],
+            hdc: 10,
+            cprice: 0,
+            active: true
+        };
+    sendChat("Item Store",`store is ${JSON.stringify(newStore)}`);
+    shopObjs.stores.set(storeName, newStore);
+    sendChat("Item Store",`shopObjs.stores is ${JSON.stringify(shopObjs.stores)}`);
+    sendChat("Item Store",`/w gm Store with the name ${storeName} created!`);
+    log("Entering checkStores()");
+    checkStores();
+    return;
+}
+
+function checkStores() {
+    const name=checkStores.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function findActiveStore() {
+    log("finding active store");
+    let rv = null;
+    let foundOne = false;
+    for (const [storeName, store] of shopObjs.stores) {
+        if(store.active) {
+            if(foundOne) {
+                sendChat("Item Store",`Found multiple active stores.  Using first active store`)
+                return rv;
+            }
+            rv=storeName;
+            foundOne = true;
+        };
+    };
+    if(!foundOne) {
+        sendChat("Item Store",`Found no stores.`)
+    }
+    log("returning zero or one stores");
+    return rv;
+};
+
+function itemMenu() {
+    const name=itemMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function editItem(item, itemName, string) {
+    const name=editItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function deleteItem(item) {
+    const name=deleteItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function itemModMenu(item) {
+    const name=itemModMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function addItemMod(item, string) {
+    const name=addItemMod.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function remItemMod(item, string) {
+    const name=remItemMod.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function itemPropMenu(item) {
+    const name=itemPropMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function addItemProp(item, string) {
+    const name=addItemProp.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function remItemProp(item, string) {
+    const name=remItemProp.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function shopMenu(char) {
+    const name=shopMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function showShopItem(char, store, item) {
+    const name=showShopItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function addToCart(char, store, item, number) {
+    const name=addToCart.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function buyFromShop(char, store, item, number) {
+    const name=buyFromShop.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function haggleShopItem(char, store, item, number, string) {
+    const name=haggleShopItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function cartMenu(char) {
+    const name=cartMenu.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function showCartItem(char, cart, item) {
+    const name=showCartItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function haggleCartItem(char, cart, item, number, string) {
+    const name=haggleCartItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function remCartItem(char, cart, item) {
+    const name=remCartItem.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function buyFromCart(char, cart) {
+    const name=buyFromCart.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function deleteCart(char, cart) {
+    const name=deleteCart.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
+}
+
+function createCart(char) {
+    const name=createCart.name;
+    sendChat("Item Store",`This function (${name}) is currently under construction`);
+    return;
 }
 
 on('ready', () => {
